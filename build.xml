@@ -50,9 +50,5 @@
         </scp>
     </target>
  
-    <target name="update_doc" description="Serve js documentation to the user">
-        <scp todir="www:${SFTP_PWD}@${SFTP_HOST}:${ROOT_WWW}/docs/${DEST_FOLDER}" trust="true" sftp="true" verbose="false">
-            <fileset dir="${basedir}/build/jsdoc"/>
-        </scp>
-    </target>
+
 </project>
