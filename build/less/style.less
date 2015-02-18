@@ -1,0 +1,169 @@
+/**
+ * @license PASC Client - Fives Cinetic
+ *
+ * Available via the MIT or new BSD license.
+ */
+
+@import 'variables';
+
+/* Patch for ember-table to fit our style */
+.ember-view {
+    font-family: Arial;
+
+    .ember-table-header-cell {
+        background-color: @columnHeaderColor;
+    }
+}
+
+body {
+    margin: 0;
+    max-height: 100%;
+    z-index: 10;
+    font-family: UniversalisRegular, Arial;
+}
+
+.loading_content_wrapper {
+    height: 128px;
+    width: 128px;
+    background-image: url('../img/loader.gif');
+    position: fixed;
+    left: 50%;
+    margin-left: -64px;
+    top: 50%;
+    margin-top: -64px;
+}
+
+header {
+    /* Any header of the application should have that class */
+    &.appHeader {
+        width: 100%;
+        background-color: @headerColor;
+        
+        .left {
+            height: @headerHeight;
+            display: inline-block;
+        
+            /* Definition of the logo */
+            #logo {
+                height: 100%;
+                width: @headerHeight;
+                background-image: url('../img/logo.jpg');
+                background-position: center;
+                background-repeat: no-repeat;
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            /* Links within the application for the navigation */
+            #nav {
+                display: inline-block;
+                vertical-align: bottom;
+            }
+        }
+        
+        .right {
+            position: relative;
+            height: @headerHeight - 0.5em;
+            margin-right: 0.5em;
+            margin-top: 0.5em;
+            float: right;
+            text-align: right;
+
+            /* Session field, display username */
+            /* menuBar field, display the buttons and the eventual search field */
+            #session, #menuBar {
+                height: 50%;
+                
+                div {
+                    display: inline-block;
+                }
+            }
+            
+            #menuBar #search input {
+                background: url("../img/searchIcon.jpg") 5px center no-repeat #FFF;
+                padding: 3px 5px 3px 20px;
+                border-radius: 5px;
+            }
+        }
+
+        /* Details section */
+        .table {
+            background-color: @subHeaderColor;
+            width: 100%;
+            display: table;
+
+            /* Row in the section */
+            div {
+                display: table-row;
+                height: 2.1em;
+
+                /* Cell inside a row */
+                div {
+                    display: table-cell;
+                    border: @subHeaderBorder;
+                    vertical-align: middle;
+                    padding-left: 0.25em;
+                    padding-right: 0.25em;
+                    text-align: left;
+                    box-sizing: border-box;
+                }
+            }
+        }
+    }
+}
+
+/* Class of the content on the deals route */
+.deals {
+    /* Special margin-top for a form to not collide with the border */
+    &.form {
+        margin-top: 1em;
+    }
+}
+
+/* Style for any kind of simple form */
+.form {
+    margin-left: auto;
+    margin-right: auto;
+    width: 25em;
+    box-sizing: border-box;
+    /* Row in a form */
+    div {
+        margin: 0;
+        box-sizing: border-box;
+        outline: solid 1px #000000;
+
+        /* Cell in a form */
+        div {
+            outline: none;
+            width: 12.3em;
+            display: inline-block;
+            padding: 0.25em;
+
+            /* Second column in a form (input column) */
+            &:nth-child(2) {
+                text-align: center;
+            }
+        }
+
+        /* Last row is for buttons */
+        &:last-child {
+            text-align: center;
+        }
+    }
+
+    &.login {
+        margin-top: @headerHeight;
+    }
+}
+
+.error {
+    outline: solid 2px @error;
+
+    &.warning {
+        outline: solid 2px @error;
+    }
+}
+
+.warning {
+    outline: solid 2px @warning;
+}

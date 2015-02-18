@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="PASC" default="build">
+    <target name="build"
+            depends="prepare,upload_files"/>
+
+    <target name="clean" description="Cleanup build artifacts">
+        <delete dir="${basedir}/build/html"/>
+    </target>
+
+    <target name="prepare" depends="clean" description="Prepare for build">
+        <mkdir dir="${basedir}/build/html"/>
+    </target>
+ 
+    <target name="combineTemplates" description="Combine template files">
+        <concat destFile="build/html/templates.html">
+            <fileset dir="src/templates" excludes="indexFactory/*"/>
+        </concat>
+    </target>
+    
+    <target name="includeTemplate" depends="combineTemplates" description="Include templates to index.html">
+        <concat destFile="src/index.html" append="true">
+            <filelist dir="src/templates/indexFactory" files="header.html"/>
+            <filelist dir="build/html" files="templates.html"/>
+            <filelist dir="src/templates/indexFactory" files="footer.html"/>
+        </concat>
+    </target>
+    <copy todir="${basedir}/build/js">
+    <fileset dir="${basedir}/src/js"/>
+    
+  </copy>
+    <target name="apply_parameters" description="Apply parameters to files">
+        <replace dir="${basedir}/build/js">
+            <replacefilter token="API_URL" value="${API_URL}"/>
+            <replacefilter token="API_PATH" value="${API_PATH}"/>
+            <replacefilter token="DEST_FOLDER" value="${DEST_FOLDER}/"/>
+        </replace>
+        <echo>Parametrized</echo>
+    </target>
+    
+    <target name="upload_files" depends="includeTemplate,apply_parameters" description="Deploy files to server at ${DEST_FOLDER}">
+        <delete dir="${basedir}/src/templates" />
+        <!--<delete dir="${basedir}/src/js" />
+        <mkdir dir="${basedir}/src/js" />-->
+	
+        <!--<copy file="${basedir}/build/js/all-min.js" todir="${basedir}/src/js" />
+        <copy file="${basedir}/build/js/all-lib.js" todir="${basedir}/src/js" />-->
+        <scp todir="root:cinetic@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}" trust="true" sftp="true" verbose="false">
+            <fileset dir="${basedir}/src"/>
+        </scp>
+    </target>
+ 
+    <target name="update_doc" description="Serve js documentation to the user">
+        <scp todir="www:${SFTP_PWD}@${SFTP_HOST}:${ROOT_WWW}/docs/${DEST_FOLDER}" trust="true" sftp="true" verbose="false">
+            <fileset dir="${basedir}/build/jsdoc"/>
+        </scp>
+    </target>
+</project>

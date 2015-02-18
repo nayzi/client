@@ -1,0 +1,18 @@
+{
+    "name": "PASC API",
+    "description": "PASC : Plateforme d'aide à la saisie des convoyeurs",
+    "url": "http://192.168.1.49/pasc-client-latest",
+    "version": "0.0.1-beta.1",
+    "options": {
+        "linkNatives": true,
+        "outdir": "build/jsdoc",
+        "paths": ["src/js/app"],
+        "external": {
+            "data": [
+                "http://builds.emberjs.com/tags/v1.5.0/ember-docs.json",
+                "http://builds.emberjs.com/tags/v1.0.0-beta.6/ember-data-docs.json"
+            ]
+        },
+        "helpers": ["build/yuidoc.helper.js"]
+    }
+}

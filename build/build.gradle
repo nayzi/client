@@ -1,0 +1,150 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.eriwen:gradle-js-plugin:1.12.+'
+    }
+}
+
+configurations {
+    rhino
+}
+
+dependencies {
+    rhino 'org.mozilla:rhino:1.7R4'
+}
+
+apply plugin: 'js'
+
+defaultTasks 'all'
+def reportDir = 'logs'
+def jsDir = 'js'
+def testDir = 'test'
+
+def srcLibFile = 'src/js/libs'
+def subLibFile = "../${srcLibFile}"
+def srcAppFile = 'src/js/app'
+def subAppFile = "../${srcAppFile}"
+
+task cleanTest(type: Delete) {
+    delete testDir
+}
+
+task cleanLogs(type: Delete) {
+    delete reportDir
+}
+
+task cleanCombineJs(type: Delete) {
+    delete jsDir
+}
+
+task initLogs(dependsOn: 'cleanLogs', description: 'Creates artifact output directories for logs') {
+    outputs.dir(reportDir)
+    doLast {
+        file(reportDir).mkdirs()
+    }
+}
+
+task initTest(dependsOn: 'cleanTest', description: 'Creates artifact output directories') {
+    outputs.dir(testDir)
+    doLast {
+        file(testDir).mkdirs()
+    }
+}
+
+task initCombineJs(dependsOn: 'cleanCombineJs', description: 'Creates artifact output directories for CombineJs') {
+    outputs.dir(jsDir)
+    doLast {
+        file(jsDir).mkdirs()
+    }
+}
+
+combineJs {
+    dependsOn << initCombineJs
+    source = [
+        "${subAppFile}/components/bdc-table.js", "${subAppFile}/components", "${subAppFile}/helpers",
+        "${subAppFile}/app.js", "${subAppFile}/router.js", "${subAppFile}/utils.js",
+        "${subAppFile}/ValidationsLibrary.js", "${subAppFile}/CalculationsLibrary.js",
+        "${subAppFile}/packageDescription.js",
+        "${subAppFile}/abstract_models", "${subAppFile}/models",
+        "${subAppFile}/routes",
+        "${subAppFile}/abstract_controllers", "${subAppFile}/controllers",
+        "${subAppFile}/abstract_views", "${subAppFile}/views"
+    ]
+    dest = file("${jsDir}/all.js")
+}
+
+task combineLibs(type: com.eriwen.gradle.js.tasks.CombineJsTask, dependsOn: 'initCombineJs', description: 'Combine libs') {
+    source = ["${subLibFile}"]
+    dest = file("${jsDir}/all-lib.js")
+}
+
+task lint (type: com.eriwen.gradle.js.tasks.JsHintTask, dependsOn: 'initLogs', description: 'JsLint') {
+    source = ["${subAppFile}"]
+    dest = file("${reportDir}/jshint.xml")
+    reporter = 'checkstyle'
+    jshint.options = [expr: "true", unused: "true"]
+    jshint.predef = [Ember: "Ember", DS: "DS"]
+}
+
+minifyJs {
+    dependsOn << 'combineJs'
+    source = combineJs.dest
+    dest = file("${jsDir}/all-min.js")
+    closure {
+        //compilationLevel = 'WHITESPACE_ONLY'
+        warningLevel = "QUIET"
+        compilerOptions.languageIn = 'ECMASCRIPT5'
+        externs = files('externs/jquery.js')
+    }
+}
+
+gzipJs {
+    dependsOn << 'minifyJs'
+    source = minifyJs.dest
+    dest = file("${jsDir}/all-min.js.gz")
+}
+
+task test(dependsOn: 'initTest') << {
+    description = 'run QUnit tests and create JUnit test reports'
+
+    def specs = []
+    new File("${testDir}").eachFile {
+        if (it.name.endsWith('.html')) {
+            specs << it
+        }
+    }
+
+    def phantomJsPath = "which phantomjs".execute().text.trim()
+    def startTime = new Date().time
+    def numFailures = 0
+    def testsFailed = false
+    specs.each { File spec ->
+	print "Running ${spec.name}..."
+
+	def outputFile = "${testDir}/TEST-${spec.name.replace('-', '').replace('.html', '.xml')}"
+	ant.exec(outputproperty: 'cmdOut', errorproperty: 'cmdErr', resultproperty: 'exitCode', failonerror: 'false', executable: phantomJsPath) {
+	    arg(value: 'test/lib/phantomjs-qunit-runner.js')
+	    arg(value: spec.canonicalPath)
+	}
+	// Check exit code
+	if (ant.project.properties.exitCode != '0') {
+	    testsFailed = true
+	    numFailures++
+	    println 'FAILED'
+	} else {
+	    println 'PASSED'
+	}
+
+	new File(outputFile).write(ant.project.properties.cmdOut)
+    }
+
+    println "QUnit tests completed in ${new Date().time - startTime}ms"
+    println "QUnit Tests ${testsFailed ? 'FAILED' : 'PASSED'} - view reports in ${testDir}"
+    ant.fail(if: testsFailed, message: 'JS Tests Failed')
+}
+
+task all(dependsOn: ['test', 'jshint', 'combineJs', 'minifyJs', 'gzipJs']) << {
+    println "Run all tasks"
+}

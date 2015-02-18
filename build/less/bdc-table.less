@@ -1,0 +1,152 @@
+/**
+ * @license PASC Client - Fives
+ *
+ * Available via the MIT or new BSD license.
+ */
+
+@import 'variables';
+
+.bdc-table-table-container {
+    // width: 1280px; full width of parent
+
+    div&, div {
+        font-size: 0.96em;
+        box-sizing: border-box;
+        margin: 0;
+        vertical-align: top;
+    }
+
+    input {
+        width: 100%;
+        text-align: center;
+    }
+
+    select {
+        width: auto;
+        max-width: 100%;
+    }
+
+    input, select {
+        border: 0;
+        padding: 0;
+        margin: 0;
+        outline: 1px solid;
+        vertical-align: middle;
+        outline-color: #EEE;
+
+        &.error, &.error:focus {
+            outline-color: @error;
+        }
+
+        &.warning, &.warning:focus {
+            outline-color: @warning;
+        }
+
+        &:focus {
+            outline-offset: 1px;
+            outline: 1px solid #EEE - #111;
+        }
+    }
+
+    .bdc-table-header-row {
+        input {
+            width: 40px;
+            outline-offset: 1px;
+
+            &:focus {
+                outline-offset: 2px;
+            }
+        }
+    }
+
+    .bdc-table-corner-left, .bdc-table-header, .bdc-table-header-row, .bdc-table-content, .bdc-table-column {
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .bdc-table-corner-left {
+        border-bottom: 1px solid @gray2;
+    }
+
+    .bdc-table-header {
+        border-bottom: 1px solid @gray2;
+        border-left: 1px solid @gray2;
+    }
+
+    .bdc-table-content {
+        border-left: 1px solid @gray2;
+    }
+
+    .bdc-table-column {
+        display: inline-block;
+        border-right: 1px solid @gray1;
+        border-left: 1px solid @gray1;
+
+        &.selected {
+            border-color: @blue;
+        }
+    }
+
+    .bdc-table-header, .bdc-table-header-row {
+        .bdc-table-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+
+    .bdc-table-header-row, .bdc-table-corner-left {
+        .bdc-table-cell {
+            text-align: left;
+        }
+    }
+
+    .bdc-table-row-title {
+        background-color: @gray1;
+        height: 30px;
+    }
+
+    .bdc-table-cell {
+        line-height: 20px; // Height of row - padding
+        padding: 5px;
+        width: 100%;
+        text-align: center;
+
+        &.bdc-table-cell-position {
+            padding: 0;
+            font-size: 0.7em;
+        }
+
+        span {
+            vertical-align: middle;
+        }        
+
+    }
+
+    .bdc-table-row-title.bdc-table-cell {
+        button {
+            float: right;
+            font-size: 0.8em;
+        }
+    }
+
+    .bdc-table-corner-left {
+        .bdc-table-cell {
+            text-align: right;
+        }
+    }
+
+    .bdc-table-row {
+        border-top: 1px solid @gray1;
+    }
+
+    .bdc-table-content {
+        // height: 300px; Height of the parent element
+        // width: 1176px; Width of the parent element
+
+        .bdc-table-container {
+            // calculated width column * width of column
+        }
+    }
+}
