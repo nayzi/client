@@ -7,7 +7,13 @@
     <target name="clean" description="Cleanup build artifacts">
         <delete dir="${basedir}/build/html"/>
     </target>
-
+    <target name="proxy">  
+    <property name="proxy.host" value="proxy.cinetic-transitique.com"/>  
+    <property name="proxy.port" value="3128"/>  
+    <setproxy proxyhost="${proxy.host}"
+          proxyport="${proxy.port}"
+          nonproxyhosts="localhost"/> 
+</target> 
     <target name="prepare" depends="clean" description="Prepare for build">
         <mkdir dir="${basedir}/build/html"/>
     </target>
@@ -50,9 +56,9 @@
         </scp>
     </target>
  
-    <target name="update_doc" description="Serve js documentation to the user">
+ <!--    <target name="update_doc" description="Serve js documentation to the user">
         <scp todir="www:${SFTP_PWD}@${SFTP_HOST}:${ROOT_WWW}/docs/${DEST_FOLDER}" trust="true" sftp="true" verbose="false">
             <fileset dir="${basedir}/build/jsdoc"/>
         </scp>
-    </target>
+    </target> -->
 </project>
