@@ -2,7 +2,9 @@ buildscript {
     repositories {
         mavenCentral()
     }
-    
+    dependencies {
+        classpath 'com.eriwen:gradle-js-plugin:1.12.1'
+    }
 }
 
 configurations {
