@@ -1,0 +1,54 @@
+/*
+@license PASC Client - Fives
+Available via the MIT or new BSD license.
+*/
+/* Light gray */
+/* Dark gray */
+@font-face {
+  font-family: 'UniversalisBold';
+  src: url('fonts/UniversalisADFStd-Bold.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisBoldCond';
+  src: url('fonts/UniversalisADFStd-BoldCond.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisBoldCondIt';
+  src: url('fonts/UniversalisADFStd-BoldCondIt.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisBoldItalic';
+  src: url('fonts/UniversalisADFStd-BoldItalic.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisBoldCond';
+  src: url('fonts/UniversalisADFStd-Cond.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisCondItalic';
+  src: url('fonts/UniversalisADFStd-CondItalic.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisRegular';
+  src: url('fonts/UniversalisADFStd-Regular.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisItalic';
+  src: url('fonts/UniversalisADFStd-Italic.woff');
+  
+  /* Name to use to refer to that font */
+}

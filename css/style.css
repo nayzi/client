@@ -1,0 +1,253 @@
+/**
+ * @license PASC Client - Fives Cinetic
+ *
+ * Available via the MIT or new BSD license.
+ */
+/*
+@license PASC Client - Fives
+Available via the MIT or new BSD license.
+*/
+/* Light gray */
+/* Dark gray */
+@font-face {
+  font-family: 'UniversalisBold';
+  src: url('fonts/UniversalisADFStd-Bold.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisBoldCond';
+  src: url('fonts/UniversalisADFStd-BoldCond.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisBoldCondIt';
+  src: url('fonts/UniversalisADFStd-BoldCondIt.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisBoldItalic';
+  src: url('fonts/UniversalisADFStd-BoldItalic.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisBoldCond';
+  src: url('fonts/UniversalisADFStd-Cond.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisCondItalic';
+  src: url('fonts/UniversalisADFStd-CondItalic.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisRegular';
+  src: url('fonts/UniversalisADFStd-Regular.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisItalic';
+  src: url('fonts/UniversalisADFStd-Italic.woff');
+  
+  /* Name to use to refer to that font */
+}
+/* Patch for ember-table to fit our style */
+/* line 10, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\0000310}}
+.ember-view {
+  font-family: Arial;
+}
+/* line 13, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\0000313}}
+.ember-view .ember-table-header-cell {
+  background-color: #af007c;
+}
+/* line 18, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\0000318}}
+body {
+  margin: 0;
+  max-height: 100%;
+  z-index: 10;
+  font-family: UniversalisRegular, Arial;
+}
+/* line 25, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\0000325}}
+.loading_content_wrapper {
+  height: 128px;
+  width: 128px;
+  background-image: url('../img/loader.gif');
+  position: fixed;
+  left: 50%;
+  margin-left: -64px;
+  top: 50%;
+  margin-top: -64px;
+}
+/* line 36, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\0000336}}
+header {
+  /* Any header of the application should have that class */
+}
+/* line 38, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\0000338}}
+header.appHeader {
+  width: 100%;
+  background-color: #ffffff;
+  /* Details section */
+}
+/* line 42, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\0000342}}
+header.appHeader .left {
+  height: 5.5em;
+  display: inline-block;
+  /* Definition of the logo */
+  /* Links within the application for the navigation */
+}
+/* line 47, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\0000347}}
+header.appHeader .left #logo {
+  height: 100%;
+  width: 5.5em;
+  background-image: url('../img/logo.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 58, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\0000358}}
+header.appHeader .left #nav {
+  display: inline-block;
+  vertical-align: bottom;
+}
+/* line 64, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\0000364}}
+header.appHeader .right {
+  position: relative;
+  height: 5em;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
+  float: right;
+  text-align: right;
+  /* Session field, display username */
+  /* menuBar field, display the buttons and the eventual search field */
+}
+/* line 74, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\0000374}}
+header.appHeader .right #session,
+header.appHeader .right #menuBar {
+  height: 50%;
+}
+/* line 77, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\0000377}}
+header.appHeader .right #session div,
+header.appHeader .right #menuBar div {
+  display: inline-block;
+}
+/* line 82, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\0000382}}
+header.appHeader .right #menuBar #search input {
+  background: url("../img/searchIcon.jpg") 5px center no-repeat #ffffff;
+  padding: 3px 5px 3px 20px;
+  border-radius: 5px;
+}
+/* line 90, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\0000390}}
+header.appHeader .table {
+  background-color: #e5e5e5;
+  width: 100%;
+  display: table;
+  /* Row in the section */
+}
+/* line 96, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\0000396}}
+header.appHeader .table div {
+  display: table-row;
+  height: 2.1em;
+  /* Cell inside a row */
+}
+/* line 101, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\00003101}}
+header.appHeader .table div div {
+  display: table-cell;
+  border: solid 1px #ffffff;
+  vertical-align: middle;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  text-align: left;
+  box-sizing: border-box;
+}
+/* Class of the content on the deals route */
+/* line 116, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\00003116}}
+.deals {
+  /* Special margin-top for a form to not collide with the border */
+}
+/* line 118, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\00003118}}
+.deals.form {
+  margin-top: 1em;
+}
+/* Style for any kind of simple form */
+/* line 124, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\00003124}}
+.form {
+  margin-left: auto;
+  margin-right: auto;
+  width: 25em;
+  box-sizing: border-box;
+  /* Row in a form */
+}
+/* line 130, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\00003130}}
+.form div {
+  margin: 0;
+  box-sizing: border-box;
+  outline: solid 1px #000000;
+  /* Cell in a form */
+  /* Last row is for buttons */
+}
+/* line 136, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\00003136}}
+.form div div {
+  outline: none;
+  width: 12.3em;
+  display: inline-block;
+  padding: 0.25em;
+  /* Second column in a form (input column) */
+}
+/* line 143, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\00003143}}
+.form div div:nth-child(2) {
+  text-align: center;
+}
+/* line 149, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\00003149}}
+.form div:last-child {
+  text-align: center;
+}
+/* line 154, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\00003154}}
+.form.login {
+  margin-top: 5.5em;
+}
+/* line 159, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\00003159}}
+.error {
+  outline: solid 2px #cd0a0a;
+}
+/* line 162, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\00003162}}
+.error.warning {
+  outline: solid 2px #cd0a0a;
+}
+/* line 167, C:\wamp\www\pasc-client\build\less\style.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/style\.less}line{font-family:\00003167}}
+.warning {
+  outline: solid 2px #e7b042;
+}

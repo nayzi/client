@@ -1,0 +1,35 @@
+<script type="text/x-handlebars" data-template-name="dealsFormDetails">
+    <div>
+        <div>Numéro d'affaire</div>
+        <div>{{view App.TextField name="number" value=number maxlength=6}}</div>
+    </div>
+    <div>
+        <div>Nom du client</div>
+        <div>{{view App.TextField name="clientName" value=clientName}}</div>
+    </div>
+    <div>
+        <div>Nom de l'affaire</div>
+        <div>{{view App.TextField value=dealName name="dealName"}}</div>
+    </div>
+    <div>
+        <div>EG</div>
+        <div>
+            {{view App.TextField value=eg list="EGlist" name="eg" maxlength=3}}
+            <datalist id="EGlist">
+            {{#each controller.EgValues}}<option {{bind-attr value=id}}>{{id}}</option>{{/each}}
+            </datalist>
+        </div>
+    </div>
+    <div>
+        <div>RAL manut</div>
+        <div>{{view App.TextField value=ral name="ral" maxlength=4}}</div>
+    </div>
+    <div>
+        <div>RAL sous manut</div>
+        <div>{{view App.TextField value=ralUnderConveyor name="ralUnderConveyor" maxlength=4}}</div>
+    </div>
+    <div>
+        <div>{{view view.buttonSave disabled=isFormInvalid name="validButton"}}</div>
+        <div>{{view view.buttonCancel}}</div>
+    </div>
+</script>

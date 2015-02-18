@@ -1,0 +1,16 @@
+<script type="text/x-handlebars" data-template-name="headerOrder">
+    <div id="logo"></div>
+    <div id="session">
+	<div>{{session.account.username}}</div>
+	<div><button {{action 'invalidateSession'}}>Deconnexion</button></div>
+    </div>
+    <div id="nav">
+	{{#if session.canManage}}
+	    {{#link-to 'manage'}}Administration{{/link-to}}&nbsp;|&nbsp;
+	{{/if}}
+	{{#link-to 'deals'}}Accueil{{/link-to}} - Affaire n°{{number}}
+    </div>
+    <div id="menuBar">
+	TBD
+    </div>
+</script>

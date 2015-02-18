@@ -1,0 +1,40 @@
+<script type="text/x-handlebars" data-template-name="headerDeal">
+    <div class="left">
+        <div id="logo"></div>
+        <div id="nav">
+            {{#if session.canManage}}
+                {{#link-to 'manage'}}Administration{{/link-to}}&nbsp;|
+            {{/if}}
+            {{#link-to 'deals'}}Accueil{{/link-to}} - Affaire n°{{number}}
+        </div>
+    </div>
+    <div class="right">
+        <div id="session">
+            <div>{{session.account.username}}</div>
+            <div>{{view view.buttonLogout}}</div>
+        </div>
+        <div id="menuBar">
+            <div id="buttons">
+                {{view view.buttonCreate}}
+                {{#if session.canManage}}
+                    {{view view.buttonEdit}}
+                {{/if}}
+            </div>
+            <div id="search">{{input value=queryField}}</div>
+        </div>
+    </div>
+    {{outlet details}}
+    {{#view view.dialog}}
+        <div>
+            <div>BPE</div>
+            <div>{{view App.TextField name="bpe" value=controller.bpe maxlength=3}}</div>
+        </div>
+        <div>
+            <div>Type de convoyeur</div>
+            <div>{{view App.Select name="convType" content=controller.ConvTypeValues
+                optionLabelPath="content.abbreviation" optionValuePath="content.id"
+                prompt="Sélectionner un convoyeur" value=controller.convType}}
+            </div>
+        </div>
+    {{/view}}
+</script>

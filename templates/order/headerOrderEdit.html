@@ -1,0 +1,73 @@
+<script type="text/x-handlebars" data-template-name="headerOrderEdit">
+    <div class="left">
+        <div id="logo"></div>
+        <div id="nav">
+            {{#if session.canManage}}
+                {{#link-to 'manage'}}Administration{{/link-to}}&nbsp;|
+            {{/if}}
+            {{#link-to 'deals'}}Accueil{{/link-to}} - {{#link-to 'deal'}}Affaire n°{{deal.number}}{{/link-to}} - {{#link-to 'order'}}BPE n°{{bpe}}{{/link-to}} - Modification
+        </div>
+    </div>
+    <div class="right">
+        <div id="session">
+            <div>{{session.account.username}}</div>
+            <div>{{view view.buttonLogout}}</div>
+        </div>
+        <div id="menuBar">
+            <div id="buttons">{{view view.saveButton}} {{view view.addConveyorButton}} {{view view.fullscreenButton}}</div>
+            <div id="search"></div>
+        </div>
+    </div>
+    <div class="table">
+        <div>
+            <div>
+                Nom de l'affaire : {{deal.dealName}}
+            </div>
+            <div>
+                Entre-guide (EG) : {{deal.eg}}
+            </div>
+            <div>
+                RAL manute affaire : {{deal.ral}}
+            </div>
+            <div>
+                RAL sous manute affaire : {{deal.ralUnderConveyor}}
+            </div>
+        </div>
+        <div>
+            <div>
+                Type de convoyeur : {{conveyorType.abbreviation}}
+            </div>
+            <div>
+                Climat de fonctionnement : {{view App.Select name="climat" content=controller.ClimatValues
+                    optionLabelPath="content.label" optionValuePath="content.id" selection=climat}}
+            </div>
+            <div>
+                Dessinateur : {{view App.TextField value=drawerName name="drawerName"}}
+            </div>
+            <div>
+                Plan de montage : {{view App.TextField value=plan name="plan"}}
+            </div>
+        </div>
+        {{#if convTOptOrder.length}}
+        <div>
+        {{#each goptions in convTOptOrder}}
+            {{ifMod goptions.index mod=4 valid="</div><div>" skipFirst=true}}
+            <div>
+            {{#if goptions.content}}
+                {{goptions.content.label}} :
+                {{#if goptions.isArray}}
+                    {{view PASC.BdcTable.Select name=goptions.name content=goptions.options optionLabelPath="content.label" optionValuePath="content.id"}}
+                {{else}}
+                    {{#if goptions.isOptType26}}
+                        {{view App.Select name="orderOption_26_value" content=controller.OrderOption_26_valueValues optionLabelPath="content.id" optionValuePath="content.id" value=orderOption_26_value}}
+                    {{else}}
+                        {{view PASC.BdcTable.TextField name=goptions.name}}
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+            </div>
+        {{/each}}
+        </div>
+        {{/if}}
+    </div>
+</script>

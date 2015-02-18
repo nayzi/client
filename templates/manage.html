@@ -1,0 +1,9 @@
+<script type="text/x-handlebars" id="manage">
+    {{#if session.isAuthenticated}}
+	{{#if session.canManage}}
+	    {{outlet}}
+	{{else}}
+	    Vous n'avez pas accès à cette page. {{#link-to 'deals'}}Retour à l'accueil{{/link-to}}
+	{{/if}}
+    {{/if}}
+</script>

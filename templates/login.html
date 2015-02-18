@@ -1,0 +1,14 @@
+<script type="text/x-handlebars" id="login">
+    <div>
+        <div>nom d'utilisateur</div>
+        <div>{{view App.TextField name="identification" value=identification maxlength=20}}</div>
+    </div>
+    <div>
+        <div>Mot de passe</div>
+        <div>{{view App.TextField name="password" value=password type="password"}}</div>
+    </div>
+    <div>
+        <div>{{view view.buttonLogin disabled=isFormInvalid name="validButton"}}</div>
+        <div>{{view view.buttonCancel}}</div>
+    </div>
+</script>

@@ -1,0 +1,9 @@
+<script type="text/x-handlebars" data-template-name="table/actionCell">
+    <span class="ember-table-content">
+	{{#each item in view.buttonList}}
+	    {{#if item.hasAccess}}
+		{{view item.button}}
+	    {{/if}}
+	{{/each}}
+    </span>
+</script>

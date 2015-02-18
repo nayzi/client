@@ -1,0 +1,21 @@
+<script type="text/x-handlebars" data-template-name="headerDealsForm">
+    <div class="left">
+        <div id="logo"></div>
+        <div id="nav">
+            {{#if session.canManage}}
+                {{#link-to 'manage'}}Administrationnn{{/link-to}}&nbsp;|
+            {{/if}}
+            {{#link-to 'deals'}}Accueil{{/link-to}} - {{view.title}}
+        </div>
+    </div>
+    <div class="right">
+        <div id="session">
+            <div>{{session.account.username}}</div>
+            <div>{{view view.buttonLogout}}</div>
+        </div>
+        <div id="menuBar">
+            <div id="buttons"></div>
+            <div id="search"></div>
+        </div>
+    </div>
+</script>

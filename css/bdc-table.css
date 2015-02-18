@@ -1,0 +1,219 @@
+/**
+ * @license PASC Client - Fives
+ *
+ * Available via the MIT or new BSD license.
+ */
+/*
+@license PASC Client - Fives
+Available via the MIT or new BSD license.
+*/
+/* Light gray */
+/* Dark gray */
+@font-face {
+  font-family: 'UniversalisBold';
+  src: url('fonts/UniversalisADFStd-Bold.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisBoldCond';
+  src: url('fonts/UniversalisADFStd-BoldCond.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisBoldCondIt';
+  src: url('fonts/UniversalisADFStd-BoldCondIt.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisBoldItalic';
+  src: url('fonts/UniversalisADFStd-BoldItalic.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisBoldCond';
+  src: url('fonts/UniversalisADFStd-Cond.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisCondItalic';
+  src: url('fonts/UniversalisADFStd-CondItalic.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisRegular';
+  src: url('fonts/UniversalisADFStd-Regular.woff');
+  
+  /* Name to use to refer to that font */
+}
+@font-face {
+  font-family: 'UniversalisItalic';
+  src: url('fonts/UniversalisADFStd-Italic.woff');
+  
+  /* Name to use to refer to that font */
+}
+/* line 12, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\0000312}}
+div.bdc-table-table-container,
+.bdc-table-table-container div {
+  font-size: 0.96em;
+  box-sizing: border-box;
+  margin: 0;
+  vertical-align: top;
+}
+/* line 19, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\0000319}}
+.bdc-table-table-container input {
+  width: 100%;
+  text-align: center;
+}
+/* line 24, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\0000324}}
+.bdc-table-table-container select {
+  width: auto;
+  max-width: 100%;
+}
+/* line 29, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\0000329}}
+.bdc-table-table-container input,
+.bdc-table-table-container select {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  outline: 1px solid;
+  vertical-align: middle;
+  outline-color: #EEE;
+}
+/* line 37, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\0000337}}
+.bdc-table-table-container input.error,
+.bdc-table-table-container select.error,
+.bdc-table-table-container input.error:focus,
+.bdc-table-table-container select.error:focus {
+  outline-color: #cd0a0a;
+}
+/* line 41, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\0000341}}
+.bdc-table-table-container input.warning,
+.bdc-table-table-container select.warning,
+.bdc-table-table-container input.warning:focus,
+.bdc-table-table-container select.warning:focus {
+  outline-color: #e7b042;
+}
+/* line 45, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\0000345}}
+.bdc-table-table-container input:focus,
+.bdc-table-table-container select:focus {
+  outline-offset: 1px;
+  outline: 1px solid #dddddd;
+}
+/* line 52, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\0000352}}
+.bdc-table-table-container .bdc-table-header-row input {
+  width: 40px;
+  outline-offset: 1px;
+}
+/* line 56, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\0000356}}
+.bdc-table-table-container .bdc-table-header-row input:focus {
+  outline-offset: 2px;
+}
+/* line 62, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\0000362}}
+.bdc-table-table-container .bdc-table-corner-left,
+.bdc-table-table-container .bdc-table-header,
+.bdc-table-table-container .bdc-table-header-row,
+.bdc-table-table-container .bdc-table-content,
+.bdc-table-table-container .bdc-table-column {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+/* line 68, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\0000368}}
+.bdc-table-table-container .bdc-table-corner-left {
+  border-bottom: 1px solid #b3b3b3;
+}
+/* line 72, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\0000372}}
+.bdc-table-table-container .bdc-table-header {
+  border-bottom: 1px solid #b3b3b3;
+  border-left: 1px solid #b3b3b3;
+}
+/* line 77, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\0000377}}
+.bdc-table-table-container .bdc-table-content {
+  border-left: 1px solid #b3b3b3;
+}
+/* line 81, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\0000381}}
+.bdc-table-table-container .bdc-table-column {
+  display: inline-block;
+  border-right: 1px solid #e5e5e5;
+  border-left: 1px solid #e5e5e5;
+}
+/* line 86, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\0000386}}
+.bdc-table-table-container .bdc-table-column.selected {
+  border-color: #72b9d6;
+}
+/* line 92, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\0000392}}
+.bdc-table-table-container .bdc-table-header .bdc-table-container,
+.bdc-table-table-container .bdc-table-header-row .bdc-table-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/* line 100, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\00003100}}
+.bdc-table-table-container .bdc-table-header-row .bdc-table-cell,
+.bdc-table-table-container .bdc-table-corner-left .bdc-table-cell {
+  text-align: left;
+}
+/* line 105, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\00003105}}
+.bdc-table-table-container .bdc-table-row-title {
+  background-color: #e5e5e5;
+  height: 30px;
+}
+/* line 110, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\00003110}}
+.bdc-table-table-container .bdc-table-cell {
+  line-height: 20px;
+  padding: 5px;
+  width: 100%;
+  text-align: center;
+}
+/* line 116, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\00003116}}
+.bdc-table-table-container .bdc-table-cell.bdc-table-cell-position {
+  padding: 0;
+  font-size: 0.7em;
+}
+/* line 121, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\00003121}}
+.bdc-table-table-container .bdc-table-cell span {
+  vertical-align: middle;
+}
+/* line 128, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\00003128}}
+.bdc-table-table-container .bdc-table-row-title.bdc-table-cell button {
+  float: right;
+  font-size: 0.8em;
+}
+/* line 135, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\00003135}}
+.bdc-table-table-container .bdc-table-corner-left .bdc-table-cell {
+  text-align: right;
+}
+/* line 140, C:\wamp\www\pasc-client\build\less\bdc-table.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/wamp\/www\/pasc-client\/build\/less\/bdc-table\.less}line{font-family:\00003140}}
+.bdc-table-table-container .bdc-table-row {
+  border-top: 1px solid #e5e5e5;
+}
