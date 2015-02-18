@@ -1,14 +1,8 @@
-systemProp.http.proxyHost=proxy.cinetic-transitique.com
-systemProp.http.proxyPort=3128
-systemProp.https.proxyHost=proxy.cinetic-transitique.com
-systemProp.https.proxyPort=3128
 buildscript {
     repositories {
         mavenCentral()
     }
-    dependencies {
-        classpath 'com.eriwen:gradle-js-plugin:1.12.+'
-    }
+    
 }
 
 configurations {
