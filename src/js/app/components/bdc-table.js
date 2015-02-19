@@ -832,7 +832,7 @@
 
             if (this.get('conveyorType.conveyorTypeOptions').isAny('option.optionType.id', 2 + '')) {
                 headerData.pushObject(Ember.Object.create({
-                    label: 'Longueur (en cm)',
+                    label: 'Longueur (en mm)',
                     kind: 'conveyorTypeOption',
                     id: "2"
                 }));
