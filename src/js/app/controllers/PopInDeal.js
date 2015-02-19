@@ -18,13 +18,13 @@
 App.PopInDealController = Ember.Controller.extend(Ember.Validations.Mixin.Validator, {
     actions: {
         successfulSaving: function() {
-            var bpe = this.get('bpe');
+            var OTP = this.get('OTP');
             var convType = this.get('convType');
 
             // Efface les champs
             this.send('resetForm');
             
-            this.transitionToRoute('deal.createOrder', bpe, convType);
+            this.transitionToRoute('deal.createOrder', OTP, convType);
         },
         failSaving: function() {
             
@@ -37,10 +37,10 @@ App.PopInDealController = Ember.Controller.extend(Ember.Validations.Mixin.Valida
     ConvTypeValues: Ember.computed(function() {
         return this.store.find('conveyorType');
     }).property(),
-    bpe: null,
+    OTP: null,
     convType: null,
     validations: {
-        bpe: [
+        OTP: [
             {
                 errLvl: Ember.Validations.ErrorLevels.ERROR,
                 pattern: /^\d{3}$/,
@@ -56,14 +56,14 @@ App.PopInDealController = Ember.Controller.extend(Ember.Validations.Mixin.Valida
             },
             {
                 errLvl: Ember.Validations.ErrorLevels.ERROR,
-                message: 'Le BPE existe déjà',
+                message: 'Le OTP existe déjà',
                 type: Ember.Validations.Type.FUNCTION,
                 needContext: true,
                 check: function(value) {
                     return Utils.checkIfExist({
                         type: 'order',
                         dealId: this.get('controllers.deal.id'),
-                        bpe: value
+                        OTP: value
                     });
                 }
             }

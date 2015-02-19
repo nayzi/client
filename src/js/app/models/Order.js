@@ -35,11 +35,11 @@ App.Order = DS.Model.extend({
      */
     deal: DS.belongsTo('deal', {async: true}),
     /**
-     * Numéro de BPE
-     * @property bpe
+     * Numéro de OTP
+     * @property OTP
      * @type {String}
      */
-    bpe: DS.attr('string'),
+    OTP: DS.attr('string'),
     /**
      * Type de convoyeur
      * @property conveyorType
@@ -117,7 +117,7 @@ App.Order = DS.Model.extend({
 App.Order.FIXTURES = [
     {
         id: 1,
-        bpe: '204',
+        OTP: '204',
         conveyorType: 1,
         status: 1,
         climat: 1,
@@ -125,7 +125,7 @@ App.Order.FIXTURES = [
         createdBy: 'Barthélemy Laurans'
     }, {
         id: 2,
-        bpe: '205',
+        OTP: '205',
         conveyorType: 1,
         status: 2,
         climat: 1,
@@ -136,7 +136,7 @@ App.Order.FIXTURES = [
         lastEditedAt: '2014-04-02T13:45:00Z'
     }, {
         id: 3,
-        bpe: '308',
+        OTP: '308',
         conveyorType: 1,
         status: 3,
         climat: 1,
@@ -144,7 +144,7 @@ App.Order.FIXTURES = [
         createdBy: 'Barthélemy Laurans'
     }, {
         id: 4,
-        bpe: '201',
+        OTP: '201',
         conveyorType: 1,
         status: 4,
         climat: 1,
@@ -152,7 +152,7 @@ App.Order.FIXTURES = [
         createdBy: 'Barthélemy Laurans'
     }, {
         id: 5,
-        bpe: '201',
+        OTP: '201',
         conveyorType: 1,
         status: 5,
         climat: 1,
@@ -160,7 +160,7 @@ App.Order.FIXTURES = [
         createdBy: 'Barthélemy Laurans'
     }, {
         id: 6,
-        bpe: '306',
+        OTP: '306',
         conveyorType: 1,
         status: 6,
         climat: 1,

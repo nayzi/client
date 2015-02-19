@@ -116,7 +116,7 @@ App.DealCreateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRout
     },
     model: function(params, transition) {
         return this.get('store').createRecord('order', {
-            bpe: params.BPE
+            OTP: params.OTP
         });
     },
     afterModel: function(model) {
