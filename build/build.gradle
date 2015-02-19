@@ -92,6 +92,7 @@ minifyJs {
     dependsOn << 'combineJs'
     source = combineJs.dest
     dest = file("${jsDir}/all-min.js")
+    out.writeLine("directoryyyyy ${jsDir}")
     closure {
         //compilationLevel = 'WHITESPACE_ONLY'
         warningLevel = "QUIET"
