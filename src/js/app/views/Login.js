@@ -26,7 +26,7 @@ App.LoginView = Ember.View.extend({
         click: function() {
             this.get('controller').send('submitForm');
         },
-        label: "Connexion"
+        label: "Se connecter"
     }),
     /**
      * Bouton pour réinitialiser le formulaire. Envoie au ```Controller``` le
