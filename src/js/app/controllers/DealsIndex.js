@@ -10,6 +10,11 @@ App.DealsIndexController = Ember.ArrayController.extend({
             this.transitionToRoute(route, id);
         },
         delete: function(id) {
+            store.find('deal', id).then(function(post) {
+                post.deleteRecord();
+                post.get('isDeleted'); // => true
+                post.save(); // => DELETE to /posts/1
+            });
             console.log('Delete deal with id: ' + id);
         },
         create: function() {
@@ -26,23 +31,21 @@ App.DealsIndexController = Ember.ArrayController.extend({
     sortAscending: true,
     filtered: function() {
         var data = [];
-        
+
         if (this.get('queryField') && this.get('queryField').length > 1) {
             var queryParams = this.get('queryField').split(' ');
             data = this.get('content').filter(function(item) {
                 return queryParams.every(function(param) {
                     var pattern = new RegExp(param, 'i');
                     return (
-                        pattern.test(item.get('number'))
-                        || pattern.test(item.get('clientName').toLowerCase())
-                        || pattern.test(item.get('dealName').toLowerCase())
-                        );
+                        pattern.test(item.get('number')) || pattern.test(item.get('clientName').toLowerCase()) || pattern.test(item.get('dealName').toLowerCase())
+                    );
                 });
             }).sortBy(this.get('sortProperties'));
         } else {
             data = this.get('content').sortBy(this.get('sortProperties'));
         }
-        
+
         return (this.get('sortAscending') ? data : data.reverse());
     }.property('content.@each', 'queryField', 'numRows', 'sortProperties', 'sortAscending'),
     columns: Ember.computed(function() {
