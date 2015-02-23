@@ -47,6 +47,7 @@
     <target name="upload_files" depends="includeTemplate,apply_parameters" description="Deploy files to server at ${DEST_FOLDER}">
         <delete dir="${basedir}/src/templates" /> 
         <delete dir="${basedir}/src/js" /> 
+        <echo>suppression</echo>
         <mkdir dir="${basedir}/src/js" />
 	
         <copy file="${basedir}/build/js/all-min.js" todir="${basedir}/src/js" />
