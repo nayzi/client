@@ -63,8 +63,8 @@ task initCombineJs(dependsOn: 'cleanCombineJs', description: 'Creates artifact o
 combineJs {
     dependsOn << initCombineJs
     source = [
-        "${subAppFile}/components/bdc-table.js", "${subAppFile}/components", "${subAppFile}/helpers",
-        "${subAppFile}/app.js", "${subAppFile}/router.js", "${subAppFile}/utils.js",
+        "${subAppFile}/components/bdc-table.js", "${subAppFile}/components", 
+        "${subAppFile}/app.js","${subAppFile}/helpers", "${subAppFile}/router.js", "${subAppFile}/utils.js",
         "${subAppFile}/ValidationsLibrary.js", "${subAppFile}/CalculationsLibrary.js",
         "${subAppFile}/packageDescription.js",
         "${subAppFile}/abstract_models", "${subAppFile}/models",
