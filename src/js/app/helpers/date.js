@@ -17,6 +17,6 @@
  */
 Ember.Handlebars.registerBoundHelper('date', function(date) {
 	var localLocale = moment();
-	localLocale.localr('fr');
+	localLocale.locale('fr');
     return localLocale(date).format('ll');
 });
