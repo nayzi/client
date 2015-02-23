@@ -137,7 +137,7 @@ App.DealsIndexController = Ember.ArrayController.extend({
                                 click: function() {
                                     this.get('controller.parentView.controller').send('delete', row.get('id'));
                                 },
-                                disabled: true
+                                disabled: false
                             })
                         })
                     ]
