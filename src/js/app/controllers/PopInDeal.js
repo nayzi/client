@@ -18,13 +18,13 @@
 App.PopInDealController = Ember.Controller.extend(Ember.Validations.Mixin.Validator, {
     actions: {
         successfulSaving: function() {
-            var OTP = this.get('OTP');
+            var otp = this.get('otp');
             var convType = this.get('convType');
 
             // Efface les champs
             this.send('resetForm');
             
-            this.transitionToRoute('deal.createOrder', OTP, convType);
+            this.transitionToRoute('deal.createOrder', otp, convType);
         },
         failSaving: function() {
             
@@ -37,10 +37,10 @@ App.PopInDealController = Ember.Controller.extend(Ember.Validations.Mixin.Valida
     ConvTypeValues: Ember.computed(function() {
         return this.store.find('conveyorType');
     }).property(),
-    OTP: null,
+    otp: null,
     convType: null,
     validations: {
-        OTP: [
+        otp: [
             {
                 errLvl: Ember.Validations.ErrorLevels.ERROR,
                 pattern: /^\d{3}$/,
@@ -56,14 +56,14 @@ App.PopInDealController = Ember.Controller.extend(Ember.Validations.Mixin.Valida
             },
             {
                 errLvl: Ember.Validations.ErrorLevels.ERROR,
-                message: 'Le OTP existe déjà',
+                message: 'Le otp existe déjà',
                 type: Ember.Validations.Type.FUNCTION,
                 needContext: true,
                 check: function(value) {
                     return Utils.checkIfExist({
                         type: 'order',
                         dealId: this.get('controllers.deal.id'),
-                        OTP: value
+                        otp: value
                     });
                 }
             }

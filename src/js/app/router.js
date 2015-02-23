@@ -13,7 +13,7 @@ App.Router.map(function() {
     this.resource('deals', function() {
         this.route('createDeal');
         this.resource('deal', {path: 'deal/:deal_id'}, function() {
-            this.route('createOrder', {path: 'createOrder/:OTP/:conv_type'});
+            this.route('createOrder', {path: 'createOrder/:otp/:conv_type'});
             this.route('edit');
             this.resource('order', {path: 'order/:order_id'}, function() {
                 this.route('edit');

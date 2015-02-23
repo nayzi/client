@@ -35,11 +35,11 @@ App.Order = DS.Model.extend({
      */
     deal: DS.belongsTo('deal', {async: true}),
     /**
-     * Numéro de OTP
-     * @property OTP
+     * Numéro de otp
+     * @property otp
      * @type {String}
      */
-    OTP: DS.attr('string'),
+    otp: DS.attr('string'),
     /**
      * Type de convoyeur
      * @property conveyorType
@@ -117,7 +117,7 @@ App.Order = DS.Model.extend({
 App.Order.FIXTURES = [
     {
         id: 1,
-        OTP: '204',
+        otp: '204',
         conveyorType: 1,
         status: 1,
         climat: 1,
@@ -125,7 +125,7 @@ App.Order.FIXTURES = [
         createdBy: 'Barthélemy Laurans'
     }, {
         id: 2,
-        OTP: '205',
+        otp: '205',
         conveyorType: 1,
         status: 2,
         climat: 1,
@@ -136,7 +136,7 @@ App.Order.FIXTURES = [
         lastEditedAt: '2014-04-02T13:45:00Z'
     }, {
         id: 3,
-        OTP: '308',
+        otp: '308',
         conveyorType: 1,
         status: 3,
         climat: 1,
@@ -144,7 +144,7 @@ App.Order.FIXTURES = [
         createdBy: 'Barthélemy Laurans'
     }, {
         id: 4,
-        OTP: '201',
+        otp: '201',
         conveyorType: 1,
         status: 4,
         climat: 1,
@@ -152,7 +152,7 @@ App.Order.FIXTURES = [
         createdBy: 'Barthélemy Laurans'
     }, {
         id: 5,
-        OTP: '201',
+        otp: '201',
         conveyorType: 1,
         status: 5,
         climat: 1,
@@ -160,7 +160,7 @@ App.Order.FIXTURES = [
         createdBy: 'Barthélemy Laurans'
     }, {
         id: 6,
-        OTP: '306',
+        otp: '306',
         conveyorType: 1,
         status: 6,
         climat: 1,
