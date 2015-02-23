@@ -84,7 +84,7 @@ App.DealIndexController = Ember.ObjectController.extend({
     columns: Ember.computed(function() {
         var numColumn, typeConvColumn, planColumn, drawerColumn, lastEditedAtColumn, lastEditedByColumn, actionColumn, lockedColumn;
         numColumn = Ember.Table.ColumnDefinition.create({
-            headerCellName: 'otp',
+            headerCellName: 'OTP',
             textAlign: 'text-align-center',
             isResizable: false,
             contentPath: 'otp',
