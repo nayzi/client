@@ -87,7 +87,7 @@ App.DealIndexController = Ember.ObjectController.extend({
             headerCellName: 'OTP',
             textAlign: 'text-align-center',
             isResizable: false,
-            contentPath: 'OTP',
+            contentPath: 'otp',
             defaultColumnWidth: 40
         });
         typeConvColumn = Ember.Table.ColumnDefinition.create({
