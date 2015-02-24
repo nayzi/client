@@ -18,7 +18,7 @@
 App.PopInDealController = Ember.Controller.extend(Ember.Validations.Mixin.Validator, {
     actions: {
         successfulSaving: function() {
-            var otp = this.get('otp');
+            var otp = this.get('OTP');
             var convType = this.get('convType');
 
             // Efface les champs
@@ -56,7 +56,7 @@ App.PopInDealController = Ember.Controller.extend(Ember.Validations.Mixin.Valida
             },
             {
                 errLvl: Ember.Validations.ErrorLevels.ERROR,
-                message: 'Le otp existe déjà',
+                message: 'Le OTP existe déjà',
                 type: Ember.Validations.Type.FUNCTION,
                 needContext: true,
                 check: function(value) {
