@@ -28755,7 +28755,7 @@ EmberHandlebars.registerHelper('unboundIf', function unboundIfHelper(property, f
 */
 EmberHandlebars.registerHelper('with', function withHelper(context, options) {
   if (arguments.length === 4) {
-    var keywordName, path, rootPath, normalized, contextPath;
+    var keywordName, path, rootpath, normalized, contextPath;
 
     Ember.assert("If you pass more than one argument to the with helper, it must be in the form #with foo as bar", arguments[1] === "as");
     options = arguments[3];
@@ -28773,12 +28773,12 @@ EmberHandlebars.registerHelper('with', function withHelper(context, options) {
     } else {
       normalized = normalizePath(this, path, options.data);
       path = normalized.path;
-      rootPath = normalized.root;
+      rootpath = normalized.root;
 
       // This is a workaround for the fact that you cannot bind separate objects
       // together. When we implement that functionality, we should use it here.
-      var contextKey = Ember.$.expando + Ember.guidFor(rootPath);
-      localizedOptions.data.keywords[contextKey] = rootPath;
+      var contextKey = Ember.$.expando + Ember.guidFor(rootpath);
+      localizedOptions.data.keywords[contextKey] = rootpath;
       // if the path is '' ("this"), just bind directly to the current context
       contextPath = path ? contextKey + '.' + path : contextKey;
     }

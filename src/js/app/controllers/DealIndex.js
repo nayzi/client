@@ -32,7 +32,7 @@ App.DealIndexController = Ember.ObjectController.extend({
             this.transitionToRoute('deal.edit');
         }
     },
-    sortProperties: ['otp'],
+    sortProperties: ['OTP'],
     sortAscending: true,
     /**
      * Nombre d'élément dans la liste à afficher
@@ -60,7 +60,7 @@ App.DealIndexController = Ember.ObjectController.extend({
                 $.each(queryParams, function(i, param) {
                     var pattern = new RegExp(param, 'i');
                     if (!(
-                        pattern.test(item.get('otp'))
+                        pattern.test(item.get('OTP'))
                         || pattern.test(item.get('conveyorType.abbreviation').toLowerCase())
                         || pattern.test(item.get('plan') ? item.get('plan').toLowerCase() : '')
                         )) {
@@ -87,7 +87,7 @@ App.DealIndexController = Ember.ObjectController.extend({
             headerCellName: 'OTP',
             textAlign: 'text-align-center',
             isResizable: false,
-            contentPath: 'otp',
+            contentPath: 'OTP',
             defaultColumnWidth: 40
         });
         typeConvColumn = Ember.Table.ColumnDefinition.create({
