@@ -56,7 +56,7 @@ App.PopInDealController = Ember.Controller.extend(Ember.Validations.Mixin.Valida
             },
             {
                 errLvl: Ember.Validations.ErrorLevels.ERROR,
-                message: 'Le OTP existe déjà',
+                message: 'Ce OTP existe déjà',
                 type: Ember.Validations.Type.FUNCTION,
                 needContext: true,
                 check: function(value) {
