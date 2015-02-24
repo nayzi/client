@@ -120,7 +120,7 @@ App.DealIndexController = Ember.ObjectController.extend({
                 return 1000;
             })(),
             getCellContent: function(row) {
-                return moment(row.get('lastEditedAt'));
+                return (moment(row.get('lastEditedAt'))=="Thu Jan 01 1970 01:00:00 GMT+0100");
             }
         });
         lastEditedByColumn = Ember.Table.ColumnDefinition.create({
