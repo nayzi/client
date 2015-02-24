@@ -116,10 +116,9 @@ App.DealIndexController = Ember.ObjectController.extend({
             isResizable: false,
             defaultColumnWidth: 125,
             maxWidth: 125,
-            columnWidth: (function(row) {
-                if (getCellContent()==moment(0).format('llll')) return 0;
-            })(),
+            
             getCellContent: function(row) {
+                columnWidth:1000;
                 return moment(row.get('lastEditedAt')).format('llll');
             }
         });
