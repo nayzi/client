@@ -116,7 +116,7 @@ App.DealIndexController = Ember.ObjectController.extend({
             isResizable: false,
             defaultColumnWidth: 125,
             maxWidth: 125,
-            isVisible:(moment(row.get('lastEditedAt')).format('llll') == "jeu. 1 janv. 1970 00:00")? false : true,
+            isVisible: false ,
             getCellContent: function(row) {
                 return moment(row.get('lastEditedAt')).format('llll');
             }
