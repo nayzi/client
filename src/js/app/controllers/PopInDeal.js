@@ -18,7 +18,7 @@
 App.PopInDealController = Ember.Controller.extend(Ember.Validations.Mixin.Validator, {
     actions: {
         successfulSaving: function() {
-            var otp = this.get('OTP');
+            var otp = this.get('otp');
             var convType = this.get('convType');
 
             // Efface les champs
