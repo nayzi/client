@@ -4,7 +4,8 @@
  */
 
 App.Router.reopen({
-    rootURL: '/DEST_FOLDER'
+    rootURL: '/DEST_FOLDER',
+    location: 'auto'
 });
 
 App.Router.map(function() {
