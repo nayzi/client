@@ -5,7 +5,7 @@
 
 App.Router.reopen({
     rootURL: '/DEST_FOLDER',
-    location: 'auto'
+    location: 'history'
 });
 
 App.Router.map(function() {
