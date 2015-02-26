@@ -67,6 +67,7 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
         var newPieceOrders = [];
         var newConveyors = [];
         var newConveyorOptions = [];
+        alert("1");
 
         return Ember.RSVP.Promise.all([newOrder.get('options').then(function(options) {
                 newOrderOptions = options.get('content');
@@ -100,6 +101,7 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
     },
     save: function(newOrder, newOrderPieces, newOrderPieceOptions, newOrderOptions, newPieceOrders, newConveyors, newConveyorOptions) {
         return newOrder.save().then(function() {
+            alert("2");
             return Ember.RSVP.Promise.all(newOrderPieces.map(function(orderPiece) {
                 return orderPiece.save();
             }).concat(newOrderOptions.map(function(orderOption) {
