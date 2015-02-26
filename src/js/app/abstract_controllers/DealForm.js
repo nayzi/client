@@ -9,8 +9,8 @@
  */
 
 /**
- * 
- * 
+ *
+ *
  * @class DealFormController
  * @namespace AbstractControllers
  * @extends Ember.ObjectController
@@ -39,17 +39,17 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
     isEditing: true,
     tableColBaseController: Ember.computed(function() {
         var ctrl;
-        
-        switch(parseInt(this.get('conveyorType.id'), 10)) {
+
+        switch (parseInt(this.get('conveyorType.id'), 10)) {
             case 3:
                 ctrl = PASC.BdcTable.Ext.RCDController;
                 break;
-                
+
             default:
                 ctrl = Ember.ObjectController.extend(PASC.BdcTable.ColControllerMixin);
                 break;
         }
-        
+
         return ctrl;
     }),
     table: function() {
@@ -70,31 +70,31 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
         alert("1");
 
         return Ember.RSVP.Promise.all([newOrder.get('options').then(function(options) {
-                newOrderOptions = options.get('content');
+            newOrderOptions = options.get('content');
 
-                return Ember.RSVP.Promise.resolve();
-            }), newOrder.get('orderPieces').then(function(orderPieces) {
-                newOrderPieces = orderPieces.get('content');
+            return Ember.RSVP.Promise.resolve();
+        }), newOrder.get('orderPieces').then(function(orderPieces) {
+            newOrderPieces = orderPieces.get('content');
 
-                return Ember.RSVP.Promise.all(orderPieces.map(function(orderPiece) {
-                    return orderPiece.get('options').then(function(options) {
-                        newOrderPieceOptions.pushObjects(options.get('content'));
-                        return Ember.RSVP.Promise.resolve();
-                    });
-                }));
-            }), newOrder.get('conveyors').then(function(conveyors) {
-                newConveyors = conveyors.get('content');
+            return Ember.RSVP.Promise.all(orderPieces.map(function(orderPiece) {
+                return orderPiece.get('options').then(function(options) {
+                    newOrderPieceOptions.pushObjects(options.get('content'));
+                    return Ember.RSVP.Promise.resolve();
+                });
+            }));
+        }), newOrder.get('conveyors').then(function(conveyors) {
+            newConveyors = conveyors.get('content');
 
-                return Ember.RSVP.Promise.all(conveyors.map(function(conveyor) {
-                    return Ember.RSVP.Promise.all([conveyor.get('options').then(function(options) {
-                            newConveyorOptions = options.get('content');
-                            return Ember.RSVP.Promise.resolve();
-                        }), conveyor.get('pieceOrders').then(function(pieceOrders) {
-                            newPieceOrders = pieceOrders.get('content');
-                            return Ember.RSVP.Promise.resolve();
-                        })]);
-                }));
-            })]).then(function() {
+            return Ember.RSVP.Promise.all(conveyors.map(function(conveyor) {
+                return Ember.RSVP.Promise.all([conveyor.get('options').then(function(options) {
+                    newConveyorOptions = options.get('content');
+                    return Ember.RSVP.Promise.resolve();
+                }), conveyor.get('pieceOrders').then(function(pieceOrders) {
+                    newPieceOrders = pieceOrders.get('content');
+                    return Ember.RSVP.Promise.resolve();
+                })]);
+            }));
+        })]).then(function() {alert(newConveyors);
             return self.save(newOrder, newOrderPieces, newOrderPieceOptions, newOrderOptions, newPieceOrders, newConveyors, newConveyorOptions);
         });
 
