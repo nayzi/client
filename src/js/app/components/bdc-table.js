@@ -300,7 +300,7 @@
         },
         submitForm: function() {
             this.get('parentController.parentController').send('submitForm');
-
+                alert("haaaana");
             return Ember.RSVP.Promise.resolve();
         },
         headerData: Ember.computed(function() {
