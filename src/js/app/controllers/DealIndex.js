@@ -155,7 +155,7 @@ App.DealIndexController = Ember.ObjectController.extend({
                                 text: false,
                                 click: function() {
                                     
-                                    this.get('controller.parentView.controller').send('redirect', 'showOrder', row.get('id'));
+                                    this.showOrder(id);
                                 }
                             })
                         }), Ember.Object.create({
