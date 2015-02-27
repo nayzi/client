@@ -155,7 +155,7 @@ App.DealIndexController = Ember.ObjectController.extend({
                                 text: false,
                                 click: function() {
                                     
-                                    this.showOrder(id);
+                                    this.showOrder(row.get('id'));
                                 }
                             })
                         }), Ember.Object.create({
