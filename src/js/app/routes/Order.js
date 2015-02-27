@@ -79,4 +79,7 @@ App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
                        }));
                    })]);*/
     }
+    renderTemplate: function() {
+    this.render('OrderDetails');
+  }
 });
