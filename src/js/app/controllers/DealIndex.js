@@ -20,7 +20,7 @@ App.DealIndexController = Ember.ObjectController.extend({
     queryField: null,
     actions: {
         showOrder: function(orderId) {console.log("dealindex : showorder :"+orderId);
-            this.transitionToRoute('order.details' , {idorder: orderId});
+            this.transitionToRoute('order' , orderId);
         },
         redirect: function(route, id) {
             this.transitionToRoute(route, id);

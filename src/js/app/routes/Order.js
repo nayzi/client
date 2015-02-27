@@ -63,17 +63,9 @@ App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
                     })]);
             })]);*/
     },
-    model: function(params, transition) {console.log('order.js model :'+ params.order_id);        var ord = this.get('store').find('order', params.order_id).then(fulfill, reject);
+    model: function(params, transition) {alert('order.js model :'+ params.order_id);        
 
-        function fulfill(answer) {
-            console.log("The answer is " + answer.otp);
-
-            return answer;
-        }
-
-        function reject(reason) {
-            console.log("Couldn't get the answer! Reason: " + reason);
-        }
+        
 
 
 
