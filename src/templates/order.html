@@ -2,12 +2,20 @@
     {{#if session.isAuthenticated}}
     <h2> Bon de commande  </h2>
     <h1> otp : {{otp}} </h1>
-    <h1> dessinateur : {{drawername}} </h1>
+    <h1> dessinateur : {{drawerName}} </h1>
     <h1> plan : {{plan}} </h1>
     <h2> Liste des convoyeurs </h2>
      {{#each c in conveyors}}
-    <h2> Réference du Convoyeur : {{c.conveyorref}} </h2>
-    
+    <h2> Réference du Convoyeur : {{c.ref}} </h2>
+    eg : {{c.eg}} <p/>
+    zone : {{c.zone}}<p/>
+    ral : {{c.ral}} <p/>
+    ralUnderConveyor : {{c.ralUnderConveyor}} <p/>
+    position : {{c.position}} <p/>
+    pieceOrders : {{c.pieceOrders.length}} <p/>
+    {{#each p in c.pieceOrders}}
+    {{p.nbPieces}} de {{p.orderPiece.piece.label}}
+    {{/each}}
     {{/each}}
 	{{outlet}}
     {{/if}}
