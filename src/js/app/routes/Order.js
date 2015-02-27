@@ -67,7 +67,7 @@ App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
 
 function fulfill(answer) {
   console.log("The answer is " + answer);
-  return this.get('store').find('order', params.order_id);
+  return answer;
 }
 
 function reject(reason) {
