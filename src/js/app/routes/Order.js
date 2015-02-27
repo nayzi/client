@@ -4,7 +4,7 @@
  */
 
 App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
-    templateName: 'orderIndex',
+    templateName: 'orderDetails',
     beforeModel: function(transition) {
         //alert(transition.params['deal.createOrder']);
         /*var convTypeId = parseInt(transition.params['deal.createOrder'].conv_type);
@@ -63,8 +63,7 @@ App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
                     })]);
             })]);*/
     },
-    model: function(params, transition) {
-        var ord = this.get('store').find('order', params.order_id).then(fulfill, reject);
+    model: function(params, transition) {consolelog('order.js model :'+ params.order_id);        var ord = this.get('store').find('order', params.order_id).then(fulfill, reject);
 
         function fulfill(answer) {
             console.log("The answer is " + answer.otp);
