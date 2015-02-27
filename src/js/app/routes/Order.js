@@ -5,7 +5,7 @@
 
 App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
     beforeModel: function(transition) {
-        alert(transition.params['deal.createOrder']);
+        //alert(transition.params['deal.createOrder']);
         /*var convTypeId = parseInt(transition.params['deal.createOrder'].conv_type);
 
         var climats = this.store.find('climat');
