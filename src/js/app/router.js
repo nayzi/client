@@ -16,7 +16,7 @@ App.Router.map(function() {
             this.route('createOrder', {path: 'createOrder/:otp/:conv_type'});
             this.route('edit');
             this.resource('order', {path: 'order/:order_id'}, function() {
-                this.route('details',{id : order_id});
+                this.route('details');
                 this.route('edit');
                 this.route('print');
             });
