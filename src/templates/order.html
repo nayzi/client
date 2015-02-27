@@ -1,6 +1,14 @@
 <script type="text/x-handlebars" id="order">
     {{#if session.isAuthenticated}}
-    <h2> order {{otp}}</h2>
+    <h2> Bon de commande  </h2>
+    <h1> otp : {{otp}} </h1>
+    <h1> dessinateur : {{drawername}} </h1>
+    <h1> plan : {{plan}} </h1>
+    <h2> Liste des convoyeurs </h2>
+     {{#each c in conveyors}}
+    <h2> Réference du Convoyeur : {{c.conveyorref}} </h2>
+    
+    {{/each}}
 	{{outlet}}
     {{/if}}
 </script>
