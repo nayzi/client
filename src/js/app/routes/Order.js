@@ -4,6 +4,7 @@
  */
 
 App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
+    templateName: 'orderIndex',
     beforeModel: function(transition) {
         //alert(transition.params['deal.createOrder']);
         /*var convTypeId = parseInt(transition.params['deal.createOrder'].conv_type);
