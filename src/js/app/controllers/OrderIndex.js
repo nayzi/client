@@ -115,7 +115,7 @@ App.OrderIndexController = Ember.ArrayController.extend({
                                 label: "Consulter",
                                 text: false,
                                 click: function() {
-                                    this.get('controller.parentView.controller').send('redirect', 'deal', row.get('id'));
+                                    this.get('controller.parentView.controller').send('redirect', 'order.details', row.get('id'));
                                 }
                             })
                         }), Ember.Object.create({
