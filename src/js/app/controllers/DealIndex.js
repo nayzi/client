@@ -154,8 +154,8 @@ App.DealIndexController = Ember.ObjectController.extend({
                                 label: "Consulter",
                                 text: false,
                                 click: function() {
-                                    alert("l3ez");
-                                    //this.get('controller.parentView.controller').send('redirect', 'order', row.get('id'));
+                                    
+                                    this.get('controller.parentView.controller').send('redirect', 'order', row.get('id'));
                                 }
                             })
                         }), Ember.Object.create({
