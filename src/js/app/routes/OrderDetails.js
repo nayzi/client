@@ -7,7 +7,7 @@ App.OrderDetailsRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMi
     
  model: function(params) {
  alert(params.order_id)
-    return this.get('store').find('order', params.order_id);
+    return this.get('store').find('order', params.idorder);
 
 
 
