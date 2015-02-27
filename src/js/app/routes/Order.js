@@ -67,6 +67,7 @@ App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
 
 function fulfill(answer) {
   console.log("The answer is " + answer);
+  return this.get('store').find('order', params.order_id);
 }
 
 function reject(reason) {
@@ -74,7 +75,7 @@ function reject(reason) {
 }
         
 
-        return this.get('store').find('order', params.order_id);
+        
     },
     afterModel: function(model) {
  /*       return Ember.RSVP.Promise.all([model.get('conveyorType'), model.get('options'), model.get('orderPieces').then(function(orderPieces) {
