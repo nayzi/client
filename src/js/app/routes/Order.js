@@ -65,25 +65,25 @@ App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
     model: function(params, transition) {
         var ord = this.get('store').find('order', params.order_id).then(fulfill, reject);
 
-function fulfill(answer) {
-  console.log("The answer is " + answer);
-  return answer;
-}
+        function fulfill(answer) {
+            console.log("The answer is " + answer.otp);
+            return answer;
+        }
 
-function reject(reason) {
-  console.log("Couldn't get the answer! Reason: " + reason);
-}
-        
+        function reject(reason) {
+            console.log("Couldn't get the answer! Reason: " + reason);
+        }
 
-        
+
+
     },
     afterModel: function(model) {
- /*       return Ember.RSVP.Promise.all([model.get('conveyorType'), model.get('options'), model.get('orderPieces').then(function(orderPieces) {
-                return Ember.RSVP.Promise.all([orderPieces.get('options'), orderPieces.get('piece')]);
-            }), model.get('conveyors').then(function(conveyors) {
-                return Ember.RSVP.Promise.all(conveyors.map(function(conveyor) {
-                    return Ember.RSVP.Promise.all([conveyor.get('pieceOrders'), conveyor.get('options')]);
-                }));
-            })]);*/
+        /*       return Ember.RSVP.Promise.all([model.get('conveyorType'), model.get('options'), model.get('orderPieces').then(function(orderPieces) {
+                       return Ember.RSVP.Promise.all([orderPieces.get('options'), orderPieces.get('piece')]);
+                   }), model.get('conveyors').then(function(conveyors) {
+                       return Ember.RSVP.Promise.all(conveyors.map(function(conveyor) {
+                           return Ember.RSVP.Promise.all([conveyor.get('pieceOrders'), conveyor.get('options')]);
+                       }));
+                   })]);*/
     }
 });
