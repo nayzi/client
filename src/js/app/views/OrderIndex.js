@@ -15,7 +15,7 @@
  * @namespace App
  * @extends Ember.View
  */
-App.DealDetailsView = Ember.View.extend({
+App.OrderIndexView = Ember.View.extend({
     templateName: 'orderIndex',
     classNames: ['order']
 });
