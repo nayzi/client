@@ -7,8 +7,8 @@ App.OrderIndexController = Ember.ArrayController.extend({
     queryField: null,
     actions: {
         redirect: function(route, id) {
-            //this.transitionToRoute(route, id);
-            alert("peace");
+            this.transitionToRoute(route, id);
+            
         },
         delete: function(id) {
             store.find('deal', id).then(function(post) {
