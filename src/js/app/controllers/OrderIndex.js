@@ -7,6 +7,7 @@ App.OrderIndexController = Ember.ArrayController.extend({
     queryField: null,
     actions: {
         redirect: function(route, id) {
+            console.log('order redirect to :'+route);
             this.transitionToRoute(route, id);
             
         },
