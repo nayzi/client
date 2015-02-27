@@ -72,6 +72,6 @@ App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
                 return Ember.RSVP.Promise.all(conveyors.map(function(conveyor) {
                     return Ember.RSVP.Promise.all([conveyor.get('pieceOrders'), conveyor.get('options')]);
                 }));
-            })]);
+            })]);*/
     }
-*/});
+});
