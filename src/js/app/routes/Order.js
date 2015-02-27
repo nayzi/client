@@ -4,7 +4,7 @@
  */
 
 App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
-    templateName: 'orderDetails',
+    
     beforeModel: function(transition) {
         //alert(transition.params['deal.createOrder']);
         /*var convTypeId = parseInt(transition.params['deal.createOrder'].conv_type);
@@ -67,6 +67,7 @@ App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
 
         function fulfill(answer) {
             console.log("The answer is " + answer.otp);
+
             return answer;
         }
 
