@@ -65,8 +65,8 @@ App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
     },
     model: function(params, transition) {alert('order.js model :'+ params.order_id);        
 
-        var j = this.get('store').find('order',params.order_id);
-        alert(j.get('otp'));
+        var j = this.get('store').find('order',params.order_id).then(function(a){alert(a.get('otp'))});
+        
         return j;
 
 
