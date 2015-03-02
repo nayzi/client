@@ -7,10 +7,10 @@
     <h2> Liste des convoyeurs </h2>
      {{#each c in conveyors}}
     <h2> Réference du Convoyeur : {{c.ref}} </h2>
-    EG : {{c.eg}} <br />
+    Entre guide  : {{c.eg}} <br />
     Zone : {{c.zone}}<br />
     RAL : {{c.ral}} <br />
-    RalUnderConveyor : {{c.ralUnderConveyor}} <br />
+    RAL sous manute : {{c.ralUnderConveyor}} <br />
     Position : {{c.position}} <br />
     {{c.pieceOrders.length}} type{{c.pieceOrders.length>0:'s': }} de pieces distribués selon :<br />
     {{#each p in c.pieceOrders}}
