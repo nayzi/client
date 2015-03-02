@@ -73,11 +73,29 @@ App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
 
     },
     afterModel: function(model) {
-               return Ember.RSVP.Promise.all([model.get('conveyorType'), model.get('options'), model.get('orderPieces').then(function(orderPieces) {
-                       return Ember.RSVP.Promise.all([orderPieces.get('options'), orderPieces.get('piece')]);
-                   }), model.get('conveyors').then(function(conveyors) {
-                       return Ember.RSVP.Promise.all(conveyors.map(function(conveyor) {
-                           return Ember.RSVP.Promise.all([conveyor.get('pieceOrders'), conveyor.get('options')]);
+               return Ember.RSVP.Promise.all([a.get("conveyorType"), a.get("options"), a.get("orderPieces").then(function(b) {
+            return Ember.RSVP.Promise.all(b.map(function(d) {return Ember.RSVP.Promise.all([d.get("options"), d.get("piece")]);}))
+        }), a.get("conveyors").then(function(c) {
+            return Ember.RSVP.Promise.all(c.map(function(d) {
+                return Ember.RSVP.Promise.all([
+
+                    d.get("pieceOrders").then(function(p){
+                        p.map(function(p){return Ember.RSVP.Promise.all([
+
+
+
+                            p.get("orderPiece").then(function(o){
+
+                                return Ember.RSVP.Promise.all([o.get("piece")])
+                            })
+
+
+
+                            ])})
+                                                    })
+
+                    ,
+                    d.get("options")]);
                        }));
                    })]);
     }
