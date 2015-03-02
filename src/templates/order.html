@@ -12,9 +12,9 @@
     RAL : {{c.ral}} <br />
     RalUnderConveyor : {{c.ralUnderConveyor}} <br />
     Position : {{c.position}} <br />
-    Nombre de pieces : {{c.pieceOrders.length}} <br />
+    {{c.pieceOrders.length}} de pieces distribué selon :<br />
     {{#each p in c.pieceOrders}}
-    {{p.nbPieces}} de {{p.orderPiece.piece.label}}<br /> : {{p.orderPiece.piece.erpRef}}
+    {{p.nbPieces}} de {{p.orderPiece.piece.label}} : {{p.orderPiece.piece.erpRef}} <br />
     {{/each}}
     {{/each}}
 	{{outlet}}
