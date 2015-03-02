@@ -52,5 +52,5 @@ App.OrderPiece = DS.Model.extend({
      * @property options
      * @type {App.OrderPieceOption[]}
      */
-    orderPieceOptions: DS.hasMany('orderPieceOption', {async: true})
+    options: DS.hasMany('orderPieceOption', {async: true})
 });
