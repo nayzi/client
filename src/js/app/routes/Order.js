@@ -72,7 +72,7 @@ App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
 
 
     },
-    afterModel: function(model) {
+    afterModel: function(a) {
                return Ember.RSVP.Promise.all([a.get("conveyorType"), a.get("options"), a.get("orderPieces").then(function(b) {
             return Ember.RSVP.Promise.all(b.map(function(d) {return Ember.RSVP.Promise.all([d.get("options"), d.get("piece")]);}))
         }), a.get("conveyors").then(function(c) {
