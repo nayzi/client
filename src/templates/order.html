@@ -15,7 +15,7 @@
     {{c.pieceOrders.length}} types de pieces distribués selon :<br />
     {{#each p in c.pieceOrders}}
     {{p.nbPieces}} de {{p.orderPiece.piece.label}} : {{p.orderPiece.piece.erpRef}} <br />
-    Options {{#each o in p.orderPiece.options}} 
+    Options Nombre : {{p.orderPiece.options.length}} / {{#each o in p.orderPiece.options}} <br />
     {{o.OrderPieceOptionValue}} remplace : {{o.optionType.optionTypeReplace}} <br/>
     {{/each}}
     {{/each}}
