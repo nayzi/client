@@ -12,7 +12,7 @@
     RAL : {{c.ral}} <br />
     RAL sous manute : {{c.ralUnderConveyor}} <br />
     Position : {{c.position}} <br />
-    {{c.pieceOrders.length}} type{{c.pieceOrders.length>0:'s': }} de pieces distribués selon :<br />
+    {{c.pieceOrders.length}} type{{if c.pieceOrders.length>1}}s{{/if}} de pieces distribués selon :<br />
     {{#each p in c.pieceOrders}}
     {{p.nbPieces}} de {{p.orderPiece.piece.label}} : {{p.orderPiece.piece.erpRef}} <br />
     {{/each}}
