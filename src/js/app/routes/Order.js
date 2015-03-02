@@ -86,7 +86,16 @@ App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
 
                             p.get("orderPiece").then(function(o){
 
-                                return Ember.RSVP.Promise.all([o.get("piece")])
+                                return Ember.RSVP.Promise.all([o.get("piece"),o.get("options").then(function(op){
+
+                                    return Ember.RSVP.Promise.all(op.map(function(option){
+
+                                        return Ember.RSVP.Promise.all([option.get("option"),option.get("optionType")])
+                                    }))
+                                })
+
+
+                                    ])
                             })
 
 
