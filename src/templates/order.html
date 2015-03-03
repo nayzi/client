@@ -1,25 +1,13 @@
 <script type="text/x-handlebars" id="order">
     {{#if session.isAuthenticated}}
-    <h2> Bon de commande d'otp : {{otp}} </h2>
-    
-    <h1> Dessinateur : {{drawerName}} </h1>
-    <h1> Plan : {{plan}} </h1>
-    <h2> Liste des convoyeurs </h2>
-     {{#each c in conveyors}}
-    <h2> Réference du Convoyeur : {{c.ref}} </h2>
-    Entre guide  : {{c.eg}} <br />
-    Zone : {{c.zone}}<br />
-    RAL : {{c.ral}} <br />
-    RAL sous manute : {{c.ralUnderConveyor}} <br />
-    Position : {{c.position}} <br />
-    {{c.pieceOrders.length}} types de pieces distribués selon :<br />
+    conveyors : {{conveyors.length}} <br/>
+    {{#each c in conveyors}}
+    pieceorders : {{c.pieceOrders.length}}<br/>
     {{#each p in c.pieceOrders}}
-    {{p.nbPieces}} de {{p.orderPiece.piece.label}} : {{p.orderPiece.piece.erpRef}} <br />
-    Options {{#each o in p.orderPiece.options}} 
-    {{o.OrderPieceOptionValue}} remplace : {{o.optionType.optionTypeReplace}} <br/>
+    orderPiece isC :{{p.orderPiece.isComputed}}  et piece : {{p.orderPiece.piece.label}}<br/>
+    options : {{p.orderPiece.orderPieceOptions.length}}<br/>
     {{/each}}
     {{/each}}
-    {{/each}}
-	{{outlet}}
+	
     {{/if}}
 </script>
