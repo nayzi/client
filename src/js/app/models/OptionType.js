@@ -26,5 +26,5 @@ App.OptionType = DS.Model.extend({
      * @type {String}
      */
     label: DS.attr('string'),
-    optionTypeReplace: DS.attr('string')
+    replace: DS.attr('string')
 });

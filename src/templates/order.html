@@ -1,13 +1,27 @@
 <script type="text/x-handlebars" id="order">
     {{#if session.isAuthenticated}}
-    conveyors : {{conveyors.length}} <br/>
+   <table BORDER="1">
+   <tr>
+   <th>Code article père</th>
+   <th>Num ligne nom</th>
+   <th>Code article composant</th>
+   <th>Quantité composant</th>
+   </tr>
     {{#each c in conveyors}}
-    pieceorders : {{c.pieceOrders.length}}<br/>
+    
+    
     {{#each p in c.pieceOrders}}
-    orderPiece isC :{{p.orderPiece.isComputed}}  et piece : {{p.orderPiece.piece.label}}<br/>
-    options : {{p.orderPiece.orderPieceOptions.length}}<br/>
+    
+   
+    <tr>
+    <td>I{{model.deal.number}}-{{model.otp}}-{{c.zone}}-{{c.ref}}</td>
+    <td>{{increment _view.contentIndex}}</td>
+    <td>{{withh p.orderPiece.options  p.orderPiece.piece.erpRef}}</td>
+    <td>{{c.pieceOrders.length}}</td>   
+    </tr>
+    
     {{/each}}
     {{/each}}
-	
+    </table>
     {{/if}}
 </script>

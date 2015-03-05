@@ -26,7 +26,7 @@ App.OrderPieceOption = App.AbstractModels.ItemOption.extend({
      * @property orderPiece
      * @type {App.OrderPiece}
      */
-    OrderPieceOptionValue: DS.attr('string'),
+    opValue: DS.attr('string'),
     orderPiece: DS.belongsTo('orderPiece', {async: true}),
     optionType: DS.belongsTo('optionType', {async: true}),
     option: DS.belongsTo('option', {async: true})

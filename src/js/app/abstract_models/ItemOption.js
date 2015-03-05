@@ -43,5 +43,5 @@ App.AbstractModels.ItemOption = DS.Model.extend({
      * @property optionValue
      * @type {String|Integer|Boolean}
      */
-    optionValue: DS.attr('string')
+    opValue: DS.attr('string')
 });
