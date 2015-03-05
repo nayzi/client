@@ -16,8 +16,8 @@
  * @uses Ember.SimpleAuth.AuthenticatedRouteMixin
  */
 App.DealCreateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
-    actions: {
-        willTransition: function() {
+    actions: { 
+        willTransition: function() {console.log('willTransition DealCreateOrderRoute');
             var record = this.controller.get('model');
             this.controller.removeOptionOberservers();
             
@@ -54,7 +54,7 @@ App.DealCreateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRout
             });
         }
     },
-    beforeModel: function(transition) {
+    beforeModel: function(transition) {console.log('beforeModel DealCreateOrderRoute');
         var convTypeId = parseInt(transition.params['deal.createOrder'].conv_type);
         if (convTypeId !== 3) { // Si jamais la page n'existe pas
             this.transitionTo('deal.index');
@@ -114,17 +114,17 @@ App.DealCreateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRout
             })]);
         }
     },
-    model: function(params, transition) {
+    model: function(params, transition) {console.log('model DealCreateOrderRoute');
         return this.get('store').createRecord('order', {
             otp: params.otp
         });
     },
-    afterModel: function(model) {
+    afterModel: function(model) {console.log('afterModel DealCreateOrderRoute');
         return this.get('convTypeObject').then(function(cType) {
             model.set('conveyorType', cType);
         });
     },
-    setupController: function(controller, model) {
+    setupController: function(controller, model) {console.log('setupController DealCreateOrderRoute');
         this._super(controller, model);
 
         model.set('deal', this.modelFor('deal'));
@@ -135,7 +135,7 @@ App.DealCreateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRout
         controller.initLateProperties();
         Ember.run.next(controller, controller.send, 'addConveyor');
     },
-    renderTemplate: function(controller, model) {
+    renderTemplate: function(controller, model) {console.log('renderTemplate DealCreateOrderRoute');
         this.render('dealCreate');
         this.render('headerDealCreate', {
             into: 'dealCreate',

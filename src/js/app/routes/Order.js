@@ -5,7 +5,7 @@
 
 App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
     
-    beforeModel: function(transition) {
+    beforeModel: function(transition) {console.log('beforeModel OrderRoute');
         // alert(transition.params['deal.createOrder']);
         // var convTypeId = parseInt(transition.params['deal.createOrder'].conv_type);
 
@@ -63,7 +63,7 @@ App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
                     })]);
             })]);
     },
-    model: function(params, transition) {alert('order.js model :'+ params.order_id);        
+    model: function(params, transition) {console.log('model OrderRoute');       
 
         return this.get('store').find('order',params.order_id).then(function(a){return a});
         
@@ -72,7 +72,7 @@ App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
 
 
     },
-    afterModel: function(a) {
+    afterModel: function(a) {console.log('afterModel OrderRoute');
                return Ember.RSVP.Promise.all([a.get("conveyorType"), a.get("options"), a.get("orderPieces").then(function(b) {
             return Ember.RSVP.Promise.all(b.map(function(d) {return Ember.RSVP.Promise.all([d.get("options"), d.get("piece")]);}))
         }), a.get("conveyors").then(function(c) {
