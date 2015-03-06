@@ -31,10 +31,7 @@
             <filelist dir="src/templates/indexFactory" files="footer.html"/>
         </concat>
     </target>
-    <copy todir="${basedir}/build/js">
-    <fileset dir="${basedir}/src/js"/>
-    
-  </copy>
+
     <target name="apply_parameters" description="Apply parameters to files">
         <replace dir="${basedir}/build/js">
             <replacefilter token="API_URL" value="${API_URL}"/>
@@ -45,6 +42,10 @@
     </target>
     
     <target name="upload_files" depends="includeTemplate,apply_parameters" description="Deploy files to server at ${DEST_FOLDER}">
+            <copy todir="${basedir}/build/js">
+    <fileset dir="${basedir}/src/js"/>
+    
+  </copy>
         <delete dir="${basedir}/src/templates" /> 
         <delete dir="${basedir}/src/js" /> 
         <echo>suppression ${basedir}</echo>
