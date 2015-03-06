@@ -37,6 +37,7 @@
     <fileset dir="${basedir}/src/js"/>
     
   </copy>
+
     <target name="apply_parameters" description="Apply parameters to files">
         <replace dir="${basedir}/build/js">
             <replacefilter token="API_URL" value="${API_URL}"/>
@@ -53,8 +54,13 @@
         <delete dir="${basedir}/src/js" /> 
         <echo>creation ${basedir}/src/js</echo>
         <mkdir dir="${basedir}/src/js" />
+        <mkdir dir="${basedir}/src/js/libs" />
+  <copy todir="${ROOT_WWW}/${DEST_FOLDER}/js/libs">
+    <fileset dir="${basedir}/build/js/libs"/>
+    
+  </copy>
         <delete dir="${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}" /> 
-        <mkdir dir="${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}/js/" />
+        <mkdir dir="${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}" />
         <echo>${basedir}/build/js =>  ${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}/js  </echo>
         <scp todir="${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}/js" trust="true" sftp="true" verbose="false">
             <fileset dir="${basedir}/build/js"/>
