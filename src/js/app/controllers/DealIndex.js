@@ -28,8 +28,11 @@ App.DealIndexController = Ember.ObjectController.extend({
         delete: function(id) {
             console.log('Delete order with id: ' + id);
         },
-        edit: function() {
-            this.transitionToRoute('deal.edit');
+        edit: function(a) {
+            this.transitionToRoute('deal.edit',a);
+        },
+        exporter: function(a) {
+            this.transitionToRoute('order.details',a);
         }
     },
     sortProperties: ['OTP'],
@@ -193,9 +196,8 @@ App.DealIndexController = Ember.ObjectController.extend({
                                 label: "Exporter",
                                 text: false,
                                 click: function() {
-                                    this.get('controller.parentView.controller').send('export', row.get('id'));
-                                },
-                                disabled: true
+                                    this.get('controller.parentView.controller').send('exporter', row.get('id'));
+                                }
                             })
                         }), Ember.Object.create({
                             rights: [1, 2],
