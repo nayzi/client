@@ -57,8 +57,9 @@
         </scp>
     </target>
          <target name="upload_app_libs" description="upload de app et libs">
-        <scp todir="${SFTP_USR}:${SFTP_PWD}@${SFTP_HOST}:${ROOT_WWW}/docs/${DEST_FOLDER}/js" trust="true" sftp="true" verbose="false">
             <echo>copy du dossier ${DEST_FOLDER}/js ====> ${basedir}/src/js </echo>
+        <scp todir="${SFTP_USR}:${SFTP_PWD}@${SFTP_HOST}:${ROOT_WWW}/docs/${DEST_FOLDER}/js" trust="true" sftp="true" verbose="false">
+            
             <fileset dir="${basedir}/src/js"/>
         </scp>
     </target>
