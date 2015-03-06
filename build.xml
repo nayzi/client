@@ -31,8 +31,8 @@
             <filelist dir="src/templates/indexFactory" files="footer.html"/>
         </concat>
     </target>
-    <delete dir="${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}" />
-    <echo>suppression ${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}</echo>
+    <delete dir="${ROOT_WWW}/${DEST_FOLDER}" />
+    <echo>suppression ${ROOT_WWW}/${DEST_FOLDER}</echo>
     <!-- <delete dir="${basedir}/build/js" />  -->
     <copy todir="${basedir}/build/js">
     <fileset dir="${basedir}/src/js"/>
