@@ -46,16 +46,17 @@
     </target>
     
     <target name="upload_files" depends="includeTemplate,apply_parameters" description="Deploy files to server at ${DEST_FOLDER}">
-        <echo>${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}/js  =>  ${basedir}/src/js</echo>
-        <scp todir="${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}/js" trust="true" sftp="true" verbose="false">
-            <fileset dir="${basedir}/src/js"/>
-        </scp>
+        
         <echo>suppression ${basedir}/src/js</echo>
         <delete dir="${basedir}/src/templates" /> 
         <delete dir="${basedir}/src/js" /> 
         <echo>suppression ${basedir}</echo>
         <mkdir dir="${basedir}/src/js" />
-	   <copy file="${basedir}/build/js/*" todir="${basedir}/src/js" />
+        <echo>${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}/js  =>  ${basedir}/src/js</echo>
+        <scp todir="${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}/js" trust="true" sftp="true" verbose="false">
+            <fileset dir="${basedir}/src/js"/>
+        </scp>
+	   
        
         <copy file="${basedir}/build/js/all-min.js" todir="${basedir}/src/js" />
         <copy file="${basedir}/build/js/all-lib.js" todir="${basedir}/src/js" />
