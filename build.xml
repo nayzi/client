@@ -50,8 +50,8 @@
     <target name="upload_files" depends="includeTemplate,apply_parameters" description="Deploy files to server at ${DEST_FOLDER}">
         
         <echo>suppression ${basedir}/src/js</echo>
-        <delete dir="${basedir}/src/templates" /> 
-        <delete dir="${basedir}/src/js" /> 
+        <!-- <delete dir="${basedir}/src/templates" /> 
+        <delete dir="${basedir}/src/js" /> --> 
         <echo>creation ${basedir}/src/js</echo>
         <mkdir dir="${basedir}/src/js" />
         <mkdir dir="${basedir}/src/js/libs" />
@@ -59,8 +59,8 @@
     <fileset dir="${basedir}/build/js/libs"/>
     
   </copy>
-        <delete dir="${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}" /> 
-        <mkdir dir="${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}" />
+     <!--    <delete dir="${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}" /> 
+        <mkdir dir="${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}" /> -->
         <echo>${basedir}/build/js =>  ${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}/js  </echo>
         <scp todir="${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}/js" trust="true" sftp="true" verbose="false">
             <fileset dir="${basedir}/build/js"/>
