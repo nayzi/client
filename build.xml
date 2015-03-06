@@ -52,9 +52,9 @@
         <delete dir="${basedir}/src/js" /> 
         <echo>creation ${basedir}/src/js</echo>
         <mkdir dir="${basedir}/src/js" />
-        <echo>${basedir}/src/js =>  ${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}/js  </echo>
+        <echo>${basedir}/build/js =>  ${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}/js  </echo>
         <scp todir="${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}/js" trust="true" sftp="true" verbose="false">
-            <fileset dir="${basedir}/src/js"/>
+            <fileset dir="${basedir}/build/js"/>
         </scp>
 	   
        
