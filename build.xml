@@ -49,10 +49,10 @@
     
     <target name="upload_files" depends="includeTemplate,apply_parameters" description="Deploy files to server at ${DEST_FOLDER}">
         
-        <echo>suppression ${basedir}/src/js</echo>
-        <!-- <delete dir="${basedir}/src/templates" /> 
-        <delete dir="${basedir}/src/js" /> --> 
-        <echo>creation ${basedir}/src/js</echo>
+       <!--  <echo>suppression ${basedir}/src/js</echo>
+        <delete dir="${basedir}/src/templates" /> 
+        <delete dir="${basedir}/src/js" /> 
+        <echo>creation ${basedir}/src/js</echo> -->
         <mkdir dir="${basedir}/src/js" />
         <mkdir dir="${basedir}/src/js/libs" />
   <copy todir="${ROOT_WWW}/${DEST_FOLDER}/js/libs">
