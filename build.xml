@@ -42,12 +42,13 @@
     </target>
     
     <target name="upload_files" depends="includeTemplate,apply_parameters" description="Deploy files to server at ${DEST_FOLDER}">
-            <copy todir="${basedir}/build/js">
-    <fileset dir="${basedir}/src/js"/>
+
     
   </copy>
         <delete dir="${basedir}/src/templates" /> 
-        
+        <delete dir="${basedir}/src/js" /> 
+                    <copy todir="${basedir}/build/js">
+    <fileset dir="${basedir}/src/js"/>
         <echo>suppression ${basedir}</echo>
         <mkdir dir="${basedir}/src/js" />
 	
