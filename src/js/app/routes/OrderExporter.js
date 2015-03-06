@@ -3,10 +3,10 @@
  * Available via the MIT or new BSD license.
  */
 
-App.OrderDetailsRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
+App.OrderExporterRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
     
  model: function(params) {
- console.log("details"+params.id);
+ console.log("exporter"+params.id);
    
 
 

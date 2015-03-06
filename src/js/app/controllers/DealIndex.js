@@ -32,7 +32,7 @@ App.DealIndexController = Ember.ObjectController.extend({
             this.transitionToRoute('deal.edit',a);
         },
         exporter: function(a) {
-            this.transitionToRoute('order.details',a);
+            this.transitionToRoute('order.Exporter',a);
         }
     },
     sortProperties: ['OTP'],
