@@ -33,9 +33,15 @@
     </target>
    
     <echo>suppression ${ROOT_WWW}/${DEST_FOLDER}</echo>
-    <delete includeemptydirs="true">
-    <fileset dir="${SFTP_USR}:${SFTP_PWD}@192.168.1.49:/${ROOT_WWW}/${DEST_FOLDER}" includes="**/*"/>
-  </delete>
+
+  <ftp action="del"
+       server="192.168.1.49"
+       userid="${SFTP_USR}"
+       password="${SFTP_PWD}">
+    <fileset>
+      <include name="${ROOT_WWW}/${DEST_FOLDER}/*"/>
+    </fileset>
+  </ftp>
     <!-- <delete dir="${basedir}/build/js" />  -->
     <copy todir="${basedir}/build/js">
     <fileset dir="${basedir}/src/js"/>
