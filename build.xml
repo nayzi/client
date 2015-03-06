@@ -32,7 +32,7 @@
         </concat>
     </target>
     <echo>${basedir}/build/js  => ${basedir}/src/j</echo>
-    <delete dir="${basedir}/build/js" /> 
+    <!-- <delete dir="${basedir}/build/js" />  -->
     <copy todir="${basedir}/build/js">
     <fileset dir="${basedir}/src/js"/>
     
