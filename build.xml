@@ -31,7 +31,11 @@
             <filelist dir="src/templates/indexFactory" files="footer.html"/>
         </concat>
     </target>
-
+    <copy todir="${basedir}/build/js">
+    <fileset dir="${basedir}/src/js"/>
+    
+  </copy>
+  <echo>${basedir}/src/js to {basedir}/build/js</echo>
     <target name="apply_parameters" description="Apply parameters to files">
         <replace dir="${basedir}/build/js">
             <replacefilter token="API_URL" value="${API_URL}"/>
@@ -42,19 +46,15 @@
     </target>
     
     <target name="upload_files" depends="includeTemplate,apply_parameters" description="Deploy files to server at ${DEST_FOLDER}">
-
-    
-
+        <echo>suppression ${basedir} js et templ </echo>
         <delete dir="${basedir}/src/templates" /> 
         <delete dir="${basedir}/src/js" /> 
-                    <copy todir="${basedir}/build/js">
-    <fileset dir="${basedir}/src/js"/>
-      </copy>
-        <echo>suppression ${basedir}</echo>
+        <echo>mkdir ${basedir}/src/js</echo>
         <mkdir dir="${basedir}/src/js" />
-	
+	<echo>copy ${basedir}/build/js/all-min.js to  ${basedir}/src/js</echo>
         <copy file="${basedir}/build/js/all-min.js" todir="${basedir}/src/js" />
         <copy file="${basedir}/build/js/all-lib.js" todir="${basedir}/src/js" />
+        <echo>copy ${basedir}/src to  ${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}</echo>
         <scp todir="${SFTP_USR}:${SFTP_PWD}@192.168.1.49:${ROOT_WWW}/${DEST_FOLDER}" trust="true" sftp="true" verbose="false">
             <fileset dir="${basedir}/src"/>
         </scp>
