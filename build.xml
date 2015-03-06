@@ -2,7 +2,7 @@
 
 <project name="PASC" default="build">
     <target name="build"
-            depends="prepare,upload_files"/>
+            depends="prepare,upload_files,upload_app_libs"/>
 
     <target name="clean" description="Cleanup build artifacts">
         <delete dir="${basedir}/build/html"/>
