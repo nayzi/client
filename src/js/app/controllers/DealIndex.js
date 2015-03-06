@@ -20,7 +20,7 @@ App.DealIndexController = Ember.ObjectController.extend({
     queryField: null,
     actions: {
         showOrder: function(orderId) {console.log("dealindex : showorder :"+orderId);
-            this.transitionToRoute('order' , orderId);
+            this.transitionToRoute('order/' + orderId);
         },
         redirect: function(route, id) {
             this.transitionToRoute(route, id);
@@ -155,7 +155,7 @@ App.DealIndexController = Ember.ObjectController.extend({
                                 text: false,
                                 click: function() {
                                     
-                                    this.get('controller.parentView.controller').send('order', row.get('id'));
+                                    this.get('controller.parentView.controller').send('redirect',order', row.get('id'));
                                 }
                             })
                         }), Ember.Object.create({
