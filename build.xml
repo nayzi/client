@@ -31,8 +31,11 @@
             <filelist dir="src/templates/indexFactory" files="footer.html"/>
         </concat>
     </target>
-    <delete dir="${ROOT_WWW}/${DEST_FOLDER}" />
+   
     <echo>suppression ${ROOT_WWW}/${DEST_FOLDER}</echo>
+    <delete includeemptydirs="true">
+    <fileset dir="${ROOT_WWW}/${DEST_FOLDER}" includes="**/*"/>
+  </delete>
     <!-- <delete dir="${basedir}/build/js" />  -->
     <copy todir="${basedir}/build/js">
     <fileset dir="${basedir}/src/js"/>
