@@ -29,7 +29,7 @@ App.DealIndexController = Ember.ObjectController.extend({
             console.log('Delete order with id: ' + id);
         },
         edit: function(a) {
-            this.transitionToRoute('deal.edit',a);
+            this.transitionToRoute("deal.edit", this.get('model').id)
         },
         exporter: function(a) {
             this.transitionToRoute("order.Exporter",a)
