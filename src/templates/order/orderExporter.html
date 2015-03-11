@@ -1,0 +1,34 @@
+<script type="text/x-handlebars" id="orderExporter">
+    {{#if session.isAuthenticated }}
+    {{#if  conveyors.length}}
+   <table BORDER="1" class="table">
+   <tr>
+   <th>Code article père</th>
+   <th>Num ligne nom</th>
+   <th>Code article composant</th>
+   <th>Quantité composant</th>
+   </tr>
+    {{#each c in conveyors}}
+    
+    
+    {{#each p in c.pieceOrders}}
+   
+   
+    <tr>
+    <td>I{{model.deal.number}}{{model.otp}}{{c.zone}}{{c.ref}}</td>
+    <td>{{increment _view.contentIndex}}</td>
+    <td>{{withh p.orderPiece.options  p.orderPiece.piece.erpRef c c.options model}}</td>
+    <td>{{p.nbPieces}}</td>   
+    </tr>
+ 
+    {{/each}}
+    
+  {{pmics c.pieceOrders c.options c.eg model.climat.abbreviation model.deal.number model.otp c.zone c.ref _view.contentIndex}}
+ 
+    {{/each}}
+    </table>
+    {{else }}<h2> Aucun convoyeur </h2>
+    {{/if}}
+
+    {{/if}}
+</script>

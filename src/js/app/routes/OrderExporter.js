@@ -6,7 +6,7 @@
 App.OrderExporterRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
     
  model: function(params) {
- console.log("exporter"+params.id);
+ console.log(params);
    
 
 
