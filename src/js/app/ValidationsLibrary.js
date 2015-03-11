@@ -129,9 +129,9 @@ ValidationsLibrary = {
         },
         zone: {
             errLvl: Ember.Validations.ErrorLevels.ERROR,
-            pattern: /^[0-9a-zA-Z_ -]{1,}$/,
+            pattern: /^[0-9]$/,
             allowBlank: true,
-            message: 'Doit contenir des caractères alphanumériques (_, -, &lt;espace&gt; sont inclus)'
+            message: 'Doit étre entre 0 et 9'
         },
         eg: [
             {

@@ -17,7 +17,9 @@
  * @uses Ember.Validations.Mixin.Validator
  */
 App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember.Validations.Mixin.Validator, {
-    actions: {
+    actions: {edit: function() {
+            alert('haw');
+        },
         cancel: function() {
             this.reset();
             this.transitionToRoute('deal.index');
