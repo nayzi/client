@@ -20,6 +20,7 @@ App.DealRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
         return this.store.find('deal', params.deal_id);
     },
     afterModel: function(model) {
+    	alert("actua");
         return model.get('orders');
     }
 });

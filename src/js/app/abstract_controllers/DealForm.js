@@ -102,7 +102,7 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
     save: function(newOrder, newOrderPieces, newOrderPieceOptions, newOrderOptions, newPieceOrders, newConveyors, newConveyorOptions) {
         return newOrder.save().then(function() {
           
-            return Ember.RSVP.Promise.all(newOrderPieces.map(function(orderPiece) {alert(orderPiece);
+            return Ember.RSVP.Promise.all(newOrderPieces.map(function(orderPiece) {
                 return orderPiece.save();
             }).concat(newOrderOptions.map(function(orderOption) {
                 return orderOption.save();
