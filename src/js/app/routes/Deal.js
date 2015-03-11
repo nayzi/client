@@ -23,6 +23,6 @@ App.DealRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
     	alert("actua");
         return model.get('orders');
     },
-    setupController: function(controller, hash) {
+    setupController: function(controller, model) {
   controller.set('model', model)}
 });
