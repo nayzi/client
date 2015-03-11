@@ -29,7 +29,7 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
             this.get('tableController').send('removeConveyor');
         },
         successfulSaving: function() {alert('successsss');
-            this.transitionToRoute('deal').refresh();
+            this.transitionToRoute('/deal/'+this.get('model'))
         },
         failSaving: function() {
             console.log('Saving failed');

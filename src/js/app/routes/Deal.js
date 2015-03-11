@@ -22,12 +22,5 @@ App.DealRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
     afterModel: function(model) {
     	alert("actua");
         return model.get('orders');
-    },
-    actions:{
-
-    	refresh:function() {
-      Ember.Logger.log('Route is now refreshing...');
-      this.refresh();
-    }
     }
 });
