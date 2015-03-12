@@ -47,7 +47,7 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
         switch (parseInt(this.get('conveyorType.id'), 10)) {
             case 3:
                 ctrl = PASC.BdcTable.Ext.RCDController;
-                console.log("DF case 3 "+parseInt(this.get('conveyorType.id'));
+                console.log("DF case 3 "+parseInt(this.get('conveyorType.id')));
 
                 break;
 
