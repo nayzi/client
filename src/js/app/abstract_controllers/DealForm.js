@@ -128,7 +128,8 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
     },
     initOrderOptions: function() {
         var orderOptions = [];
-       
+        console.log('orderoptions : ');
+        console.log(this.get('conveyorType.conveyorTypeOptions'));
         this.get('conveyorType.conveyorTypeOptions').forEach(function(item) {
             if (item.get('isOrderOption')) {
                 var existingOptionT = orderOptions.findBy('content.id', item.get('option.optionType.id'));
