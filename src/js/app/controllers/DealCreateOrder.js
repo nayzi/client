@@ -17,7 +17,9 @@
  * @uses Ember.Validations.Mixin.Validator
  */
 App.DealCreateOrderController = App.AbstractControllers.DealFormController.extend({
-    addOptionObersers: function(orderOptions) {
+    addOptionObersers: function(orderOptions) {console.log('DealCreateOrderController addOptionObersers');
+    console.log('orderOptions');console.log(orderOptions);
+    console.log('this');console.log(this);
         var self = this;
         
         this.get('options').then(function(options) {

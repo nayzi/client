@@ -20,21 +20,22 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
     actions: {edit: function() {
             alert('haw');
         },
-        cancel: function() {
+        cancel: function() {console.log("DF cancel");
             this.reset();
             this.transitionToRoute('deal.index');
         },
-        addConveyor: function() {
+        addConveyor: function() {console.log("DF addConveyoir");
             this.get('tableController').send('addConveyor');
         },
-        removeConveyor: function() {
+        removeConveyor: function() {console.log("remove conv");
             this.get('tableController').send('removeConveyor');
         },
-        successfulSaving: function() {
+        successfulSaving: function() {console.log("DF Succes");
         this.get('target.router').refresh();
             this.transitionToRoute('deal')
         },
-        failSaving: function() {
+        failSaving: function() {console.log("DF fail");
+
             console.log('Saving failed');
         }
     },
@@ -46,16 +47,19 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
         switch (parseInt(this.get('conveyorType.id'), 10)) {
             case 3:
                 ctrl = PASC.BdcTable.Ext.RCDController;
+                console.log("DF case 3 "+parseInt(this.get('conveyorType.id'));
+
                 break;
 
             default:
+            console.log("DF default");
                 ctrl = Ember.ObjectController.extend(PASC.BdcTable.ColControllerMixin);
                 break;
         }
 
         return ctrl;
     }),
-    table: function() {
+    table: function() {console.log("DF table");console.log(this);console.log(this.validate);
         Ember.run.next(this, this.validate, 'table');
 
         return this.get('tableController.isTableValid');
@@ -97,7 +101,7 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
                     return Ember.RSVP.Promise.resolve();
                 })]);
             }));
-        })]).then(function() {
+        })]).then(function() {console.log("DF SubmitForm");console.log("this");console.log(self);console.log("model");console.log(this.get(newOrder));
             return self.save(newOrder, newOrderPieces, newOrderPieceOptions, newOrderOptions, newPieceOrders, newConveyors, newConveyorOptions);
         });
 
@@ -124,7 +128,7 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
     },
     initOrderOptions: function() {
         var orderOptions = [];
-
+       
         this.get('conveyorType.conveyorTypeOptions').forEach(function(item) {
             if (item.get('isOrderOption')) {
                 var existingOptionT = orderOptions.findBy('content.id', item.get('option.optionType.id'));
@@ -150,14 +154,14 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
                 }
             }
         }, this);
-
+         console.log("DF : initOrderOptions");console.log(this.get('conveyorType.conveyorTypeOptions'));
         this.addOptionObersers(orderOptions);
     },
     addOptionObersers: Ember.K,
     optionObservers: Ember.computed(function() {
         return Ember.A();
     }),
-    removeOptionOberservers: function() {
+    removeOptionOberservers: function() {console.log("DF removeOptionOberservers");console.log(this.get('optionObservers'));
         this.get('optionObservers').forEach(function(observerName) {
             this.removeOberserver(observerName);
         }, this);

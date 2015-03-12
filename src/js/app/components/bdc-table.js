@@ -95,7 +95,7 @@
         store: Ember.computed.alias('parentController.store'),
         actions: {
             columnClicked: function() {
-                if (this.get('model')) {
+                if (this.get('model')) {console.log("bdc t: columnClicked");console.log("model");console.log(this.get('model'));console.log("parentC");console.log(this.get('parentController'));
                     this.get('parentController').send('selectColumn', this.get('model'));
                 } else {
                     this.get('parentController').send('selectColumn');
@@ -201,7 +201,7 @@
                 this.set('nameInController', this.get('name') + '_value');
             }
             this.set('value', this.get('parentView.controller.' + this.get('nameInController')));
-
+            console.log('bdc t init:');console.log("value = :"+this.get('parentView.controller.' + this.get('nameInController')))
             if (this.get('searchForLateAction')) {
                 this.set('afterValidation', function() {
                     this.get('parentView.controller').send('updateCategory', this.get('parentView.parentView.pieceType.id'));
