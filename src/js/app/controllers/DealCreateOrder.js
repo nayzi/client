@@ -66,7 +66,7 @@ App.DealCreateOrderController = App.AbstractControllers.DealFormController.exten
         });
 
         Ember.run.sync();
-        console.log('orderOptions');console.log(orderOptions);
+        console.log('orderOptions after run');console.log(orderOptions);
         this.set('convTOptOrder', orderOptions);
     },
     init: function() {
