@@ -154,7 +154,7 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
                 }
             }
         }, this);
-         console.log("DF : initOrderOptions");console.log(this.get('conveyorType.conveyorTypeOptions'));
+         console.log("DF : initOrderOptions");console.log(orderOptions);
         this.addOptionObersers(orderOptions);
     },
     addOptionObersers: Ember.K,
