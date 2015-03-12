@@ -273,6 +273,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
         console.log('nbComp');console.log(nbComp);
         this.set('categoryText_12', nbRange);
         console.log('conveyorOption_19.label');console.log(parseInt(this.get('conveyorOption_19.label'), 10));
+        console.log('conveyorOption_26.label');console.log(parseInt(this.get('conveyorOption_26.label'), 10));
         console.log('conveyorOption_2_value');console.log(parseInt(this.get('conveyorOption_2_value'), 10));
         
         
