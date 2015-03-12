@@ -59,7 +59,7 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
 
         return ctrl;
     }),
-    table: function() {console.log("DF table");console.log(this);console.log(this.validate);
+    table: function() {console.log("DF table");console.log(this);
         Ember.run.next(this, this.validate, 'table');
 
         return this.get('tableController.isTableValid');
