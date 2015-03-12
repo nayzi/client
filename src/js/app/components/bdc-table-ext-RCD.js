@@ -305,7 +305,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
 console.log("nbComp :"+nbComp+"nbStrap56"+nbStrap56+"nbStrap84"+nbStrap84+"nbStrap112"+nbStrap112);
         if (nbComp > 0) {
             this.get('parentController.orderPieces').then(function(orderPieces) {console.log('orderPieces');console.log(orderPieces);
-                return Ember.RSVP.Promise.all(orderPieces.map(function(orderPiece) {
+                return Ember.RSVP.Promise.all(orderPieces.map(function(orderPiece) {console.log('piece.pieceType.id');console.log(orderPiece.get('piece.pieceType.id'));
                     if (orderPiece.get('piece.pieceType.id') === 4 + '') {
                         if (!didSetRoller) {
                             self.generateOrderPiece.call(self, orderPiece, {nb: nbComp});
