@@ -52,7 +52,7 @@ App.DealCreateOrderController = App.AbstractControllers.DealFormController.exten
                 } else {
                     this.get('optionObservers').addObjects(optType.get('name'));
                 }
-
+                console.log("orderOptionRecord");console.log(orderOptionRecord);
                 return orderOptionRecord;
             }, self));
 
@@ -66,7 +66,7 @@ App.DealCreateOrderController = App.AbstractControllers.DealFormController.exten
         });
 
         Ember.run.sync();
-
+        console.log('orderOptions');console.log(orderOptions);
         this.set('convTOptOrder', orderOptions);
     },
     init: function() {
