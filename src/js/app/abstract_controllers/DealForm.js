@@ -101,7 +101,7 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
                     return Ember.RSVP.Promise.resolve();
                 })]);
             }));
-        })]).then(function() {console.log("DF SubmitForm");console.log("this");console.log(self);console.log("model");console.log(this.get(newOrder));
+        })]).then(function() {console.log("DF SubmitForm");console.log("this");console.log(self);console.log("model");console.log(newOrder);
             return self.save(newOrder, newOrderPieces, newOrderPieceOptions, newOrderOptions, newPieceOrders, newConveyors, newConveyorOptions);
         });
 
