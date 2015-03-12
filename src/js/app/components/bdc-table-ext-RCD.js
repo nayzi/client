@@ -277,12 +277,12 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
         
         
         
-        if (parseInt(this.get('conveyorOption_26.label'), 10) === 56) {
+        if (parseInt(this.get('conveyorOption_26.label'), 10) === 56) {console.log('egale a 56');
             if (nbComp > 0) {
                 --nbComp;
             }
             nbStrap56 = nbComp;
-        } else if (parseInt(this.get('conveyorOption_26.label'), 10) === 84) {
+        } else if (parseInt(this.get('conveyorOption_26.label'), 10) === 84) {console.log('egale a 84');
             nbStrap84 = nbComp;
             if (parseInt(this.get('conveyorOption_2_value'), 10) % 84 === 28) {
                 nbStrap84 = nbStrap84 - 2;
@@ -291,7 +291,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                 nbStrap84 = nbStrap84 - 1;
                 nbStrap56 = 1;
             }
-        } else if (parseInt(this.get('conveyorOption_26.label'), 10) === 112) {
+        } else if (parseInt(this.get('conveyorOption_26.label'), 10) === 112) {console.log('egale a 112');
             nbStrap112 = nbComp;
             if (parseInt(this.get('conveyorOption_2_value'), 10) % 84 === 56) {
                 nbStrap112 = nbStrap112 - 1;
@@ -301,7 +301,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                 nbStrap56 = 1;
             }
         }
-
+console.log("nbComp :"+nbComp+"nbStrap56"+nbStrap56+"nbStrap84"+nbStrap84+"nbStrap112"+nbStrap112);
         if (nbComp > 0) {
             this.get('parentController.orderPieces').then(function(orderPieces) {console.log('orderPieces');console.log(orderPieces);
                 return Ember.RSVP.Promise.all(orderPieces.map(function(orderPiece) {
