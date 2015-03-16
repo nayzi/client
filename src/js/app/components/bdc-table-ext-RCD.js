@@ -305,6 +305,8 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                     Q_Z_T += Math.floor(Z * fin[e].nb / 2)
                 }
             }
+            console.log('Q_Z_T');console.log(Q_Z_T);
+            console.log('Q_Y_T');console.log(Q_Y_T);
             var orderPieceX = self.get('parentController').initOrderPiece(0 + '');
             console.log("orderPiece 4");
             console.log(orderPieceX);
