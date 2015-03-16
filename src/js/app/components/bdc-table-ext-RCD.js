@@ -256,7 +256,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                 }
             }
         } else {
-            console.log("RCD else x,y l: " + x + "nb: " + nb);
+            
             stringers.pushObject({
                 l: x,
                 nb: 1
