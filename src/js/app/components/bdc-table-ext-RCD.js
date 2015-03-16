@@ -387,7 +387,7 @@ console.log("nbComp :"+nbComp+"nbStrap56"+nbStrap56+"nbStrap84"+nbStrap84+"nbStr
     var self = this;
 
         if (piece.l) {
-            orderPiece.get('options').then(function(orderPieceOptions) {
+            orderPiece.get('options').then(function(orderPieceOptions) {console.log('orderPieceOptions.findBy');console.log(orderPieceOptions.findBy('optionType.id', 1 + '').get('clientId'));
                 self.set('parentController.firstColController.orderPieceOption_' + orderPieceOptions.findBy('optionType.id', 1 + '').get('clientId') + '_value', piece.l);
             });
         } else if (piece.strapLength) {
