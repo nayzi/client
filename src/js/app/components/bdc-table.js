@@ -1588,7 +1588,7 @@
 
     PASC.BdcTable.ColumnView = Ember.CollectionView.extend(PASC.BdcTable.ColumnMixin, {
         createChildView: function(viewClass, attrs) {
-            if (attrs.content.kind === 'pieceType') {console.log('createchildview2');console.log(attrs);
+            if (attrs.content.kind === 'pieceType') {console.log('createchildview2');console.log(attrs.content.pieceType._data.label);
                 viewClass = PASC.BdcTable.RowGroupView;
             } else if (attrs.content.kind === 'conveyorTypeOption') {
                 viewClass = PASC.BdcTable.RowView.extend({
