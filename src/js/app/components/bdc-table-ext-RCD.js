@@ -566,11 +566,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                 self.set('parentController.firstColController.orderPieceOption_' + orderPieceOptions.findBy('optionType.id', 1 + '').get('clientId') + '_value', piece.l);
             });
         } 
-        if (piece.Ab) {
-           console.log("selfffffff");
-                console.log(self)
         
-        } 
         
       
         else if (piece.strapLength) {
@@ -587,5 +583,10 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
 
 
         this.set('pieceOrder_' + orderPiece.get('clientId') + '_value', piece.nb);
+        if (piece.Ab) {
+           console.log("selfffffff");
+                this.set('pieceOrder_' + orderPiece.get('clientId') + '_label', "Plages Y");
+        
+        } 
     }
 });
