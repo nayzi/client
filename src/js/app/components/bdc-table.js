@@ -1363,7 +1363,7 @@
         dialogText: Ember.computed(function() {
             return this.get('controller').getTextForDialogWarning(this.get('pieceTypeId'));
         }),
-        init: function() {
+        init: function() {console.log('RowTitleView init');
             Ember.bind(this, 'text', 'controller.categoryText_' + this.get('pieceTypeId'));
 
             return this._super();
@@ -1446,7 +1446,7 @@
         content: Ember.computed.alias('parentView.content.pieces'),
         createChildView: function(viewClass, attrs) {
             attrs.pieceType = this.get('parentView.content.pieceType');
-
+            console.log('conteneur');console.log(this.get('parentView.content.pieceType'));
             return this._super(viewClass, attrs);
         }
     });
@@ -1560,7 +1560,7 @@
 
     PASC.BdcTable.ColumnHeaderRowView = Ember.CollectionView.extend(PASC.BdcTable.ColumnMixin, {
         content: Ember.computed.alias('controller.parentController.headerRowData'),
-        createChildView: function(viewClass, attrs) {
+        createChildView: function(viewClass, attrs) {console.log('createchildview1');console.log(attrs);
             if (attrs.content.kind === 'pieceType') {
                 viewClass = PASC.BdcTable.RowGroupHeaderRowView;
             } else if (attrs.content.kind === 'conveyorTypeOption') {
@@ -1588,7 +1588,7 @@
 
     PASC.BdcTable.ColumnView = Ember.CollectionView.extend(PASC.BdcTable.ColumnMixin, {
         createChildView: function(viewClass, attrs) {
-            if (attrs.content.kind === 'pieceType') {
+            if (attrs.content.kind === 'pieceType') {console.log('createchildview2');console.log(attrs);
                 viewClass = PASC.BdcTable.RowGroupView;
             } else if (attrs.content.kind === 'conveyorTypeOption') {
                 viewClass = PASC.BdcTable.RowView.extend({
