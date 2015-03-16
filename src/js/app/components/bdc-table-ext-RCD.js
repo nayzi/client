@@ -406,17 +406,7 @@ console.log("nbComp :"+nbComp+"nbStrap56"+nbStrap56+"nbStrap84"+nbStrap84+"nbStr
                 });
             });
         }
-        else if (piece.Ab) {
-            orderPiece.get('piece').then(function(pieceRef) {
-                pieceRef.get('options').then(function(options) {
-                    var option = options.findBy('label', piece.Ab + '');
-
-                    orderPiece.get('options').then(function(orderPieceOptions) {
-                        self.set('parentController.firstColController.orderPieceOption_' + orderPieceOptions.findBy('optionType.id', 28 + '').get('clientId'), option);
-                    });
-                });
-            });
-        }
+  
 
         this.set('pieceOrder_' + orderPiece.get('clientId') + '_value', piece.nb);
     }
