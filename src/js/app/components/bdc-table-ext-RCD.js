@@ -309,8 +309,8 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                 Ab: 'Plages Z',
                 nb: Q_Z_T
             });
-            
-            Ember.run.next(self, self.generateOrderPiece, orderPieceX, {
+            var orderPieceY = self.get('parentController').initOrderPiece(0 + '');
+            Ember.run.next(self, self.generateOrderPiece, orderPieceY, {
                 Ab: 'Plages Y',
                 nb: Q_Y_T
             });
@@ -565,6 +565,11 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                 console.log(orderPieceOptions.findBy('optionType.id', 1 + '').get('clientId'));
                 self.set('parentController.firstColController.orderPieceOption_' + orderPieceOptions.findBy('optionType.id', 1 + '').get('clientId') + '_value', piece.l);
             });
+        } 
+        if (piece.AB) {
+           console.log("selfffffff");
+                console.log(self)
+        
         } 
         
       
