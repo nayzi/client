@@ -272,15 +272,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
         console.log(this);
         console.log('stringers');
         console.log(stringers);
-        stringers.forEach(function(stringer) {
-            console.log('RCD initializeStringers foreach:');
-            console.log(stringer);
-            stringer.nb = stringer.nb * 2;
-            console.log('stringer*=2');
-            var didSet = false;
-            //////
-
-            var L_RCD_total = 0;
+        var L_RCD_total = 0;
 
             var Q_Y_T = 0;
             var Q_Z_T = 0;
@@ -318,6 +310,15 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                 Ab: 'Plages Y',
                 nb: Q_Y_T
             });
+        stringers.forEach(function(stringer) {
+            console.log('RCD initializeStringers foreach:');
+            console.log(stringer);
+            stringer.nb = stringer.nb * 2;
+            console.log('stringer*=2');
+            var didSet = false;
+            //////
+
+            
             ////
             //////
             this.get('parentController.orderPieces').then(function(orderPieces) {
