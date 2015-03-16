@@ -218,7 +218,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
     initializeStringers: function(stringers) {
         var self = this;
         console.log('RCD initializeStringers this:');
-        console.log(this);
+        console.log(this);console.log('stringers');console.log(stringers);
         stringers.forEach(function(stringer) {console.log('RCD initializeStringers foreach:');console.log(stringer);
             stringer.nb = stringer.nb * 2;
             console.log('stringer*=2');
@@ -255,9 +255,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                     console.log('stringer');
                     console.log(stringer);
                     console.log('0000000000');
-                    var orderPieceX = self.get('parentController').initOrderPiece(0 + '');
-                        console.log("orderPiece 4");console.log(orderPieceX);
-                        Ember.run.next(self, self.generateOrderPiece, orderPieceX, {Ab: 'Plages Z' ,nb: 33});
+                    
                     Ember.run.next(self, self.generateOrderPiece, orderPiece, stringer);
                 });
             });
