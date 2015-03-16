@@ -353,8 +353,8 @@ console.log("nbComp :"+nbComp+"nbStrap56"+nbStrap56+"nbStrap84"+nbStrap84+"nbStr
                     return Ember.RSVP.Promise.resolve();
                 })).finally(function() {
                     var orderPieceX = self.get('parentController').initOrderPiece(0 + '');
-                        console.log('0000000000');console.log("orderPiece 4");console.log(orderPiece);
-                        Ember.run.next(self, self.generateOrderPiece, orderPiece, {Ab: 'Plages Z' ,nb: 33});
+                        console.log('0000000000');console.log("orderPiece 4");console.log(orderPieceX);
+                        Ember.run.next(self, self.generateOrderPiece, orderPieceX, {Ab: 'Plages Z' ,nb: 33});
                     if (!didSetRoller) {console.log('didSetRoller :'+didSetRoller);
                         var orderPiece = self.get('parentController').initOrderPiece(4 + '');
                         console.log('Ember.run.next');console.log("orderPiece 4");console.log(orderPiece);console.log('nb :'+nbComp);
