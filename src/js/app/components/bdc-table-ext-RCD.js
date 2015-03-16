@@ -276,7 +276,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
 
             var Q_Y_T = 0;
             var Q_Z_T = 0;
-            var PP=parseInt(this.get('conveyorOption_26.label'), 10);
+            var PP=parseInt(this.get('conveyorOption_26_value'), 10);
             var PR=parseInt(this.get('conveyorOption_19.label'), 10);
             console.log('PR');console.log(PR);
             console.log('PP');console.log(PP);
