@@ -796,7 +796,7 @@
                 this.set('orderPiece_' + newOrderPiece.get('id'), null);
             } else {
                 newOrderPiece = existingOrderPiece;
-                if(pieceTypeId==0+'') this.set('orderPiece_' + newOrderPiece.get('id'), this.get('store').findBy('Piece',30));
+                if(pieceTypeId==0+'') this.set('orderPiece_' + newOrderPiece.get('id'), 30);
                 this.set('orderPiece_' + newOrderPiece.get('id'), existingOrderPiece.get('piece'));
             }
 
