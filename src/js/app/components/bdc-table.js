@@ -1353,7 +1353,7 @@
      */
     PASC.BdcTable.RowTitleView = Ember.View.extend(PASC.BdcTable.CellMixin, {
         classNames: ['bdc-table-row-title'],
-        pieceTypeId: Ember.computed(function() {console.log('titre dun groupe de ligne')console.log(this.get('parentView.content.pieceType.id'));
+        pieceTypeId: Ember.computed(function() {console.log('titre dun groupe de ligne');console.log(this.get('parentView.content.pieceType.id'));
             return this.get('parentView.content.pieceType.id');
         }),
         needCalculateButton: Ember.computed(function() {
