@@ -537,7 +537,7 @@
             removeConveyor: function(conveyor) {
                 this.deleteConveyor(conveyor);
             },
-            addLine: function(pieceTypeId) {
+            addLine: function(pieceTypeId) {console.log('addline');console.log('pieceTypeId');
                 this.initOrderPiece(pieceTypeId);
             },
             removeLine: function(pieceTypeId) {
@@ -625,7 +625,7 @@
 
             orderPieceToRemove = rowData.get('pieces').filter(function(piece) {
                 return this.get('childControllers').every(function(ctrl) {
-                    return ctrl.get('pieceOrder_' + piece.get('clientId') + '_value') + '' === 0 + '';
+                    return (ctrl.get('pieceOrder_' + piece.get('clientId') + '_value') + '' === 0 + '')||ctrl.get('pieceOrder_' + piece.get('clientId') + '_value') + '' === '' + '' ;
                 });
             }, this);
 
@@ -1353,7 +1353,7 @@
      */
     PASC.BdcTable.RowTitleView = Ember.View.extend(PASC.BdcTable.CellMixin, {
         classNames: ['bdc-table-row-title'],
-        pieceTypeId: Ember.computed(function() {
+        pieceTypeId: Ember.computed(function() {console.log('titre dun groupe de ligne')console.log(this.get('parentView.content.pieceType.id'));
             return this.get('parentView.content.pieceType.id');
         }),
         needCalculateButton: Ember.computed(function() {
