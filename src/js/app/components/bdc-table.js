@@ -714,7 +714,7 @@
                 }
             }, optTypes);
 
-            optTypes.forEach(function(optType) {
+            optTypes.forEach(function(optType) {console.log('optType');console.log(optType);
                 var newOrderPieceOption = this.get('store').createRecord('orderPieceOption', {
                     orderPiece: orderPiece,
                     optionType: optType.get('optionType'),
