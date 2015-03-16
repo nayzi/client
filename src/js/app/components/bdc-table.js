@@ -872,6 +872,7 @@
             var orderPieces = [];
 
             this.get('conveyorType.pieceAvailabilities').forEach(function(pieceAvailability) {
+                console.log('pieceAvailabilities :');console.log(pieceAvailability);
                 if (!orderPieces.findBy('pieceType.id', pieceAvailability.get('piece.pieceType.id'))) {
                     orderPieces.pushObject(Ember.Object.create({
                         kind: 'pieceType',
@@ -887,7 +888,7 @@
             
             var self = this;
             this.get('orderPieces').then(function(orderPieces) {
-                orderPieces.forEach(function(orderPiece) {
+                orderPieces.forEach(function(orderPiece) {console.log('orderPieces :');console.log(piece.pieceType.label);
                     self.initOrderPiece(orderPiece.get('piece.pieceType.id'), orderPiece);
                 });
             });
