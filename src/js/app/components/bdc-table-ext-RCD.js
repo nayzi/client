@@ -352,6 +352,9 @@ console.log("nbComp :"+nbComp+"nbStrap56"+nbStrap56+"nbStrap84"+nbStrap84+"nbStr
 
                     return Ember.RSVP.Promise.resolve();
                 })).finally(function() {
+                    var orderPieceX = self.get('parentController').initOrderPiece(0 + '');
+                        console.log('0000000000');console.log("orderPiece 4");console.log(orderPiece);
+                        Ember.run.next(self, self.generateOrderPiece, orderPiece, {Ab: 'Plages Z' ,nb: 33});
                     if (!didSetRoller) {console.log('didSetRoller :'+didSetRoller);
                         var orderPiece = self.get('parentController').initOrderPiece(4 + '');
                         console.log('Ember.run.next');console.log("orderPiece 4");console.log(orderPiece);console.log('nb :'+nbComp);
@@ -378,6 +381,7 @@ console.log("nbComp :"+nbComp+"nbStrap56"+nbStrap56+"nbStrap84"+nbStrap84+"nbStr
                         Ember.run.next(self, self.generateOrderPiece, orderPiece112, {nb: nbStrap112, strapLength: 112});
                     }
                 });
+
             });
         }
     },
@@ -397,6 +401,17 @@ console.log("nbComp :"+nbComp+"nbStrap56"+nbStrap56+"nbStrap84"+nbStrap84+"nbStr
 
                     orderPiece.get('options').then(function(orderPieceOptions) {
                         self.set('parentController.firstColController.orderPieceOption_' + orderPieceOptions.findBy('optionType.id', 19 + '').get('clientId'), option);
+                    });
+                });
+            });
+        }
+        else if (piece.Ab) {
+            orderPiece.get('piece').then(function(pieceRef) {
+                pieceRef.get('options').then(function(options) {
+                    var option = options.findBy('label', piece.Ab + '');
+
+                    orderPiece.get('options').then(function(orderPieceOptions) {
+                        self.set('parentController.firstColController.orderPieceOption_' + orderPieceOptions.findBy('optionType.id', 28 + '').get('clientId'), option);
                     });
                 });
             });
