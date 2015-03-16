@@ -254,8 +254,9 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                     console.log(orderPiece);
                     console.log('stringer');
                     console.log(stringer);
+                    console.log('0000000000');
                     var orderPieceX = self.get('parentController').initOrderPiece(0 + '');
-                        console.log('0000000000');console.log("orderPiece 4");console.log(orderPieceX);
+                        console.log("orderPiece 4");console.log(orderPieceX);
                         Ember.run.next(self, self.generateOrderPiece, orderPieceX, {Ab: 'Plages Z' ,nb: 33});
                     Ember.run.next(self, self.generateOrderPiece, orderPiece, stringer);
                 });
