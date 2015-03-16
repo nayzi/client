@@ -855,7 +855,7 @@
 
             var optTypes = [];
 
-            this.get('conveyorType.conveyorTypeOptions').forEach(function(opt) {
+            this.get('conveyorType.conveyorTypeOptions').forEach(function(opt) {console.log('opt :');console.log(opt);
                 if (opt.get('isConveyorOption') && opt.get('option.optionType.id') !== 2 + '' && opt.get('option.optionType.id') !== 3 + '') {
                     if (!optTypes.findBy('id', opt.get('option.optionType.id'))) {
                         optTypes.pushObject(Ember.Object.create({
