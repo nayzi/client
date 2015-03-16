@@ -284,8 +284,8 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
 
             var Q_Y_T = 0;
             var Q_Z_T = 0;
-            var PP=parseInt(this.get('conveyorOption_26.label'), 10));
-            var PR=parseInt(this.get('conveyorOption_19.label'), 10));
+            var PP=parseInt(this.get('conveyorOption_26.label'), 10);
+            var PR=parseInt(this.get('conveyorOption_19.label'), 10);
             fin=stringers.toArray();
             for (var e = 0; e < fin.length; e++) {
                 L_RCD = fin[e].l * fin[e].nb / 2;
