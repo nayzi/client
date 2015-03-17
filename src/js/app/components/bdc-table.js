@@ -796,7 +796,7 @@
                 this.set('orderPiece_' + newOrderPiece.get('id'), null);
             } else {
                 newOrderPiece = existingOrderPiece;
-                ffffffffffff
+                
                 if(pieceTypeId==0+'') this.set('orderPiece_' + newOrderPiece.get('id'), 30);
                 this.set('orderPiece_' + newOrderPiece.get('id'), existingOrderPiece.get('piece'));
             }
@@ -846,7 +846,7 @@
             }
 
             this.set('headerData', headerData);
-        },getPiece:function(piece){return this.get('conveyorType.pieceAvailabilities').findBy('PieceId',piece).piece;},
+        },getPiece:function(piece){return this.get('conveyorType.pieceAvailabilities').findBy('Piece.id',piece).piece;},
         initHeaderRowData: function() {
             var headerRowData = [
                 Ember.Object.create({
