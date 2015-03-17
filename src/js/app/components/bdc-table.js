@@ -846,7 +846,7 @@
             }
 
             this.set('headerData', headerData);
-        },getPiece:function(piece){return this.get('conveyorType.pieceAvailabilities').findBy('Piece.id',piece).piece;},
+        },getPiece:function(piece){return this.get('conveyorType.pieceAvailabilities').findBy('Piece.id',piece);},
         initHeaderRowData: function() {
             var headerRowData = [
                 Ember.Object.create({
