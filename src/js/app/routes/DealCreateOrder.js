@@ -70,7 +70,7 @@ App.DealCreateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRout
             this.set('convTypeObject', convType);
             this.set('OptTypes', optTypes);
             this.set('PieceTypes', pieceTypes);
-            this.set('Pieces', pieces);
+            
 
             return Ember.RSVP.Promise.all([climats, optTypes, pieceTypes, convType.then(function(cType) {
                 return Ember.RSVP.Promise.all([cType.get('conveyorTypeOptions').then(function(data) {

@@ -585,8 +585,9 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
         this.set('pieceOrder_' + orderPiece.get('clientId') + '_value', piece.nb);
         if (piece.Ab) {
            console.log("selfffffff");
-                var z = c.get("parentController.parentController").get('model');
-                console.log(z);
+                var z = c.get("parentController");
+                 z.get('conveyorType.pieceAvailabilities')
+                console.log(z.get('conveyorType.pieceAvailabilities'));
 
         
         } 
