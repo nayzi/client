@@ -816,7 +816,8 @@
             rowData.get('pieces').pushObject(newOrderPiece);
 
             Ember.run.next(this, this.send, 'conveyorsDidChange');
-
+            console.log('initorderpiece:');
+            console.log(newOrderPiece);
             return newOrderPiece;
         },
         initHeaderData: function() {
