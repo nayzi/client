@@ -63,11 +63,13 @@ App.DealCreateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRout
             var optTypes = this.store.find('optionType');
             var convType = this.store.find('conveyorType', convTypeId);
             var pieceTypes = this.store.find('pieceType');
+            var pieces = this.store.find('pieces');
 
             this.set('ClimatValues', climats);
             this.set('convTypeObject', convType);
             this.set('OptTypes', optTypes);
             this.set('PieceTypes', pieceTypes);
+            this.set('Pieces', pieces);
 
             return Ember.RSVP.Promise.all([climats, optTypes, pieceTypes, convType.then(function(cType) {
                 return Ember.RSVP.Promise.all([cType.get('conveyorTypeOptions').then(function(data) {
@@ -130,6 +132,7 @@ App.DealCreateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRout
         model.set('deal', this.modelFor('deal'));
         controller.set('ClimatValues', this.get('ClimatValues'));
         controller.set('PieceTypes', this.get('PieceTypes'));
+        controller.set('Pieces', this.get('Pieces'));
         controller.set('OptionTypes', this.get('OptTypes'));
 
         controller.initLateProperties();
