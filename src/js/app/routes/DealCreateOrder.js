@@ -64,8 +64,7 @@ App.DealCreateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRout
             var optTypes = this.store.find('optionType');
             var convType = this.store.find('conveyorType', convTypeId);
             var pieceTypes = this.store.find('pieceType');
-            console.log(this.store);
-            var pieces = this.store.find('pieces');
+            
 
             this.set('ClimatValues', climats);
             this.set('convTypeObject', convType);
@@ -119,6 +118,7 @@ App.DealCreateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRout
         }
     },
     model: function(params, transition) {console.log('model DealCreateOrderRoute');
+    console.log(this.get('store'));
         return this.get('store').createRecord('order', {
             otp: params.otp
         });
