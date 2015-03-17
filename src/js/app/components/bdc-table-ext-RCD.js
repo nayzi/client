@@ -569,7 +569,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
         
         
       
-        else if (piece.strapLength) {
+        else {if (piece.strapLength) {
             orderPiece.get('piece').then(function(pieceRef) {
                 pieceRef.get('options').then(function(options) {
                     var option = options.findBy('label', piece.strapLength + '');
@@ -591,5 +591,5 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
 
         
         } 
-    }
+    }}
 });
