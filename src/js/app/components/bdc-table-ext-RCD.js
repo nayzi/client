@@ -590,7 +590,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
         console.log('piece :');
         console.log(orderPiece.get('piece'));
          console.log('piece apres:');
-        console.log(orderPiece.set('piece',this.get('parentController').getPiece(30).get('content')));
+        console.log(orderPiece.set('piece',this.get('parentController').getPiece(30)));
 
         
         } 
