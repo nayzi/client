@@ -19,6 +19,7 @@ App.DealCreateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRout
     actions: { 
         willTransition: function() {console.log('willTransition DealCreateOrderRoute');
             var record = this.controller.get('model');
+            console.log('willtransition');console.log(this.controller.get('model'));
             this.controller.removeOptionOberservers();
             
             return Ember.RSVP.Promise.all([record.get('conveyors').then(function(conveyors) {
@@ -63,6 +64,7 @@ App.DealCreateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRout
             var optTypes = this.store.find('optionType');
             var convType = this.store.find('conveyorType', convTypeId);
             var pieceTypes = this.store.find('pieceType');
+            console.log(this.store);
             var pieces = this.store.find('pieces');
 
             this.set('ClimatValues', climats);
