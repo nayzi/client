@@ -800,7 +800,7 @@
                 
                 this.set('orderPiece_' + newOrderPiece.get('id'), existingOrderPiece.get('piece'));
             }
-            console.log('cccccc');console.log(newOrderPiece.get('id'));
+            
             this.addObserver('orderPiece_' + newOrderPiece.get('id'), function(sender, key) {
                 newOrderPiece.set('piece', sender.get(key));
             });
