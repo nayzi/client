@@ -786,22 +786,20 @@
 
             return ret;
         },
-        initOrderPiece: function(pieceTypeId, existingOrderPiece) {
+        initOrderPiece: function(pieceTypeId, existingOrderPiece,piece) {
             var newOrderPiece;
-            if (arguments.length < 2) {
-                newOrderPiece = this.get('store').createRecord('orderPiece', {
-                    order: this.get('model')
-                });
-                console.log('1111111111111111');
-                console.log(newOrderPiece);
+                        if(arguments.length ==1){ newOrderPiece = this.get("store").createRecord("orderPiece", {order:this.get('model')
+                
+            })} 
+            else {if(arguments.length ==2) newOrderPiece = existingOrderPiece, this.set("orderPiece_" + newOrderPiece.get("id"), existingOrderPiece.get("piece"));
+            else if(arguments.length ==3) {newOrderPiece = this.get("store").createRecord("orderPiece", {order:this.get('model')
+                
+            });
+                this.set("orderPiece_" + newOrderPiece.get("clientId"), this.getPiece(piece))
 
-               // this.set('orderPiece_' + newOrderPiece.get('id'), null);
-            } else {
-                newOrderPiece = existingOrderPiece;
-                
-                
-                this.set('orderPiece_' + newOrderPiece.get('id'), existingOrderPiece.get('piece'));
             }
+
+    }
             
             this.addObserver('orderPiece_' + newOrderPiece.get('id'), function(sender, key) {
                 newOrderPiece.set('piece', sender.get(key));
