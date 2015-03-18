@@ -792,8 +792,10 @@
                 newOrderPiece = this.get('store').createRecord('orderPiece', {
                     order: this.get('model')
                 });
+                console.log('1111111111111111');
+                console.log(newOrderPiece);
 
-                this.set('orderPiece_' + newOrderPiece.get('id'), null);
+               // this.set('orderPiece_' + newOrderPiece.get('id'), null);
             } else {
                 newOrderPiece = existingOrderPiece;
                 
