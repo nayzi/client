@@ -302,14 +302,19 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
             }
             console.log('Q_Z_T');console.log(Q_Z_T);
             console.log('Q_Y_T');console.log(Q_Y_T);
+            console.log('iniiiiiiiiiiiiiiitordeeeeeeeeeeeeeeerPieccceeeeeeeeeeeeeeeeeeeeZZZZZZZZZZZ');
             var orderPieceX = self.get('parentController').initOrderPiece(0 + '');
-            console.log("orderPiece 4");
-            console.log(orderPieceX);
+            console.log('orderpieeceZ');
+            console.log(orderpieeceX);
+            
             Ember.run.next(self, self.generateOrderPiece, orderPieceX, {
                 Ab: 'Plages Z',
                 nb: Q_Z_T
             });
+            console.log('iniiiiiiiiiiiiiiitordeeeeeeeeeeeeeeerPieccceeeeeeeeeeeeeeeeeeeeYYYYYYYYY');
             var orderPieceY = self.get('parentController').initOrderPiece(0 + '');
+            console.log('orderpieeceZ');
+            console.log(orderpieeceY);
             Ember.run.next(self, self.generateOrderPiece, orderPieceY, {
                 Ab: 'Plages Y',
                 nb: Q_Y_T
@@ -561,8 +566,8 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
 
         if (piece.l) {
             orderPiece.get('options').then(function(orderPieceOptions) {
-                console.log('orderPieceOptions.findBy');
-                console.log(orderPieceOptions.findBy('optionType.id', 1 + '').get('clientId'));
+/*                console.log('orderPieceOptions.findBy');
+                console.log(orderPieceOptions.findBy('optionType.id', 1 + '').get('clientId'));*/
                 self.set('parentController.firstColController.orderPieceOption_' + orderPieceOptions.findBy('optionType.id', 1 + '').get('clientId') + '_value', piece.l);
             });
         } 
@@ -584,10 +589,10 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
 
         
         else if (piece.Ab) {
-           console.log("selfffffff");
+           console.log("pieeeeeeeeeeeeeeeeeceAb");
            console.log('orderPiece :');
         console.log(orderPiece);
-        this.set('pieceOrder_' + orderPiece.get('clientId') + '_label', 0);
+        
         
 
         
