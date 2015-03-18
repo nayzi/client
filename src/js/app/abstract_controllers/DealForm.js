@@ -80,7 +80,7 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
             newOrderOptions = options.get('content');
 
             return Ember.RSVP.Promise.resolve();
-        }), newOrder.get('orderPieces').then(function(orderPieces) {console.log('submitform  orderpieces');console.log(orderpieces);
+        }), newOrder.get('orderPieces').then(function(orderPieces) {console.log('submitform  orderpieces');console.log(orderPieces);
             newOrderPieces = orderPieces.get('content');
 
             return Ember.RSVP.Promise.all(orderPieces.map(function(orderPiece) {
