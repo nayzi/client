@@ -847,7 +847,11 @@
             }
 
             this.set('headerData', headerData);
-        },getPiece:function(piece){return this.get('conveyorType.pieceAvailabilities').findBy('Piece.id',piece);},
+        },getPiece:function(pieceId){
+var p = this.get("conveyorType.pieceAvailabilities").get('content').toArray();
+            var piece = p.findBy('piece.id',pieceId+'')._data.piece;
+            console.log(piece);
+            return piece},
         initHeaderRowData: function() {
             var headerRowData = [
                 Ember.Object.create({
