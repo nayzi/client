@@ -804,7 +804,8 @@
             this.addObserver('orderPiece_' + newOrderPiece.get('id'), function(sender, key) {
                 newOrderPiece.set('piece', sender.get(key));
             });
-
+            console.log('nouveaux orderpiece cree');
+            console.log(newOrderPiece);
             this.get('orderPieces').then(function(orderPieces) {
                 orderPieces.pushObject(newOrderPiece);
             });
