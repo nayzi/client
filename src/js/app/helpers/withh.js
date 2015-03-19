@@ -31,7 +31,7 @@ var RALU=(cnv._data.ralUnderConveyor=="RAL")?m._data.deal._data.ralUnderConveyor
                 if(o[i]._data.optionType._data.id==26+'') {console.log('26 trouveee');b =b.replace("${xxxx}",o[i]._data.optionValue);}
                 if(o[i]._data.optionType._data.id==19+'') b =b.replace("${yyy}",o[i]._data.optionValue);
                 if(o[i]._data.optionType._data.id==26+'') b =b.replace("${xxxx}",o[i]._data.optionValue);
-                if(o[i]._data.optionType._data.id==7+'') b =b.replace("${vv-o}",o[i]._data.optionValue+((e._data.climat._data.abbreviation==null)?'':'-'+e._data.climat._data.abbreviation));
+                if(o[i]._data.optionType._data.id==7+'') b =b.replace("${vv-o}",o[i]._data.optionValue+((m._data.climat._data.abbreviation==null)?'':'-'+m._data.climat._data.abbreviation));
 
     }
   
