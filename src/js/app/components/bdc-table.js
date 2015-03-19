@@ -447,6 +447,7 @@
 
                 this.addObserver('conveyorOption_' + optionTypeId, function(sender, key) {
                     console.log('trigger2 declenche :'+optionTypeId);
+                    if(optionTypeId+''==19+''){this.set('conveyorOption_' + optionTypeId+'.label',key);}
                     newConvOption.set('option', sender.get(key));
                 });
 
