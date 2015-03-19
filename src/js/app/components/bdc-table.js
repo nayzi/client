@@ -406,32 +406,37 @@
 
             return newPieceOrder;
         },
-        getConveyorOption: function(optionTypeId) {
+        getConveyorOption: function(optionTypeId) {console.log('getConveyorOption appeleeee');
             var newConvOption = this.get('options').findBy('optionType.id', optionTypeId + '');
-
+            console.log('getConveyorOption newConvOption');
+            console.log(newConvOption);
             var opts = this.get('parentController.conveyorType.conveyorTypeOptions').map(function(cOpt) {
                 if (cOpt.get('isConveyorOption') && cOpt.get('option.optionType.id') + '' === optionTypeId + '') {
                     return cOpt.get('option.content');
                 }
             }).compact();
-
+            console.log('getConveyorOption opts');
+            console.log(opts);
             var defaultVal = opts.findBy('isDefault', true);
-
+            console.log('getConveyorOption defaultVal');
+            console.log(defaultVal);
             var ret = Ember.Object.create({
                 name: 'conveyorOption_' + optionTypeId,
                 options: opts.length > 0 && opts.objectAt(0).get('isCustomizable') ? opts.objectAt(0) : opts,
                 isArray: !(opts.length > 0 && opts.objectAt(0).get('isCustomizable')),
                 isOptType26: optionTypeId === 26 + ''
             });
-
+            console.log('getConveyorOption ret');
+            console.log(ret);
             if (Ember.isEmpty(newConvOption)) {
-
+                console.log('getConveyorOption isEmpty');
+            
                 newConvOption = this.get('store').createRecord('conveyorOption', {
                     optionType: this.get('parentController.parentController.OptionTypes').findBy('id', optionTypeId + ''),
                     option: defaultVal ? defaultVal : null,
                     optionValue: defaultVal ? defaultVal.get('value') : ''
                 });
-
+                console.log(newConvOption);
                 this.get('options').then(function(options) {
                     options.addObject(newConvOption);
                 });
@@ -463,7 +468,8 @@
                     }
                 }
             }
-
+            console.log('return ret');
+            console.log(ret);
             return ret;
         }
     });
