@@ -446,6 +446,7 @@
                 this.set('conveyorOption_' + optionTypeId, defaultVal);
 
                 this.addObserver('conveyorOption_' + optionTypeId, function(sender, key) {
+                    console.log('trigger2 declenche');
                     newConvOption.set('option', sender.get(key));
                 });
 
@@ -459,7 +460,7 @@
                     this.set('conveyorOption_' + optionTypeId + '_value', optionTypeId === 26 + '' ? parseInt(this.get('conveyorOption_19.label'), 10) * 2 : defaultVal.get('value'));
                     this.addValidation('conveyorOption_' + optionTypeId + '_value', ValidationsLibrary.get(this.get('parentController.conveyorType.id'), 'conveyorOption_' + optionTypeId));
 
-                    this.addObserver('conveyorOption_' + optionTypeId + '_value', function(sender, key) {
+                    this.addObserver('conveyorOption_' + optionTypeId + '_value', function(sender, key) {console.log('trigger1 declenche');
                         newConvOption.set('optionValue', sender.get(key));
                     });
 
