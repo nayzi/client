@@ -792,7 +792,7 @@
                 
             })} 
             else {if(arguments.length ==2) newOrderPiece = existingOrderPiece, this.set("orderPiece_" + newOrderPiece.get("id"), existingOrderPiece.get("piece"));
-            else if(arguments.length ==3) {newOrderPiece = this.get("store").createRecord("orderPiece", {order:this.get('model')
+            else if(arguments.length ==3) {newOrderPiece = this.get("store").createRecord("orderPiece", {order:this.get('model'),piece:this.getPiece(piece)
                 
             });
                 this.set("orderPiece_" + newOrderPiece.get("clientId"), this.getPiece(piece))
