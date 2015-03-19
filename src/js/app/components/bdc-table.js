@@ -434,7 +434,7 @@
                 newConvOption = this.get('store').createRecord('conveyorOption', {
                     optionType: this.get('parentController.parentController.OptionTypes').findBy('id', optionTypeId + ''),
                     option: defaultVal ? defaultVal : null,
-                    optionValue: defaultVal ? defaultVal.get('value') : ''
+                    optionValue: (optionTypeId===26)?  (parseInt(this.get('conveyorOption_19.label'),10)) :(defaultVal ? defaultVal.get('value') : '')
                 });
                 console.log(newConvOption);
                 this.get('options').then(function(options) {
