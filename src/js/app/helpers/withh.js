@@ -20,7 +20,24 @@ var RALU=(cnv._data.ralUnderConveyor=="RAL")?m._data.deal._data.ralUnderConveyor
     b = b.replace("${RAL}",RALU);
   
     var o =opt.toArray();
-    
+    if((b=="${Z}-${xxxx}-${yyy}-${zzz}-${vv-o}") || (b=="${Y}-${xxxx}-${yyy}-${zzz}-${vv-o}")){
+        console.log(b);
+        b = b.replace("${Z}",'Z');
+        console.log(b);
+        b= b.replace("${Y}","Y");
+        b =b.replace("${zzz}",cnv._data.eg);
+        for(i=0;i<o.length;i++){console.log('dddddddd');
+            console.log(o[i]._data.optionType._data.id);
+                if(o[i]._data.optionType._data.id==26+'') {console.log('26 trouveee');b =b.replace("${xxxx}",o[i]._data.optionValue);}
+                if(o[i]._data.optionType._data.id==19+'') b =b.replace("${yyy}",o[i]._data.optionValue);
+                if(o[i]._data.optionType._data.id==26+'') b =b.replace("${xxxx}",o[i]._data.optionValue);
+                if(o[i]._data.optionType._data.id==7+'') b =b.replace("${vv-o}",o[i]._data.optionValue+((e._data.climat._data.abbreviation==null)?'':'-'+e._data.climat._data.abbreviation));
+
+    }
+  
+    }
+
+ 
     for(var t=0;t<o.length;t++){
        /* console.log(o[t]._data.optionValue+"remplace :"+o[t]._data.optionType._data.replace);*/
     
