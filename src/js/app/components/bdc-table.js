@@ -486,7 +486,7 @@
             }
             console.log('return ret');
             console.log(ret);
-            this.get('options').map(function(o){if(o.get('optionType.id')==26+''){console.log(this.get('conveyorOption_26'));console.log(o);console.log('haaaahya1');console.log(o.get('optionValue'));if(o.get('optionValue')==null){console.log('haaaahya2');o.set('optionValue',parseInt(c.get(d)._data.label,10)*2)}}});
+            this.get('options').map(function(o){if(o.get('optionType.id')==26+''){console.log(this.get('conveyorOption_26'));console.log(o);console.log('haaaahya1');console.log(o.get('optionValue'));if(o.get('optionValue')==null){console.log('haaaahya2');o.set('optionValue',parseInt(sender.get(key)._data.label,10)*2)}}});
             
             return ret;
         }
