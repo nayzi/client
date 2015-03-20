@@ -454,7 +454,7 @@
 
                 this.addObserver('conveyorOption_' + optionTypeId, function(sender, key) {
                     console.log('trigger2 declenche :'+optionTypeId);
-                    if(optionTypeId+''==19+''){this.set('conveyorOption_' + optionTypeId+'.label',key);}
+                    
                     newConvOption.set('option', sender.get(key));
                     this.get('options').map(function(p){if(p.get('optionType.id')+''==19+'') p.set('optionValue',sender.get(key)._data.label)
                     if(p.get('optionType.id')+''==26+'') {p.set('optionValue',parseInt(sender.get(key)._data.label,10)*2);
