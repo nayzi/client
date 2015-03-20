@@ -415,11 +415,18 @@
                     return cOpt.get('option.content');
                 }
             }).compact();
+            var c26 = this.get("parentController.conveyorType.conveyorTypeOptions").map(function(b) {
+                if (b.get("isConveyorOption") &&
+                    b.get("option.optionType.id") + "" == 19 + "") return b.get("option.content")
+            }).compact();
+            var d26 = c26.findBy("isDefault", !0);
             console.log('getConveyorOption opts');
             console.log(opts);
             var defaultVal = opts.findBy('isDefault', true);
             console.log('getConveyorOption defaultVal');
             console.log(defaultVal);
+            var defaultValue=defaultVal._data.value;
+             if (optionTypeId+''==26+''){console.log('vvvvvvvv');defaultValue=parseInt(d26._data.value,10)*2;}
             var ret = Ember.Object.create({
                 name: 'conveyorOption_' + optionTypeId,
                 options: opts.length > 0 && opts.objectAt(0).get('isCustomizable') ? opts.objectAt(0) : opts,
@@ -434,7 +441,7 @@
                 newConvOption = this.get('store').createRecord('conveyorOption', {
                     optionType: this.get('parentController.parentController.OptionTypes').findBy('id', optionTypeId + ''),
                     option: defaultVal ? defaultVal : null,
-                    optionValue: (optionTypeId===26)?  (parseInt(this.get('conveyorOption_19.label'),10)) :(defaultVal ? defaultVal.get('value') : '')
+                    optionValue: defaultValue
                 });
                 console.log(newConvOption);
                 this.get('options').then(function(options) {
@@ -449,6 +456,13 @@
                     console.log('trigger2 declenche :'+optionTypeId);
                     if(optionTypeId+''==19+''){this.set('conveyorOption_' + optionTypeId+'.label',key);}
                     newConvOption.set('option', sender.get(key));
+                    this.get('options').map(function(p){if(p.get('optionType.id')+''==19+'') p.set('optionValue',sender.get(key)._data.label)
+                    if(p.get('optionType.id')+''==26+'') {p.set('optionValue',parseInt(sender.get(key)._data.label,10)*2);
+                    console.log('ooooooooo');
+                    console.log(parseInt(sender.get(key)._data.label,10));
+                        
+                }
+            });
                 });
 
                 if (ret.get('isArray')) {
@@ -472,6 +486,8 @@
             }
             console.log('return ret');
             console.log(ret);
+            this.get('options').map(function(o){if(o.get('optionType.id')==26+''){console.log(this.get('conveyorOption_26'));console.log(o);console.log('haaaahya1');console.log(o.get('optionValue'));if(o.get('optionValue')==null){console.log('haaaahya2');o.set('optionValue',parseInt(c.get(d)._data.label,10)*2)}}});
+            
             return ret;
         }
     });
