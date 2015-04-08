@@ -601,7 +601,8 @@ Em.RSVP.Promise.all(z).then(function(results){console.log('promiseall'+!results.
              else if(this.get("conveyorOption_27.value")!=undefined&&undefined!=this.get("conveyorOption_11.value")){console.log(this.get("conveyorOption_27.value")+'    '+this.get("conveyorOption_11.value"));console.log("convelse");this.createOrderPiece(13,24,{nb:0});}
       
 
-    },    generateOrderPiece: function(orderPiece, piece) {
+    },//jsjsjs
+       generateOrderPiece: function(orderPiece, piece) {
         console.log('RCD generateOrderPiece');
         console.log('orderPiece :');
         console.log(orderPiece);
