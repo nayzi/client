@@ -26,7 +26,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                 case 12:
                     this.checkControlBoard(1)
             }
-        }
+        },
         calculate: function(pieceTypeId) {
 
             console.log("RCD calculate");
