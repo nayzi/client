@@ -11,9 +11,9 @@ App.DealsIndexController = Ember.ArrayController.extend({
         },
         delete: function(id) {
             this.get('store').find("deal", id).then(function(a) {
-                post.deleteRecord();
-                post.get('isDeleted'); // => true
-                post.save(); // => DELETE to /posts/1
+                a.deleteRecord();
+                a.get('isDeleted'); // => true
+                a.save(); // => DELETE to /posts/1
             });
             console.log('Delete deal with id: ' + id);
         },
