@@ -427,7 +427,7 @@
                 isArray: !(0 < opts.length && opts.objectAt(0).get("isCustomizable")),
                 isOptType26: "26" === optionTypeId
             });
-            console.log("getConveyorOption ret");e
+            console.log("getConveyorOption ret");
             console.log(opts);
             Ember.isEmpty(newConvOption) && (console.log("getConveyorOption isEmpty"), newConvOption = this.get("store").createRecord("conveyorOption", {
                     optionType: this.get("parentController.parentController.OptionTypes").findBy("id", optionTypeId + ""),
