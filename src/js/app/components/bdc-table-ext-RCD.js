@@ -634,14 +634,6 @@ Em.RSVP.Promise.all(z).then(function(results){console.log('promiseall'+!results.
 
 
         
-        else if (piece.Ab) {
-           console.log("pieeeeeeeeeeeeeeeeeceAb");
-           console.log('orderPiece :');
-        console.log(orderPiece);
-        
-        
 
-        
-        } 
-    }this.set('pieceOrder_' + orderPiece.get('clientId') + '_value', piece.nb);}
+    } this.set('pieceOrder_' + orderPiece.get('clientId') + '_value', piece.nb);}
 });
