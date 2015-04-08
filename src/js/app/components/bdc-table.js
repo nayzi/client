@@ -836,7 +836,7 @@
                 if (d.get('piece') != null) a.pushObject(d)
             });
             this.get("headerRowData").find(function(b) {
-                return "pieceType" === b.get("kind") && b.get("pieceType.id") === a
+                return "pieceType" === b.get("kind") && b.get("pieceType.id") === pieceTypeId
             }).get("pieces").pushObject(d);
             Ember.run.next(this, this.send, "conveyorsDidChange");
             console.log("orderpiece cree " + pieceTypeId);
