@@ -1,0 +1,27 @@
+        getPieceOrder: function(a, b) {
+            var orderPieceId = a.get("clientId"),
+                newPieceOrder = this.get("pieceOrders").findBy("orderPiece.clientId", orderPieceId + "");
+            console.log('d avant ');
+            console.log(d);
+            console.log('conveyor :');
+            console.log(this.get("model"));
+            console.log('orderPiece :');
+            console.log(a);c
+            if(d==undefined){
+            d = this.get("store").createRecord("pieceOrder", {
+                conveyor: this.get("model"),
+                orderPiece: a,
+                isComputed:a.get('isComputed')
+            });
+             console.log('d apres ');
+            console.log(d);
+             this.get("pieceOrders").then(function(a) {console.log('pieceordercree');console.log(d);
+                a.addObject(d)
+            });}
+            void 0 === this.get("pieceOrder_" + orderPieceId + "_value") && (this.addValidation("pieceOrder_" + orderPieceId + "_value", ValidationsLibrary.get(this.get("parentController.conveyorType.id"), "pieceType_" + b)), this.set("pieceOrder_" + orderPieceId + "_value",
+                d.get("nbPieces")), this.addObserver("pieceOrder_" + orderPieceId + "_value", function(a, b) {
+                console.log('observer5');
+                d.set("nbPieces", a.get(b))
+            }), this.get("parentController.childObservers").contains("pieceOrder_" + orderPieceId + "_value") || this.get("parentController.childObservers").pushObject("pieceOrder_" + orderPieceId + "_value"));
+            return d
+        },

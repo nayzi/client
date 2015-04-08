@@ -45,5 +45,29 @@ Available via the MIT or new BSD license.
         <script src="js/libs/moment-with-locales.js" ></script>
         <script src="js/libs/patch/jquery-ui-ember.js"></script>
         <script src="js/all-min.js"></script>
+        <script>
+
+   $('*').not("#aaa").click(function(event){
+
+var j = event.target.innerText;
+console.log('jiiiiijooooo');
+
+if((j=="azer")||(j=="bvcx")||(j=="OTP")||(j=="Type")||(j=="Plan")||(j=="Dessinateur")||(j=="Derni\u00e8re \u00e9dition le")||(j=="Edit\u00e9 par")||(j=="Verrouill\u00e9 par")) {$("#hhhhh").click();}
+   
+    
+});
+     $('*').not("#aaa").dblclick(function(event){
+console.log('coco');
+console.log(event.originalEvent.path[2].childNodes.length);
+
+if ( event.originalEvent.path[2].childNodes.length==7) event.originalEvent.path[2].childNodes[6].childNodes[1].childNodes[33].click(); 
+else if(event.originalEvent.path[2].childNodes.length==6) event.originalEvent.path[2].childNodes[5].childNodes[1].childNodes[6].click(); 
+   
+    
+});
+
+   
+
+  </script>
     </head>
     <body id="app">

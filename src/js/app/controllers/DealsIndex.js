@@ -10,7 +10,7 @@ App.DealsIndexController = Ember.ArrayController.extend({
             this.transitionToRoute(route, id);
         },
         delete: function(id) {
-            store.find('deal', id).then(function(post) {
+            this.get('store').find("deal", id).then(function(a) {
                 post.deleteRecord();
                 post.get('isDeleted'); // => true
                 post.save(); // => DELETE to /posts/1

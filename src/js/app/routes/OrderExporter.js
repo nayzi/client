@@ -57,7 +57,7 @@ App.OrderExporterRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteM
             return a
         })
     },
-    afterModel: function(a) {
+   afterModel: function(a) {
         console.log("afterModel OrderRoute");
         return Ember.RSVP.Promise.all([a.get("conveyorType"), a.get("options"), a.get("orderPieces").then(function(a) {
             return Ember.RSVP.Promise.all(a.map(function(a) {
@@ -67,15 +67,17 @@ App.OrderExporterRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteM
             return Ember.RSVP.Promise.all(a.map(function(a) {
                 return Ember.RSVP.Promise.all([a.get("pieceOrders").then(function(a) {
                     a.map(function(a) {
-                        return Ember.RSVP.Promise.all([a.get("orderPiece").then(function(a) {
-                            return Ember.RSVP.Promise.all([a.get("piece"),
-                                a.get("options").then(function(a) {
-                                    a.map(function(a) {
-                                        return Ember.RSVP.Promise.all([a.get("option"), a.get("optionType")])
+                        if (a.get("orderPiece") != null) {
+                            return Ember.RSVP.Promise.all([a.get("orderPiece").then(function(a) {
+                                return Ember.RSVP.Promise.all([a.get("piece"),
+                                    a.get("options").then(function(a) {
+                                        a.map(function(a) {
+                                            return Ember.RSVP.Promise.all([a.get("option"), a.get("optionType")])
+                                        })
                                     })
-                                })
-                            ])
-                        })])
+                                ])
+                            })])
+                        }
                     })
                 }), a.get("options")])
             }))

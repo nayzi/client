@@ -72,41 +72,31 @@ App.OrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
 
 
     },
-    afterModel: function(a) {console.log('afterModel OrderRoute');
-               return Ember.RSVP.Promise.all([a.get("conveyorType"), a.get("options"), a.get("orderPieces").then(function(b) {
-            return Ember.RSVP.Promise.all(b.map(function(d) {return Ember.RSVP.Promise.all([d.get("options"), d.get("piece")]);}))
-        }), a.get("conveyors").then(function(c) {
-            return Ember.RSVP.Promise.all(c.map(function(d) {
-                return Ember.RSVP.Promise.all([
-
-                    d.get("pieceOrders").then(function(p){
-                        p.map(function(p){return Ember.RSVP.Promise.all([
-
-
-
-                            p.get("orderPiece").then(function(o){
-
-                                return Ember.RSVP.Promise.all([o.get("piece"),o.get("options").then(function(op){
-
-                                    op.map(function(option){
-
-                                        return Ember.RSVP.Promise.all([option.get("option"),option.get("optionType")])
+ afterModel: function(a) {
+        console.log("afterModel OrderRoute");
+        return Ember.RSVP.Promise.all([a.get("conveyorType"), a.get("options"), a.get("orderPieces").then(function(a) {
+            return Ember.RSVP.Promise.all(a.map(function(a) {
+                return Ember.RSVP.Promise.all([a.get("options"), a.get("piece")])
+            }))
+        }), a.get("conveyors").then(function(a) {
+            return Ember.RSVP.Promise.all(a.map(function(a) {
+                return Ember.RSVP.Promise.all([a.get("pieceOrders").then(function(a) {
+                    a.map(function(a) {
+                        console.log(a);
+                        if (a.get("orderPiece") != null)
+                            return Ember.RSVP.Promise.all([a.get("orderPiece").then(function(a) {
+                                return Ember.RSVP.Promise.all([a.get("piece"),
+                                    a.get("options").then(function(a) {
+                                        a.map(function(a) {
+                                            return Ember.RSVP.Promise.all([a.get("option"), a.get("optionType")])
+                                        })
                                     })
-                                })
-
-
-                                    ])
-                            })
-
-
-
-                            ])})
-                                                    })
-
-                    ,
-                    d.get("options")]);
-                       }));
-                   })]);
+                                ])
+                            })])
+                    })
+                }), a.get("options")])
+            }))
+        })])
     }
     
 });

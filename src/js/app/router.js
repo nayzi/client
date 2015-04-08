@@ -17,6 +17,7 @@ App.Router.map(function() {
             this.route('edit');
             this.resource('order', {path: 'order/:order_id'}, function() {
                 this.route('Exporter');
+                this.route("Delete");
                 this.route('edit');
                 this.route('print');
             });

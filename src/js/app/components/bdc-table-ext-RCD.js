@@ -17,25 +17,35 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                 case 1:
                     this.checkStringers();
                     break;
-
                 case 5:
-                    this.checkControlBoard();
+                    this.checkControlBoard(0);
                     break;
-
+                case 4:
+                    this.checkControlBoard(1);
+                    break;
                 case 12:
-                    this.checkControlBoard();
-                    break;
+                    this.checkControlBoard(1)
             }
-        },
+        }
         calculate: function(pieceTypeId) {
+
             console.log("RCD calculate");
+            console.log(this.get('store'));
             console.log("pieceTypeId");
             console.log(parseInt(pieceTypeId, 10));
-            var self = this;
-            this.validate('conveyorOption_2_value').then(function() {
-                self.calculateDecomposition();
+            var b = this;
+            this.validate("conveyorOption_2_value").then(function() {
+                b.calculateDecomposition();
+                
             });
-        }
+            b.get('parentController').cleanUpOrderPiece('1');
+        },
+        initialiserPieceOrder: function(typeId){
+        var id = parseInt(this.get('parentController').getPieceList(typeId)[0].get('id'));
+        console.log('identifiant :'+id);
+        this.createOrderPiece(typeId,id,{nb:0});
+        this.createOrderPiece(typeId,id+1,{nb:0});
+    }
     },
     conveyorOption_19: Ember.computed(function() {
         console.log("RCD conveyorOption_19");
@@ -56,6 +66,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
         console.log("RCD ConveyorOption_26_valueValues");
         console.log("data");
         console.log(data);
+        this.set("conveyorOption_26_value",data[0].id)
         return data;
     }.property('conveyorOption_19'),
     hasAlreadyCalculated: function(pieceTypeId) {
@@ -108,68 +119,100 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
         console.log("self");
         console.log(self);
     },
-    checkControlBoard: function() {
-        var nbRange = Math.floor(parseInt(this.get('conveyorOption_2_value'), 10) / parseInt(this.get('conveyorOption_26_value'), 10));
-        var nbComp = 0;
-        var nbControlBoard = 0;
-        var self = this;
+    checkControlBoard: function(bool) {
+        var a = Math.floor(parseInt(this.get("conveyorOption_2_value"), 10) / parseInt(this.get("conveyorOption_26_value"), 10)),
+            b = 0,
+            c = 0,
+            d = this;
 
-        this.get('parentController.orderPieces').then(function(orderPieces) {
-            Ember.RSVP.Promise.all(orderPieces.map(function(orderPiece) {
-                if (orderPiece.get('piece.pieceType.id') + '' === 5 + '') {
-                    nbComp = nbComp + parseInt(self.get('pieceOrder_' + orderPiece.get('clientId') + '_value'), 10);
-                } else if (orderPiece.get('piece.pieceType.id') + '' === 12 + '') {
-                    nbControlBoard = nbControlBoard + parseInt(self.get('pieceOrder_' + orderPiece.get('clientId') + '_value'), 10);
-                }
+        if (bool) {
 
-                return Ember.RSVP.Promise.resolve();
-            })).then(function() {
-                if (nbControlBoard !== nbRange + nbComp) {
-                    self.set('categoryText_12', 'Besoin ' + (nbRange + nbComp));
-                } else {
-                    self.set('categoryText_12', nbRange + nbComp);
-                }
+            console.log('checkControlBoard');
+            console.log(a);
+            this.get("parentController.orderPieces").then(function(e) {
+                Ember.RSVP.Promise.all(e.map(function(a) {
+                    "5" === a.get("piece.pieceType.id") + "" ? b += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"),
+                        10) : "12" === a.get("piece.pieceType.id") + "" && (c += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"), 10));
+                    return Ember.RSVP.Promise.resolve()
+                })).then(function() {
+                    console.log('ccccccccccc');
+                    console.log(c);
+                    console.log('a');
+                    console.log(a);
+                    console.log('b');
+                    console.log(b);
+                    if ((a + b - c) != 0) {
+                        if ((a + b - c) > 0) d.set("categoryText_12", "Il manque " + (a + b - c));
+                        if ((a + b - c) < 0) d.set("categoryText_12", (c - a - b) + " de plus");
+                    } else d.set("categoryText_12", "");
+
+                })
             });
-        });
-        console.log("RCD checkControlBoard");
-        console.log("nbRange");
-        console.log(nbRange);
-        console.log("nbComp");
-        console.log(nbComp);
-        console.log("nbControlBoard");
-        console.log(nbControlBoard);
-        console.log("self");
-        console.log(self);
+            console.log("RCD checkControlBoard");
+            console.log("nbRange");
+            console.log(a);
+            console.log("nbComp");
+            console.log(b);
+            console.log("nbControlBoard");
+            console.log(c);
+            console.log("self");
+            console.log(d)
+            console.log('checkControlBoardelse');
+            if(this.get("conveyorOption_27.value")==this.get("conveyorOption_11.value")){console.log('yyyyyy');
+                var somme=0;
+                console.log(this.get('conveyorOption_27'));
+                    this.get('pieceOrders').forEach(function(op){console.log("jjjjjjjjj");console.log(op.get('conveyor.id'));if(op.get('orderPiece.piece.pieceType.id')==12)somme+=parseInt(op.get('nbPieces'))});
 
+                this.createOrderPiece(13,24,{nb:parseInt(somme)});
+             }
+
+        } else {
+
+            var n12 = 0;
+            this.get("parentController.orderPieces").then(function(e) {
+                Ember.RSVP.Promise.all(e.map(function(a) {
+                    "5" === a.get("piece.pieceType.id") + "" ? b += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"),
+                        10) : "12" === a.get("piece.pieceType.id") + "" && (n12 = a.get("clientId"), c += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"), 10));
+                    return Ember.RSVP.Promise.resolve()
+                })).then(function() {
+                    console.log('ccccccccccc');
+                    console.log(c);
+                    console.log('a');
+                    console.log(a);
+                    console.log('b');
+                    console.log(b);
+                    d.set("pieceOrder_" + n12 + "_value", a + b);
+                    d.set("categoryText_12", "");
+
+                })
+            });
+        }
     },
-    calculateDecomposition: function() {
+calculateDecomposition: function() {
         console.log("RCD calculateDecomposition");
         console.log("this");
         console.log(this);
-        if (!this.get('hasError')) {
-            if (this.hasAlreadyCalculated('1')) {
-                var self = this;
+        var a = this;
+        if (!this.get("hasError"))
+            if (this.hasAlreadyCalculated("1")) {
+                
 
-                this.get('parentController.orderPieces').then(function(orderPieces) {
-                    orderPieces.forEach(function(orderPiece) {
-                        if (orderPiece.get('piece.pieceType.id') + '' === 1 + '' || orderPiece.get('piece.pieceType.id') + '' === 4 + '' || orderPiece.get('piece.pieceType.id') + '' === 8 + '') {
-                            self.set('pieceOrder_' + orderPiece.get('clientId') + '_value', 0);
-                            console.log("RCD calculateDecomposition piecetype.id" + orderPiece.get('piece.pieceType.id'));
-                            console.log("RCD calculateDecomposition : set " + 'pieceOrder_' + orderPiece.get('clientId') + '_value = 0');
-                        }
+                this.get("parentController.orderPieces").then(function(b) {
+                    b.forEach(function(b) {
+                        console.log('fffffff');
+                        console.log(b.get('piece.pieceType.id'));
+                        console.log('deleeeeete');
+                        a.set("pieceOrder_" + b.get("clientId") + "_value", 0)
                     });
-                    console.log("RCD calculateDecomposition :initializeStringers");
-                    console.log('params');
-                    console.log(self.generateStringerList());
-                    self.initializeStringers(self.generateStringerList());
-                    self.initializeComplementaryPieces();
-                });
-            } else {
-                this.initializeStringers(this.generateStringerList());
-                this.initializeComplementaryPieces();
-            }
-        }
 
+                    console.log("RCD calculateDecomposition :initializeStringers");
+                    console.log("params");
+                    console.log(a.generateStringerList());
+                    a.initializeStringers(a.generateStringerList());
+                    a.initializeComplementaryPieces()
+                })
+            } else this.initializeStringers(this.generateStringerList()), this.initializeComplementaryPieces()
+             
     },
     generateStringerList: function() {
         console.log('RCD generateStringerList');
@@ -266,296 +309,299 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
         console.log(stringers);
         return stringers;
     },
-    initializeStringers: function(stringers) {
-        var self = this;
-        console.log('RCD initializeStringers this:');
+        createOrderPiece: function(typeId, pieceId, nombre,init) {
+        var b = this;
+        var bool = 0;
+        if(init==undefined) init = 0;
+        console.log("createOrderPiece :");
+        this.get("store").all('orderPiece').map(function(c){console.log('createOrderPiece store');console.log(c)})
+       
+        //console.log(this.get("parentController.store").all('orderPieces'));
+        var dodo;
+        var resultat = this.get("parentController.store").all('pieceOrder').map(function(d) {console.log('createOrderPiece map');
+                        console.log('cmmmmmmp de '+(init||(b.get('content.position')==d.get('conveyor.position'))));
+                        console.log("resultat array"); console.log(resultat);
+               if ((init||(b.get('content.position')==d.get('conveyor.position')))&& (typeId + "" === d.get("orderPiece.piece.pieceType.id") + "") && (d.get('orderPiece.piece.id') + "" == pieceId + "")) { 
+                    console.log('nombreeeY :' + nombre) ;console.log('trouveeeeeeeee '+d.get('conveyor.position')); dodo=d; return 1}
+                     else  return 0
+            })
+
+            console.log('resultaaaaaat');
+            console.log(dodo);
+            console.log(resultat);
+            console.log(!resultat.contains(1))
+            if(!resultat.contains(1)) {
+                console.log('non trouveeeeeeeee'+typeId);
+                console.log("RCD initializeStringers then self: ");
+                console.log("self");
+                console.log(b);
+                var n;
+                if(pieceId+''==0+'') n = b.get("parentController").initOrderPiece(typeId + "");
+                else n = b.get("parentController").initOrderPiece(typeId + "", 0, pieceId);
+                console.log("RCD orderPiece");
+                console.log(n);
+                console.log("Ember.run.next :");
+                console.log("self");
+                console.log(b);
+                console.log("orderPiece");
+                console.log(n);
+
+                console.log("0000000000");
+                console.log('nombreeeY2 :' + nombre);
+                Ember.run.next(b, b.generateOrderPiece, n, nombre)
+            }
+            else {console.log('eeeeeeeeeeeeeeelse');console.log(dodo.get('orderPiece.piece.pieceType.id'));b.generateOrderPiece.call(b, dodo.get('orderPiece'), nombre);}
+        
+
+    },
+    initializeStringers: function(a) {
+
+        var b = this;
+        console.log("RCD initializeStringers this:");
         console.log(this);
-        console.log('stringers');
-        console.log(stringers);
-        var L_RCD_total = 0;
+        console.log("stringers");
+        console.log(a);
+        var c = 0,
+            d = 0,
+            e = parseInt(this.get("conveyorOption_26_value"),
+                10),
+            f = parseInt(this.get("conveyorOption_19.label"), 10);
+        console.log("PR :"+f+"PP :"+e);
+        console.log(f);
+        console.log("PP");
+        console.log(e);
+        fin = a.toArray();
+        console.log("la liste");
+        console.log(fin);
+        L_RCD_T = 0;
+        var nbY = 0;
+        var nbZ = 0;
+        for (var h = f = 0; h < fin.length; h++) console.log("fin[e]"), console.log(fin[h]), L_RCD = fin[h].l * fin[h].nb, L_RCD_T += L_RCD, Q_Y = 0 == e ? 0 : Math.floor(L_RCD / e), f = 1500 > fin[h].l ? 1 : 2, console.log("l :" + fin[h].l + "Z :" + f + "n :" + fin[h].nb + " math :" + Math.floor(f * fin[h].nb / 2) + "  avant :" + Math.floor(L_RCD / e)), Q_Y -= Math.floor(f * fin[h].nb), 0 > Q_Y && (Q_Y = 0), L_RCD < e ? nbY = nbZ =
+            0 : L_RCD >= e && (console.log('Q_Y'), console.log(Q_Y), console.log('Q_Z'), console.log(d), nbY += Q_Y, nbZ += Math.floor(f * fin[h].nb), console.log('Q_Y_T = ' + nbY), console.log('Q_Z_T = ' + nbZ));
 
-            var Q_Y_T = 0;
-            var Q_Z_T = 0;
-            var PP=parseInt(this.get('conveyorOption_26_value'), 10);
-            var PR=parseInt(this.get('conveyorOption_19.label'), 10);
-            console.log('PR');console.log(PR);
-            console.log('PP');console.log(PP);
-            fin=stringers.toArray();
-            console.log('fin');console.log(fin);
-            var Z=0;
-            for (var e = 0; e < fin.length; e++) {console.log('fin[e]');console.log(fin[e]);
-                L_RCD = fin[e].l * fin[e].nb / 2;
-                L_RCD_total += L_RCD;
-                Q_Y = (PP == 0) ? 0 : Math.floor(L_RCD / PP);
+        console.log("nbY");
+        console.log(nbY);
+        console.log("nbZ");
+        console.log(nbZ);
 
-                Z = (fin[e].l < 1500) ? 1 : 2;
-                console.log("l :" + fin[e].l + "Z :" + Z + "n :" + fin[e].nb+ " math :" + Math.floor(Z * fin[e].nb / 2) + "  avant :" + Math.floor(L_RCD / PP));
-                Q_Y -= Math.floor(Z * fin[e].nb / 2);
-                if (Q_Y < 0) Q_Y = 0;
-                if (L_RCD < PP) {
-                    Q_Y_T = 0;
-                    Q_Z_T = 0;
-                } else if (L_RCD >= PP) {
-                    Q_Y_T += Q_Y;
-                    Q_Z_T += Math.floor(Z * fin[e].nb / 2)
+        this.createOrderPiece('0', '29', {
+            nb: nbZ
+        });
+        this.createOrderPiece('0', '30', {
+            nb: nbY
+        });
+        console.log('passage1');
+        var ths = this;
+        ths.aaaa = 0;
+        var nbreL=0;
+        a.forEach(function(a) {
+            console.log("RCD initializeStringers foreach:");
+            console.log(a);
+            nbreL+=a.nb;
+            a.nb *= 2;
+            console.log("stringer*\x3d2");
+            var c = !1;
+            console.log('liste veide? :');
+            console.log(this.get("store").all('pieceOrder').mapBy('orderPiece.content').length);
+            console.log(this.get("store").all('pieceOrder').mapBy('orderPiece.content'));
+            var compt = 0;
+            var create = {
+                a: 0
+            };
+            //  ths.get("store").all('pieceOrder').mapBy('orderPiece.content').forEach(function(d) {if(d!=null) {compt++;console.log('comp orderpi '); console.log(d);}});
+
+            console.log('compteur  : ' + compt);
+            //if(compt==0) create =1;
+            var ret = 1;
+            var bol =1;
+            var z =ths.get("store").all('pieceOrder').mapBy('orderPiece.content').map(function(d) {
+                    
+                    console.log('le tour de :');
+                    console.log(a);
+                    if ((d != null) && ("1" === d.get("piece.pieceType.id"))) {
+                        console.log('le tour de2 :'+bol);
+                        console.log(a);
+                        
+                        var zz = d.get("options").then(function(e) {
+                            
+                            console.log('le tour de3 :');
+                            console.log(e);
+                            if (bol&&e.any(function(b) {
+                                    j = (("1" ===
+                                        b.get("optionType.id")) && (b.get("optionValue") + "" === a.l + ""));
+                                    console.log('1==' + b.get("optionType.id") + ' &&' + ' ' + b.get("optionValue") + 'et :' + a.l);
+                                    console.log('comparaison : ' + j);
+                                    return (("1" ===
+                                        b.get("optionType.id")) && (b.get("optionValue") + "" === a.l + ""));
+                                })) {
+                                console.log('le tour de4 :' + a.l);
+                                bol=0;
+                                ths.generateOrderPiece.call(ths, d, a);
+                                return 1;
+                                
+                            }
+                            console.log('returning 0');
+                            return 0;
+                        })
+                        console.log('return  f zz:');
+                        console.log(zz);
+                        return zz;
+
+                    } return 0;
+                    
                 }
-            }
-            console.log('Q_Z_T');console.log(Q_Z_T);
-            console.log('Q_Y_T');console.log(Q_Y_T);
-            console.log('iniiiiiiiiiiiiiiitordeeeeeeeeeeeeeeerPieccceeeeeeeeeeeeeeeeeeeeZZZZZZZZZZZ');
-            var orderPieceX = self.get('parentController').initOrderPiece(0 + '',0,29);
-            console.log('orderpieeceZ');
-            console.log(orderPieceX);
-            
-            Ember.run.next(self, self.generateOrderPiece, orderPieceX, {
-                Ab: 'Plages Z',
-                nb: Q_Z_T
-            });
-            console.log('iniiiiiiiiiiiiiiitordeeeeeeeeeeeeeeerPieccceeeeeeeeeeeeeeeeeeeeYYYYYYYYY');
-            var orderPieceY = self.get('parentController').initOrderPiece(0 + '',0,30);
-            console.log('orderpieeceZ');
-            console.log(orderPieceY);
-            Ember.run.next(self, self.generateOrderPiece, orderPieceY, {
-                Ab: 'Plages Y',
-                nb: Q_Y_T
-            });
-        stringers.forEach(function(stringer) {
-            console.log('RCD initializeStringers foreach:');
-            console.log(stringer);
-            stringer.nb = stringer.nb * 2;
-            console.log('stringer*=2');
-            var didSet = false;
-            //////
 
-            
-            ////
-            //////
-            this.get('parentController.orderPieces').then(function(orderPieces) {
-                return Ember.RSVP.Promise.all(orderPieces.map(function(orderPiece) {
-                    if (orderPiece.get('piece.pieceType.id') === 1 + '') {
-                        console.log('RCD initializeStringers' + orderPiece.get('piece.pieceType.id'));
-                        return orderPiece.get('options').then(function(options) {
-                            if (options.any(function(option) {
-                                    return option.get('optionType.id') === 1 + '' && option.get('optionValue') + '' === stringer.l + '';
-                                })) {
-                                if (!didSet) {
-                                    console.log('RCD initializeStringers generateOrderPiece self: ');
-                                    console.log(self);
-                                    console.log("orderPiece");
-                                    console.log(orderPiece);
-                                    console.log("stringer");
-                                    console.log(stringer);
-                                    self.generateOrderPiece.call(self, orderPiece, stringer);
-                                    didSet = true;
-                                }
+            );
+console.log('return  f z:' );
+console.log(z);
 
-                                return Ember.RSVP.Promise.reject();
-                            } else {
-                                return Ember.RSVP.Promise.resolve();
-                            }
-                        });
-                    } else {
-                        return Ember.RSVP.Promise.resolve();
-                    }
-                })).then(function() {
-                    console.log('RCD initializeStringers then self: ');
-                    console.log("self");
-                    console.log(self);
-                    var orderPiece = self.get('parentController').initOrderPiece(1 + '');
-                    console.log('RCD orderPiece');
-                    console.log(orderPiece);
-                    console.log('Ember.run.next :');
-                    console.log('self');
-                    console.log(self);
-                    console.log('orderPiece');
-                    console.log(orderPiece);
-                    console.log('stringer');
-                    console.log(stringer);
-                    console.log('0000000000');
+Em.RSVP.Promise.all(z).then(function(results){console.log('promiseall'+!results.contains(1));console.log(results);if (!results.contains(1)) {
+                //var orderp = ths.get("parentController").initOrderPiece("1");
+                console.log('orderpiece creeeeeeeeee');
+                //Ember.run.next(ths, ths.generateOrderPiece, orderp, a);
+                ths.createOrderPiece(1, 0, a)
+            }});
 
-                    Ember.run.next(self, self.generateOrderPiece, orderPiece, stringer);
-                });
-            });
-        }, this);
+
+
+
+        }, this)
+            ths.createOrderPiece(10, 15, {nb:nbreL});
+
+            ths.createOrderPiece(17, 28, {nb:2*parseInt(this.get("conveyorOption_2_value"), 10)});
+            console.log('conveyor options');var total=[];
+           console.log(ths.get("store").all('conveyorOption').forEach(function(co){if(co.get('optionType.id')==11||co.get('optionType.id')==27)total.pushObject(co.get('option.value'))}));
+           console.log('taillllllle '+total.uniq().length)
     },
+    Conv: function() {
+        console.log('zzzzzzzzzzzzzzzz');
+        if(this.get("conveyorOption_27.value")==undefined){console.log('iniiiiiiiitialisation');
+        console.log(this);
+        // this.createOrderPiece(0,29,{nb:0},1);
+        // this.createOrderPiece(0,30,{nb:0},1);
+        // this.createOrderPiece(10,15,{nb:0},1);
+        // this.createOrderPiece(17,27,{nb:0},1);
+        // this.createOrderPiece(17,28,{nb:0},1);
+
+          //  this.get('store').all('pieceOrder').map(function(p){p.deleteRecord()});
+    }
+        console.log(this);
+        if(this.get("conveyorOption_27.value")==this.get("conveyorOption_11.value")){console.log('yyyyyy');
+                var somme=0;
+                    console.log(this.get('pieceOrders').forEach(function(op){if(op.get('orderPiece.piece.pieceType.id')==12)somme+=op.get('nbPieces')}));
+
+                //this.createOrderPiece(13,24,{nb:somme},1);
+             }
+             else if(this.get("conveyorOption_27.value")!=undefined&&undefined!=this.get("conveyorOption_11.value")){console.log(this.get("conveyorOption_27.value")+'    '+this.get("conveyorOption_11.value"));console.log("convelse");this.createOrderPiece(13,24,{nb:0});}
+      
+    }.observes("conveyorOption_11","conveyorOption_27"),    
     initializeComplementaryPieces: function() {
-        console.log('RCD initializeComplementaryPieces');
-        var nbRange = Math.floor(parseInt(this.get('conveyorOption_2_value'), 10) / parseInt(this.get('conveyorOption_26_value'), 10));
-        var nbComp = Math.ceil((parseInt(this.get('conveyorOption_2_value'), 10) - nbRange * parseInt(this.get('conveyorOption_26_value'), 10)) / parseInt(this.get('conveyorOption_19.label'), 10));
-        var nbStrap56 = 0;
-        var nbStrap84 = 0;
-        var nbStrap112 = 0;
-        var didSetRoller = false;
-        var didSetControlBoard = false;
-        var self = this;
-        console.log('nbRange');
-        console.log(nbRange);
-        console.log('nbComp');
-        console.log(nbComp);
-        this.set('categoryText_12', nbRange);
-        console.log('conveyorOption_19.label');
-        console.log(parseInt(this.get('conveyorOption_19.label'), 10));
-        console.log('conveyorOption_26.label');
-        console.log(parseInt(this.get('conveyorOption_26.label'), 10));
-        console.log('conveyorOption_2_value');
-        console.log(parseInt(this.get('conveyorOption_2_value'), 10));
+        console.log("RCD initializeComplementaryPieces");
+        var a = Math.floor(parseInt(this.get("conveyorOption_2_value"), 10) / parseInt(this.get("conveyorOption_26_value"), 10)),
+            b = Math.ceil((parseInt(this.get("conveyorOption_2_value"),
+                10) - a * parseInt(this.get("conveyorOption_26_value"), 10)) / parseInt(this.get("conveyorOption_19.label"), 10)),
+            c = 0,
+            d = 0,
+            e = 0,
+            f = !1,
+            h = !1,
+            g = this;
 
 
-
-        if (parseInt(this.get('conveyorOption_19.label'), 10) === 56) {
-            console.log('egale a 56');
-            if (nbComp > 0) {
-                --nbComp;
-            }
-            nbStrap56 = nbComp;
-        } else if (parseInt(this.get('conveyorOption_19.label'), 10) === 84) {
-            console.log('egale a 84');
-            nbStrap84 = nbComp;
-            if (parseInt(this.get('conveyorOption_2_value'), 10) % 84 === 28) {
-                nbStrap84 = nbStrap84 - 2;
-                nbStrap56 = 2;
-            } else if (parseInt(this.get('conveyorOption_2_value'), 10) % 84 === 56) {
-                nbStrap84 = nbStrap84 - 1;
-                nbStrap56 = 1;
-            }
-        } else if (parseInt(this.get('conveyorOption_19.label'), 10) === 112) {
-            console.log('egale a 112');
-            nbStrap112 = nbComp;
-            if (parseInt(this.get('conveyorOption_2_value'), 10) % 84 === 56) {
-                nbStrap112 = nbStrap112 - 1;
-                nbStrap84 = 1;
-            } else if (parseInt(this.get('conveyorOption_2_value'), 10) % 84 === 56) {
-                nbStrap112 = nbStrap112 - 1;
-                nbStrap56 = 1;
-            }
-        }
-        console.log("nbComp :" + nbComp + "nbStrap56" + nbStrap56 + "nbStrap84" + nbStrap84 + "nbStrap112" + nbStrap112);
-        if (nbComp > 0) {
-            this.get('parentController.orderPieces').then(function(orderPieces) {
-                console.log('orderPieces');
-                console.log(orderPieces);
-                return Ember.RSVP.Promise.all(orderPieces.map(function(orderPiece) {
-                    console.log('piece.pieceType.id');
-                    console.log(orderPiece.get('piece.pieceType.id'));
-                    if (orderPiece.get('piece.pieceType.id') === 4 + '') {
-                        if (!didSetRoller) {
-                            self.generateOrderPiece.call(self, orderPiece, {
-                                nb: nbComp
-                            });
-                            didSetRoller = true;
-                        }
-                    } else if (orderPiece.get('piece.pieceType.id') === 8 + '') {
-                        return orderPiece.get('options').then(function(options) {
-                            if (nbStrap56 > 0 && options.any(function(option) {
-                                    return option.get('optionType.id') === 19 + '' && option.get('option.label') + '' === 56 + '';
-                                })) {
-                                self.generateOrderPiece.call(self, orderPiece, {
-                                    nb: nbStrap56,
-                                    strapLength: 56
-                                });
-                                nbStrap56 = 0;
-
-                                return Ember.RSVP.Promise.resolve();
-                            }
-
-                            if (nbStrap84 > 0 && options.any(function(option) {
-                                    return option.get('optionType.id') === 19 + '' && option.get('option.label') + '' === 84 + '';
-                                })) {
-                                self.generateOrderPiece.call(self, orderPiece, {
-                                    nb: nbStrap84,
-                                    strapLength: 84
-                                });
-                                nbStrap84 = 0;
-
-                                return Ember.RSVP.Promise.resolve();
-                            }
-
-                            if (nbStrap112 > 0 && options.any(function(option) {
-                                    return option.get('optionType.id') === 19 + '' && option.get('option.label') + '' === 112 + '';
-                                })) {
-                                self.generateOrderPiece.call(self, orderPiece, {
-                                    nb: nbStrap112,
-                                    strapLength: 112
-                                });
-                                nbStrap112 = 0;
-
-                                return Ember.RSVP.Promise.resolve();
-                            }
-                            if (options.any(function(option) {
-                                    return option.get('optionType.id') === 12 + '';
-                                }) && !didSetControlBoard) {
-                                self.generateOrderPiece.call(self, orderPiece, {
-                                    nb: nbRange
-                                });
-                                didSetControlBoard = true;
-
-                                return Ember.RSVP.Promise.resolve();
-                            }
-                        });
-                    }
-
-                    return Ember.RSVP.Promise.resolve();
-                })).finally(function() {
-
-                    if (!didSetRoller) {
-                        console.log('didSetRoller :' + didSetRoller);
-                        var orderPiece = self.get('parentController').initOrderPiece(4 + '');
-                        console.log('Ember.run.next');
-                        console.log("orderPiece 4");
-                        console.log(orderPiece);
-                        console.log('nb :' + nbComp);
-                        Ember.run.next(self, self.generateOrderPiece, orderPiece, {
-                            nb: nbComp
-                        });
-                    }
-                    if (!didSetControlBoard) {
-                        console.log('didSetControlBoard :' + didSetControlBoard);
-                        var orderPiece1 = self.get('parentController').initOrderPiece(12 + '');
-                        console.log('Ember.run.next');
-                        console.log("orderPiece1 12");
-                        console.log(orderPiece1);
-                        console.log('nbrange :' + nbRange);
-                        Ember.run.next(self, self.generateOrderPiece, orderPiece1, {
-                            nb: nbRange
-                        });
-                        Ember.run.next(self, self.checkControlBoard);
-                    }
-                    if (nbStrap56 > 0) {
-                        console.log('nbStrap56 :' + nbStrap56);
-                        var orderPiece56 = self.get('parentController').initOrderPiece(8 + '');
-                        console.log('Ember.run.next');
-                        console.log("orderPiece56 8");
-                        console.log(orderPiece56);
-                        console.log('nbStrap56 :' + nbStrap56 + ' strapLength :' + 56);
-                        Ember.run.next(self, self.generateOrderPiece, orderPiece56, {
-                            nb: nbStrap56,
-                            strapLength: 56
-                        });
-                    }
-                    if (nbStrap84 > 0) {
-                        var orderPiece84 = self.get('parentController').initOrderPiece(8 + '');
-                        console.log('Ember.run.next');
-                        console.log("orderPiece84 8");
-                        console.log(orderPiece84);
-                        console.log('nbStrap84 :' + nbStrap84 + ' strapLength :' + 84);
-                        Ember.run.next(self, self.generateOrderPiece, orderPiece84, {
-                            nb: nbStrap84,
-                            strapLength: 84
-                        });
-                    }
-                    if (nbStrap112 > 0) {
-                        var orderPiece112 = self.get('parentController').initOrderPiece(8 + '');
-                        Ember.run.next(self, self.generateOrderPiece, orderPiece112, {
-                            nb: nbStrap112,
+        console.log("nbRange");
+        console.log(a);
+        console.log("nbComp");
+        console.log(b);
+        this.set("categoryText_12", '');
+        console.log("conveyorOption_19.label");
+        console.log(parseInt(this.get("conveyorOption_19.label"), 10));
+        console.log("conveyorOption_26.label");
+        console.log(parseInt(this.get("conveyorOption_26.label"), 10));
+        console.log("conveyorOption_2_value");
+        console.log(parseInt(this.get("conveyorOption_2_value"),
+            10));
+        56 === parseInt(this.get("conveyorOption_19.label"), 10) ? (console.log("egale a 56"), 0 < b && --b, c = b) : 84 === parseInt(this.get("conveyorOption_19.label"), 10) ? (console.log("egale a 84"), d = b, 28 === parseInt(this.get("conveyorOption_2_value"), 10) % 84 ? (d -= 2, c = 2) : 56 === parseInt(this.get("conveyorOption_2_value"), 10) % 84 && (d -= 1, c = 1)) : 112 === parseInt(this.get("conveyorOption_19.label"), 10) && (console.log("egale a 112"), e = b, 56 === parseInt(this.get("conveyorOption_2_value"), 10) % 84 ? (e -= 1, d = 1) : 56 === parseInt(this.get("conveyorOption_2_value"),
+            10) % 84 && (e -= 1, c = 1));
+        console.log("nbComp :" + b + "nbStrap56" + c + "nbStrap84" + d + "nbStrap112" + e);
+        0 < b && this.get("parentController.orderPieces").then(function(n) {
+            console.log("orderPieces");
+            console.log(n);
+            return Ember.RSVP.Promise.all(n.map(function(k) {
+                console.log("piece.pieceType.id");
+                console.log(k.get("piece.pieceType.id"));
+                if ("4" === k.get("piece.pieceType.id")) f || (g.generateOrderPiece.call(g, k, {
+                    nb: b
+                }), f = !0);
+                else if ("8" === k.get("piece.pieceType.id")) return k.get("options").then(function(b) {
+                    if (0 < c && b.any(function(a) {
+                            return "19" ===
+                                a.get("optionType.id") && "56" === a.get("option.label") + ""
+                        })) return g.generateOrderPiece.call(g, k, {
+                        nb: c,
+                        strapLength: 56
+                    }), c = 0, Ember.RSVP.Promise.resolve();
+                    if (0 < d && b.any(function(a) {
+                            return "19" === a.get("optionType.id") && "84" === a.get("option.label") + ""
+                        })) return g.generateOrderPiece.call(g, k, {
+                        nb: d,
+                        strapLength: 84
+                    }), d = 0, Ember.RSVP.Promise.resolve();
+                    if (0 < e && b.any(function(a) {
+                            return "19" === a.get("optionType.id") && "112" === a.get("option.label") + ""
+                        })) return g.generateOrderPiece.call(g, k, {
+                            nb: e,
                             strapLength: 112
-                        });
-                    }
+                        }), e =
+                        0, Ember.RSVP.Promise.resolve();;
+                    return g.generateOrderPiece.call(g, k, {
+                        nb: a / 2
+                    }), h = !0, Ember.RSVP.Promise.resolve()
                 });
+                return Ember.RSVP.Promise.resolve()
+            })).finally(function() {
+
+                if (!f) {
+                    console.log("didSetRoller :" + f);
+                    var k = g.get("parentController").initOrderPiece("4");
+                    console.log("Ember.run.next");
+                    console.log("orderPiece 4");
+                    console.log(k);
+                    console.log("nb :" + b);
+                    Ember.run.next(g, g.generateOrderPiece, k, {
+                        nb: b
+                    })
+                }
+
+                0 < c && (console.log("nbStrap56 :" + c), k = g.get("parentController").initOrderPiece("8"), console.log("Ember.run.next"), console.log("orderPiece56 8"), console.log(k), console.log("nbStrap56 :" + c + " strapLength :56"), Ember.run.next(g, g.generateOrderPiece, k, {
+                    nb: c,
+                    strapLength: 56
+                }));
+                0 < d && (k = g.get("parentController").initOrderPiece("8"), console.log("Ember.run.next"), console.log("orderPiece84 8"), console.log(k), console.log("nbStrap84 :" + d + " strapLength :84"), Ember.run.next(g, g.generateOrderPiece, k, {
+                    nb: d,
+                    strapLength: 84
+                }));
+                0 < e && (k = g.get("parentController").initOrderPiece("8"), Ember.run.next(g, g.generateOrderPiece, k, {
+                    nb: e,
+                    strapLength: 112
+                }));
 
             });
-        }
-    },
-    generateOrderPiece: function(orderPiece, piece) {
+
+        });
+        this.createOrderPiece(12, 22, {
+            nb: a
+        });
+        this.createOrderPiece(17, 27, {
+            nb: a
+        });
+        if(this.get("conveyorOption_27.value")==this.get("conveyorOption_11.value")){console.log('hhhhhhhhhh');
+                
+                this.createOrderPiece(13,24,{nb:a});
+             }
+             else if(this.get("conveyorOption_27.value")!=undefined&&undefined!=this.get("conveyorOption_11.value")){console.log(this.get("conveyorOption_27.value")+'    '+this.get("conveyorOption_11.value"));console.log("convelse");this.createOrderPiece(13,24,{nb:0});}
+      
+
+    },    generateOrderPiece: function(orderPiece, piece) {
         console.log('RCD generateOrderPiece');
         console.log('orderPiece :');
         console.log(orderPiece);

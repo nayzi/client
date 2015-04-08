@@ -20,7 +20,7 @@ App.DealIndexController = Ember.ObjectController.extend({
     queryField: null,
     actions: {
         showOrder: function(orderId) {console.log("dealindex : showorder :"+orderId);
-            this.transitionToRoute('order/' + orderId);
+           this.transitionToRoute("deal.createOrder")
         },
         redirect: function(route, id) {
             this.transitionToRoute(route, id);
@@ -34,10 +34,22 @@ App.DealIndexController = Ember.ObjectController.extend({
         exporter: function(a) {
             this.transitionToRoute("order.Exporter",a)
 
-        }
+        },
+        woooow : function(a){console.log('l3eeeeeeeeeeeeeeeeeeeez');
+
+        var sortProp = event.path[0].innerText;
+      
+        if(sortProp=="Dessinateur") sortProp="drawerName";
+        if(sortProp=="Derni\u00e8re \u00e9dition le") sortProp="lastEditedAt";
+        if(sortProp=="Edit\u00e9 par") sortProp="createdBy";
+        if(sortProp=="Verrouill\u00e9 par") sortProp="lastEditedBy";
+
+            if(this.get("sortProperties").toString().toLowerCase()==sortProp.toLowerCase()) this.set('sortAscending',!this.get('sortAscending'));
+            this.set("sortProperties",sortProp.toLowerCase());
+            }       
     },
-    sortProperties: ['OTP'],
-    sortAscending: true,
+    sortProperties: 'OTP',
+    sortAscending: false,
     /**
      * Nombre d'élément dans la liste à afficher
      * @property numRows
@@ -55,31 +67,27 @@ App.DealIndexController = Ember.ObjectController.extend({
      * @type {App.Order[]}
      */
     filtered: function() {
-        var data = [];
-        
-        if (this.get('queryField') && this.get('queryField').length > 1) {
-            var queryParams = this.get('queryField').split(' ');
-            data = this.get('content.orders').filter(function(item, index) {
-                var display = true;
-                $.each(queryParams, function(i, param) {
-                    var pattern = new RegExp(param, 'i');
-                    if (!(
-                        pattern.test(item.get('OTP'))
-                        || pattern.test(item.get('conveyorType.abbreviation').toLowerCase())
-                        || pattern.test(item.get('plan') ? item.get('plan').toLowerCase() : '')
-                        )) {
-                        display = false;
-                        return false;
-                    }
+        console.log('fhsdkf');
+        console.log(this.get('selection'));
+        var ths = this;
+        console.log('fiiiilter');
+        console.log(this.get("sortProperties"));
+        var a = [];
+        if (this.get("queryField") && 1 < this.get("queryField").length) var b = this.get("queryField").split(" "),
+            a = this.get("content.orders").filter(function(a, d) {
+                var e = !0;
+                $.each(b, function(b, d) {
+                    var g = RegExp(d, "i");
+                    if (!(g.test(a.get("otp")) || g.test(a.get("conveyorType.abbreviation").toLowerCase()) || g.test(a.get("drawerName")?a.get("drawerName").toLowerCase():"") || g.test(a.get("plan") ? a.get("plan").toLowerCase() : ""))) return e = !1
                 });
-                return display;
-            }).sortBy(this.get('sortProperties'));
-        } else {
-            data = this.get('content.orders').sortBy(this.get('sortProperties'));
-        }
-        
-        return (this.get('sortAscending') ? data : data.reverse());
-    }.property('content.orders.isLoaded', 'content.orders.@each', 'queryField', 'numRows', 'sortProperties', 'sortAscending'),
+                return e
+            }).sortBy(this.get("sortProperties"));
+        else a = this.get("content.orders").sortBy(this.get("sortProperties"));
+        console.log('soooort');
+        console.log(a);
+        return this.get("sortAscending") ? a : a.reverse()
+    }.property("content.orders.isLoaded", "content.orders.@each", "queryField", "numRows", "sortProperties", "sortAscending"),
+ 
     /**
      * Liste des colonnes
      * @property columns
@@ -158,8 +166,7 @@ App.DealIndexController = Ember.ObjectController.extend({
                                 label: "Consulter",
                                 text: false,
                                 click: function() {
-                                    
-                                    this.get('controller.parentView.controller').send('redirect','order', row.get('id'));
+                                    this.get("controller.parentView.controller").send("showOrder", id);
                                 }
                             })
                         }), Ember.Object.create({
@@ -211,7 +218,7 @@ App.DealIndexController = Ember.ObjectController.extend({
                                 click: function() {
                                     this.get('controller.parentView.controller').send('delete', row.get('id'));
                                 },
-                                disabled: true
+                                disabled: false
                             })
                         })
                     ]

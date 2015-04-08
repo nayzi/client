@@ -1,7 +1,7 @@
 <script type="text/x-handlebars" id="orderExporter">
     {{#if session.isAuthenticated }}
     {{#if  conveyors.length}}
-   <table BORDER="1" class="table">
+   <table BORDER="1" class="table" id="dvData">
    <tr>
    <th>Code article père</th>
    <th>Num ligne nom</th>
@@ -18,17 +18,22 @@
     <td>I{{model.deal.number}}{{model.otp}}{{c.zone}}{{c.ref}}</td>
     <td>{{increment _view.contentIndex}}</td>
     <td>{{withh p.orderPiece.options  p.orderPiece.piece.erpRef c c.options model}}</td>
-    <td>{{p.nbPieces}}</td>   
+    <td>{{nombrePieces p }} </td>  
     </tr>
  
     {{/each}}
     
 
  
-    {{/each}}
+{{/each}}
     </table>
+    {{#view "clickable"}}
+    
+    
+Exporter sous format CSV
+{{/view}}
     {{else }}<h2> Aucun convoyeur </h2>
     {{/if}}
 
     {{/if}}
-</script>
+</script>    

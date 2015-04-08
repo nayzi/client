@@ -65,46 +65,51 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
         return this.get('tableController.isTableValid');
     }.observes('tableController.isTableValid'),
     submitForm: function() {
-        var self = this;
-
-        var newOrder = this.get('model');
-        var newOrderPieces = [];
-        var newOrderOptions = [];
-        var newOrderPieceOptions = [];
-        var newPieceOrders = [];
-        var newConveyors = [];
-        var newConveyorOptions = [];
-        
-
-        return Ember.RSVP.Promise.all([newOrder.get('options').then(function(options) {
-            newOrderOptions = options.get('content');
-
-            return Ember.RSVP.Promise.resolve();
-        }), newOrder.get('orderPieces').then(function(orderPieces) {console.log('submitform  orderpieces');console.log(orderPieces);
-            newOrderPieces = orderPieces.get('content');
-
-            return Ember.RSVP.Promise.all(orderPieces.map(function(orderPiece) {
-                return orderPiece.get('options').then(function(options) {
-                    newOrderPieceOptions.pushObjects(options.get('content'));
-                    return Ember.RSVP.Promise.resolve();
-                });
-            }));
-        }), newOrder.get('conveyors').then(function(conveyors) {
-            newConveyors = conveyors.get('content');
-
-            return Ember.RSVP.Promise.all(conveyors.map(function(conveyor) {
-                return Ember.RSVP.Promise.all([conveyor.get('options').then(function(options) {
-                    newConveyorOptions = options.get('content');
-                    return Ember.RSVP.Promise.resolve();
-                }), conveyor.get('pieceOrders').then(function(pieceOrders) {
-                    newPieceOrders = pieceOrders.get('content');
-                    return Ember.RSVP.Promise.resolve();
-                })]);
-            }));
-        })]).then(function() {console.log("DF SubmitForm");console.log("this");console.log(self);console.log("model");console.log(newOrder);
-            return self.save(newOrder, newOrderPieces, newOrderPieceOptions, newOrderOptions, newPieceOrders, newConveyors, newConveyorOptions);
-        });
-
+        var self = this,
+            newOrder = this.get("model"),
+            newOrderPieces = [],
+            newOrderOptions = [],
+            newOrderPieceOptions = [],
+            newPieceOrders = [],
+            newConveyors = [],
+            newConveyorOptions = [];
+        return Ember.RSVP.Promise.all([newOrder.get("options").then(function(a) {
+            newOrderOptions = a.get("content");
+            return Ember.RSVP.Promise.resolve()
+        }), newOrder.get("orderPieces").then(function(a) {
+            console.log("submitform  orderpieces");
+            console.log(a);
+            newOrderPieces = a.get("content");
+            return Ember.RSVP.Promise.all(a.map(function(a) {
+                return a.get("options").then(function(a) {
+                    newOrderPieceOptions.pushObjects(a.get("content"));
+                    return Ember.RSVP.Promise.resolve()
+                })
+            }))
+        }), newOrder.get("conveyors").then(function(a) {
+            newConveyors = a.get("content");
+            return Ember.RSVP.Promise.all(a.map(function(a) {console.log("submitform : conveyor");console.log(a.get('ref'));
+                return Ember.RSVP.Promise.all([a.get("options").then(function(a) {
+                    newConveyorOptions.pushObjects(a.get("content"));
+                    return Ember.RSVP.Promise.resolve()
+                }), a.get("pieceOrders").then(function(a) {
+                    
+                    newPieceOrders.pushObjects(a.filter(function(item, index, self) {console.log('liste de piecesO');console.log(a);
+                        console.log('pieceOrder pour le conveyor :'+item.get('conveyor.ref')+' nombre dep :'+item.get('nbPieces'));
+                        return (item.get('nbPieces') != 0)
+                    }));
+                    console.log(newPieceOrders);
+                    return Ember.RSVP.Promise.resolve()
+                })])
+            }))
+        })]).then(function() {
+            console.log("DF SubmitForm");
+            console.log("this");
+            console.log(self);
+            console.log("model");
+            console.log(newOrder);
+            return self.save(newOrder, newOrderPieces, newOrderPieceOptions, newOrderOptions, newPieceOrders, newConveyors, newConveyorOptions)
+        })
     },
     save: function(newOrder, newOrderPieces, newOrderPieceOptions, newOrderOptions, newPieceOrders, newConveyors, newConveyorOptions) {
         console.log('saving of newOrderPieces');
