@@ -480,9 +480,11 @@ Conv: function() {
         if (this.get("conveyorOption_27.value") == this.get("conveyorOption_11.value")) {
             console.log("yyyyyy");
             var a = 0;
-            console.log(this.get("pieceOrders").forEach(function(b) {
+            this.get("pieceOrders").forEach(function(b) {
                 12 == b.get("orderPiece.piece.pieceType.id") && (a += b.get("nbPieces"))
-            }))
+            });this.createOrderPiece(13, 24, {
+            nb: a
+        }
         } else void 0 != this.get("conveyorOption_27.value") && void 0 != this.get("conveyorOption_11.value") && (console.log(this.get("conveyorOption_27.value") + "    " +
             this.get("conveyorOption_11.value")), console.log("convelse"), this.createOrderPiece(13, 24, {
             nb: 0
