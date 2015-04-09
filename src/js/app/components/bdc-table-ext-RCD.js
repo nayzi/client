@@ -485,8 +485,7 @@ Conv: function() {
             });this.createOrderPiece(13, 24, {
             nb: a
         }
-        } else void 0 != this.get("conveyorOption_27.value") && void 0 != this.get("conveyorOption_11.value") && (console.log(this.get("conveyorOption_27.value") + "    " +
-            this.get("conveyorOption_11.value")), console.log("convelse"), this.createOrderPiece(13, 24, {
+        } else void 0 != this.get("conveyorOption_27.value") && void 0 != this.get("conveyorOption_11.value") && (this.createOrderPiece(13, 24, {
             nb: 0
         }))
     }.observes("conveyorOption_11", "conveyorOption_27"), 
