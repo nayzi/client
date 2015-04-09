@@ -132,7 +132,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                     console.log('b');
                     console.log(b);
                     if ((a + b - c) != 0) {
-                        if ((a + b - c) > 0) {d.set("categoryText_12", "Il manque " + (a + b - c));d.set("style_12", "color:white;background: #ce3131")}
+                        if ((a + b - c) > 0) {d.set("categoryText_12", "Manque " + (a + b - c));d.set("style_12", "color:white;background: #ce3131")}
                         if ((a + b - c) < 0) {d.set("categoryText_12", (c - a - b) + " de plus");d.set("style_12", "color:white;background: #ce3131")}
                     } else {d.set("categoryText_12", "");d.set("style_12", "")}
 
@@ -166,7 +166,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                         10) : "13" === a.get("piece.pieceType.id") + "" && ( c += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"), 10));
                     return Ember.RSVP.Promise.resolve()
                 })).then(function() {
-                   0 != b - c ? ((0 <  b - c) && (d.set("categoryText_13", "Il manque " + (b - c)),d.set("style_13", "color:white;background: #ce3131")), (0 >  b - c) && (d.set("categoryText_13", c  - b + " de plus"),d.set("style_13", "color:white;background: #ce3131"))) : (d.set("categoryText_13",
+                   0 != b - c ? ((0 <  b - c) && (d.set("categoryText_13", "Manque " + (b - c)),d.set("style_13", "color:white;background: #ce3131")), (0 >  b - c) && (d.set("categoryText_13", c  - b + " de plus"),d.set("style_13", "color:white;background: #ce3131"))) : (d.set("categoryText_13",
                             ""),d.set("style_13", ""))
 
                 })
@@ -181,7 +181,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                         10) : "10" === a.get("piece.pieceType.id") + "" && ( c += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"), 10));
                     return Ember.RSVP.Promise.resolve()
                 })).then(function() {
-                   0 != b/2 - c ? ((0 <  b/2 - c) && (d.set("categoryText_10", "Il manque " + (b/2 - c)),d.set("style_10", "color:white;background: #ce3131")), (0 >  b/2 - c) && (d.set("categoryText_10", c  - b/2 + " de plus"),d.set("style_10", "color:white;background: #ce3131"))) : (d.set("categoryText_10",
+                   0 != b/2 - c ? ((0 <  b/2 - c) && (d.set("categoryText_10", "Manque " + (b/2 - c)),d.set("style_10", "color:white;background: #ce3131")), (0 >  b/2 - c) && (d.set("categoryText_10", c  - b/2 + " de plus"),d.set("style_10", "color:white;background: #ce3131"))) : (d.set("categoryText_10",
                             ""),d.set("style_10", ""))
 
                 })
@@ -488,6 +488,7 @@ Em.RSVP.Promise.all(z).then(function(results){console.log('promiseall'+!results.
         console.log(this);
         if(this.get("conveyorOption_27.value")==this.get("conveyorOption_11.value")){console.log('yyyyyy');
                 var somme=0;
+                console.log('hdshsdhshsdh');
                     this.get('pieceOrders').forEach(function(op){if(op.get('orderPiece.piece.pieceType.id')==12)somme+=op.get('nbPieces')});
                     this.createOrderPiece(13,24,{nb:somme})
                 //this.createOrderPiece(13,24,{nb:somme},1);
