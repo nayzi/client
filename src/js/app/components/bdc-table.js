@@ -1417,11 +1417,12 @@ var p = this.get("conveyorType.pieceAvailabilities").get('content').toArray();
         }),
         init: function() {console.log('RowTitleView init');
             Ember.bind(this, 'text', 'controller.categoryText_' + this.get('pieceTypeId'));
+            Ember.bind(this, 'style', 'controller.style_' + this.get('pieceTypeId'));
 
             return this._super();
         },
         template: Ember.Handlebars.compile(
-            "<span>{{view.text}}</span>" +
+            "<span style={{view.style}}>{{view.text}}</span>" +
             "{{#if view.needCalculateButton}}" +
             "{{view view.calculateButton}}" +
             "{{#view view.dialog}}{{/view}}" +

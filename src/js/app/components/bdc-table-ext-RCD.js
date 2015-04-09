@@ -13,19 +13,8 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
             console.log("RCD updateCategory");
             console.log("pieceTypeId");
             console.log(parseInt(pieceTypeId, 10));
-            switch (parseInt(pieceTypeId, 10)) {
-                case 1:
-                    this.checkStringers();
-                    break;
-                case 5:
-                    this.checkControlBoard(0);
-                    break;
-                case 4:
-                    this.checkControlBoard(1);
-                    break;
-                case 12:
-                    this.checkControlBoard(1)
-            }
+            if(pieceTypeId+''=='1') this.checkStringers();
+            else this.checkControlBoard(pieceTypeId);
         },
         calculate: function(pieceTypeId) {
 
@@ -107,6 +96,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                 }
 
                 self.set('categoryText_1', text);
+                text!=""? self.set("style_1", "color:white;background: #ce3131"):self.set("style_1", "");
             });
         });
         console.log("RCD checkStringers");
@@ -119,13 +109,13 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
         console.log("self");
         console.log(self);
     },
-    checkControlBoard: function(bool) {
+    checkControlBoard: function(pieceType) {
         var a = Math.floor(parseInt(this.get("conveyorOption_2_value"), 10) / parseInt(this.get("conveyorOption_26_value"), 10)),
             b = 0,
             c = 0,
             d = this;
 
-        if (bool) {
+        if (([4,12].contains(parseInt(pieceType)))) {
 
             console.log('checkControlBoard');
             console.log(a);
@@ -142,9 +132,9 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                     console.log('b');
                     console.log(b);
                     if ((a + b - c) != 0) {
-                        if ((a + b - c) > 0) d.set("categoryText_12", "Il manque " + (a + b - c));
-                        if ((a + b - c) < 0) d.set("categoryText_12", (c - a - b) + " de plus");
-                    } else d.set("categoryText_12", "");
+                        if ((a + b - c) > 0) {d.set("categoryText_12", "Il manque " + (a + b - c));d.set("style_12", "color:white;background: #ce3131")}
+                        if ((a + b - c) < 0) {d.set("categoryText_12", (c - a - b) + " de plus");d.set("style_12", "color:white;background: #ce3131")}
+                    } else {d.set("categoryText_12", "");d.set("style_12", "")}
 
                 })
             });
@@ -164,25 +154,35 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                     this.get('pieceOrders').forEach(function(op){console.log("jjjjjjjjj");console.log(op.get('conveyor.id'));if(op.get('orderPiece.piece.pieceType.id')==12)somme+=parseInt(op.get('nbPieces'))});
 
                 this.createOrderPiece(13,24,{nb:parseInt(somme)});
+                this.set("categoryText_13", "");this.set("style_13", "")
              }
 
-        } else {
+        } else if(pieceType+''=='13'){
 
-            var n12 = 0;
+            
             this.get("parentController.orderPieces").then(function(e) {
                 Ember.RSVP.Promise.all(e.map(function(a) {
                     "5" === a.get("piece.pieceType.id") + "" ? b += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"),
-                        10) : "12" === a.get("piece.pieceType.id") + "" && (n12 = a.get("clientId"), c += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"), 10));
+                        10) : "12" === a.get("piece.pieceType.id") + "" && ( c += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"), 10));
                     return Ember.RSVP.Promise.resolve()
                 })).then(function() {
-                    console.log('ccccccccccc');
-                    console.log(c);
-                    console.log('a');
-                    console.log(a);
-                    console.log('b');
-                    console.log(b);
-                    d.set("pieceOrder_" + n12 + "_value", a + b);
-                    d.set("categoryText_12", "");
+                   0 != b - c ? ((0 <  b - c) && (d.set("categoryText_13", "Il manque " + (b - c)),d.set("style_13", "color:white;background: #ce3131")), (0 >  b - c) && (e.set("categoryText_13", c  - b + " de plus"),e.set("style_13", "color:white;background: #ce3131"))) : (e.set("categoryText_13",
+                            ""),e.set("style_13", ""))
+
+                })
+            });
+        }
+        else if(pieceType+''=='10'){
+
+            
+            this.get("parentController.orderPieces").then(function(e) {
+                Ember.RSVP.Promise.all(e.map(function(a) {
+                    "1" === a.get("piece.pieceType.id") + "" ? b += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"),
+                        10) : "10" === a.get("piece.pieceType.id") + "" && ( c += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"), 10));
+                    return Ember.RSVP.Promise.resolve()
+                })).then(function() {
+                   0 != b - c ? ((0 <  b - c) && (d.set("categoryText_10", "Il manque " + (b - c)),d.set("style_10", "color:white;background: #ce3131")), (0 >  b - c) && (e.set("categoryText_10", c  - b + " de plus"),e.set("style_10", "color:white;background: #ce3131"))) : (e.set("categoryText_10",
+                            ""),e.set("style_10", ""))
 
                 })
             });
