@@ -162,8 +162,8 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
             
             this.get("parentController.orderPieces").then(function(e) {
                 Ember.RSVP.Promise.all(e.map(function(a) {
-                    "5" === a.get("piece.pieceType.id") + "" ? b += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"),
-                        10) : "12" === a.get("piece.pieceType.id") + "" && ( c += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"), 10));
+                    "12" === a.get("piece.pieceType.id") + "" ? b += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"),
+                        10) : "13" === a.get("piece.pieceType.id") + "" && ( c += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"), 10));
                     return Ember.RSVP.Promise.resolve()
                 })).then(function() {
                    0 != b - c ? ((0 <  b - c) && (d.set("categoryText_13", "Il manque " + (b - c)),d.set("style_13", "color:white;background: #ce3131")), (0 >  b - c) && (d.set("categoryText_13", c  - b + " de plus"),d.set("style_13", "color:white;background: #ce3131"))) : (d.set("categoryText_13",
