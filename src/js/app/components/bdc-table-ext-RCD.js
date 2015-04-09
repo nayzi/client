@@ -490,7 +490,7 @@ Em.RSVP.Promise.all(z).then(function(results){console.log('promiseall'+!results.
                 var somme=0;
                     this.get('pieceOrders').forEach(function(op){if(op.get('orderPiece.piece.pieceType.id')==12)somme+=op.get('nbPieces')});
 
-                this.createOrderPiece(13,24,{nb:somme},1);
+                //this.createOrderPiece(13,24,{nb:somme},1);
              }
              else if(this.get("conveyorOption_27.value")!=undefined&&undefined!=this.get("conveyorOption_11.value")){this.createOrderPiece(13,24,{nb:0});}
       
