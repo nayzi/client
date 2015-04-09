@@ -165,7 +165,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                     "12" === a.get("piece.pieceType.id") + "" ? b += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"),
                         10) : "13" === a.get("piece.pieceType.id") + "" && ( c += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"), 10));
                     return Ember.RSVP.Promise.resolve()
-                })).then(function() {
+                })).then(function() {if (this.get("conveyorOption_27.value")==this.get("conveyorOption_11.value")) b=0;
                    0 != b - c ? ((0 <  b - c) && (d.set("categoryText_13", "Manque " + (b - c)),d.set("style_13", "color:white;background: #ce3131")), (0 >  b - c) && (d.set("categoryText_13", c  - b + " de plus"),d.set("style_13", "color:white;background: #ce3131"))) : (d.set("categoryText_13",
                             ""),d.set("style_13", ""))
 
