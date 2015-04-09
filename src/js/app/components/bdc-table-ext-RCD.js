@@ -477,6 +477,7 @@ Em.RSVP.Promise.all(z).then(function(results){console.log('promiseall'+!results.
         console.log('zzzzzzzzzzzzzzzz');
         if(this.get("conveyorOption_27.value")==undefined){console.log('iniiiiiiiitialisation');
         console.log(this);
+        this.set("categoryText_13", ""),this.set("style_13", "");
         // this.createOrderPiece(0,29,{nb:0},1);
         // this.createOrderPiece(0,30,{nb:0},1);
         // this.createOrderPiece(10,15,{nb:0},1);
@@ -494,7 +495,7 @@ Em.RSVP.Promise.all(z).then(function(results){console.log('promiseall'+!results.
                 //this.createOrderPiece(13,24,{nb:somme},1);
              }
              else if(this.get("conveyorOption_27.value")!=undefined&&undefined!=this.get("conveyorOption_11.value")){this.createOrderPiece(13,24,{nb:0});}
-      this.set("categoryText_13", ""),this.set("style_13", "");
+      
     }.observes("conveyorOption_11","conveyorOption_27"),    
     initializeComplementaryPieces: function() {
         console.log("RCD initializeComplementaryPieces");
