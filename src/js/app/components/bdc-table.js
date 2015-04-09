@@ -1374,8 +1374,8 @@ var p = this.get("conveyorType.pieceAvailabilities").get('content').toArray();
                 console.log('tttttttt'+this.get("parentView.tailleList"));
                 console.log(this.get('controller.parentController').getPieceList(this.get("parentView.content.id")).length);
                 console.log('lllliiiiiiist'+this.get("parentView.change"));
-                this.set("disabled",this.get("parentView.tailleList")<=1);
-                this.set("parentView.removeButton.disabled",0);
+                //this.set("disabled",this.get("parentView.tailleList")<=1);
+                //this.set("parentView.removeButton.disabled",0);
                 this.set("parentView.change",parseInt(this.get("parentView.change"))+1);
                 this.get("controller").send("addLine", this.get("parentView.content.id"))
             }
@@ -1389,8 +1389,8 @@ var p = this.get("conveyorType.pieceAvailabilities").get('content').toArray();
             click: function() {
                 this.set("parentView.change",parseInt(this.get("parentView.change"))+1);
                 console.log('remoooooooooov'+this.get("parentView.tailleList"));
-                this.set("disabled",this.get("parentView.tailleList")<=1);
-                this.set("parentView.addButton.disabled",0);
+                //this.set("disabled",this.get("parentView.tailleList")<=1);
+                //this.set("parentView.addButton.disabled",0);
                 console.log('lllliiiiiiist'+this.get("parentView.change"));
                 this.get("controller").send("removeLine", this.get("parentView.content.id"))
             }
