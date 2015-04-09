@@ -475,9 +475,10 @@ Em.RSVP.Promise.all(z).then(function(results){console.log('promiseall'+!results.
     },
     Conv: function() {
         console.log('zzzzzzzzzzzzzzzz');
+        this.set("categoryText_13", "");this.set("style_13", "");
         if(this.get("conveyorOption_27.value")==undefined){console.log('iniiiiiiiitialisation');
         console.log(this);
-        this.set("categoryText_13", "kkkkkkkkkkk");this.set("style_13", "");
+
         // this.createOrderPiece(0,29,{nb:0},1);
         // this.createOrderPiece(0,30,{nb:0},1);
         // this.createOrderPiece(10,15,{nb:0},1);
