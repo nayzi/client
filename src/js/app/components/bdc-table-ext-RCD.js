@@ -473,22 +473,28 @@ Em.RSVP.Promise.all(z).then(function(results){console.log('promiseall'+!results.
            console.log(ths.get("store").all('conveyorOption').forEach(function(co){if(co.get('optionType.id')==11||co.get('optionType.id')==27)total.pushObject(co.get('option.value'))}));
            console.log('taillllllle '+total.uniq().length)
     },
-Conv: function() {
-        console.log("zzzzzzzzzzzzzzzz");
-        void 0 == this.get("conveyorOption_27.value") && (console.log("iniiiiiiiitialisation"), console.log(this));
+    Conv: function() {
+        console.log('zzzzzzzzzzzzzzzz');
+        if(this.get("conveyorOption_27.value")==undefined){console.log('iniiiiiiiitialisation');
         console.log(this);
-        if (this.get("conveyorOption_27.value") == this.get("conveyorOption_11.value")) {
-            console.log("yyyyyy");
-            var a = 0;
-            this.get("pieceOrders").forEach(function(b) {
-                12 == b.get("orderPiece.piece.pieceType.id") && (a += b.get("nbPieces"))
-            });this.createOrderPiece(13, 24, {
-            nb: a
-        }
-        } else void 0 != this.get("conveyorOption_27.value") && void 0 != this.get("conveyorOption_11.value") && (this.createOrderPiece(13, 24, {
-            nb: 0
-        }))
-    }.observes("conveyorOption_11", "conveyorOption_27"), 
+        // this.createOrderPiece(0,29,{nb:0},1);
+        // this.createOrderPiece(0,30,{nb:0},1);
+        // this.createOrderPiece(10,15,{nb:0},1);
+        // this.createOrderPiece(17,27,{nb:0},1);
+        // this.createOrderPiece(17,28,{nb:0},1);
+
+          //  this.get('store').all('pieceOrder').map(function(p){p.deleteRecord()});
+    }
+        console.log(this);
+        if(this.get("conveyorOption_27.value")==this.get("conveyorOption_11.value")){console.log('yyyyyy');
+                var somme=0;
+                    this.get('pieceOrders').forEach(function(op){if(op.get('orderPiece.piece.pieceType.id')==12)somme+=op.get('nbPieces')});
+
+                this.createOrderPiece(13,24,{nb:somme},1);
+             }
+             else if(this.get("conveyorOption_27.value")!=undefined&&undefined!=this.get("conveyorOption_11.value")){this.createOrderPiece(13,24,{nb:0});}
+      
+    }.observes("conveyorOption_11","conveyorOption_27"),    
     initializeComplementaryPieces: function() {
         console.log("RCD initializeComplementaryPieces");
         var a = Math.floor(parseInt(this.get("conveyorOption_2_value"), 10) / parseInt(this.get("conveyorOption_26_value"), 10)),
