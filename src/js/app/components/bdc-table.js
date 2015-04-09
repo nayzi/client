@@ -816,11 +816,11 @@
             1 == arguments.length ? d = this.get("store").createRecord("orderPiece", {
                 order: this.get("model"),
                 piece: this.getPieceList(pieceTypeId)[0],
-                isComputed: (pieceTypeId+''=='0'||pieceTypeId+''=='17')
+                isComputed: (pieceTypeId+''=='0'||(pieceTypeId+''=='17'&&piece.id+''=='28'))
             }) : 2 == arguments.length ? (console.log("deuux"), console.log('a'), console.log(pieceTypeId), console.log('b'), console.log(existingOrderPiece), d = existingOrderPiece, this.set("orderPiece_" + d.get("id"), existingOrderPiece.get("piece"))) : 3 == arguments.length && (d = this.get("store").createRecord("orderPiece", {
                 order: this.get("model"),
                 piece: this.getPiece(piece),
-                isComputed: (pieceTypeId+''=='0'||pieceTypeId+''=='17')
+                isComputed: (pieceTypeId+''=='0'||(pieceTypeId+''=='17'&&piece.id+''=='28')
             }), this.set("orderPiece_" + d.get("clientId"), this.getPiece(piece)));
             this.addObserver("orderPiece_" + d.get("id"), function(a, b) {
                 console.log('observer8');
