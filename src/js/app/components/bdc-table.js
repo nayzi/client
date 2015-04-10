@@ -979,6 +979,9 @@ var p = this.get("conveyorType.pieceAvailabilities").get('content').toArray();
         pieceName: Ember.computed(function() {
             return 'orderPiece_' + this.get('content.clientId');
         }),
+        pieceTypeComputed: Ember.computed(function() {console.log(this.get("piece.id")+ ' pieceTypeComputed');
+           return [29,30,28].contains(parseInt(this.get("piece.id")))
+        }),
         pieceType: Ember.computed.alias('parentView.pieceType'),
         climatDidChange: function() {
             if (this.get('controller.parentController.isSubmitting')) {
@@ -1087,7 +1090,7 @@ var p = this.get("conveyorType.pieceAvailabilities").get('content').toArray();
         },
         template: Ember.Handlebars.compile(
             "{{#if controller.isEditing}}" +
-            "{{view Ember.Select name=view.pieceName content=view.pieceList optionLabelPath='content.label' optionValuePath='content.id' selection=view.piece}}" +
+            "{{view Ember.Select disabled=view.pieceTypeComputed name=view.pieceName content=view.pieceList optionLabelPath='content.label' optionValuePath='content.id' selection=view.piece}}" +
             "{{#if view.optTypeList.length}}" +
             "{{#each item in view.optTypeList}}" +
             "{{#if item.isArray}}" +
