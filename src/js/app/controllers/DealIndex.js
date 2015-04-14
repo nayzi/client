@@ -186,14 +186,14 @@ App.DealIndexController = Ember.ObjectController.extend({
             console.log('l3eeeeeeeeeeeeeeeeeeeez');
 
             var sortProp = event.path[0].innerText;
-
+            if (sortProp == "plan") sortProp = "plan";
             if (sortProp == "Dessinateur") sortProp = "drawerName";
             if (sortProp == "Derni\u00e8re \u00e9dition le") sortProp = "lastEditedAt";
             if (sortProp == "Edit\u00e9 par") sortProp = "createdBy";
             if (sortProp == "Verrouill\u00e9 par") sortProp = "lastEditedBy";
 
             if (this.get("sortProperties").toString().toLowerCase() == sortProp.toLowerCase()) this.set('sortAscending', !this.get('sortAscending'));
-            this.set("sortProperties", sortProp.toLowerCase());
+            this.set("sortProperties", sortProp);
         }
     },
     sortProperties: 'OTP',
