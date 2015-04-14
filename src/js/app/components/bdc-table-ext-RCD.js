@@ -152,9 +152,25 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
             console.log(d)
             console.log('checkControlBoardelse');
             if(this.get("conveyorOption_27.value")==this.get("conveyorOption_11.value")){console.log('yyyyyy');
-                var somme=0;
+                
                 console.log(this.get('conveyorOption_27'));
-                    this.get('pieceOrders').forEach(function(op){console.log("jjjjjjjjj");console.log(op.get('conveyor.id'));if(op.get('orderPiece.piece.pieceType.id')==12)somme+=parseInt(op.get('nbPieces'))});
+                var f = 0;
+                var g = 0;
+                console.log(this.get("conveyorOption_27"));
+                this.get("pieceOrders").forEach(function(a) {
+                    console.log("jjjjjjjjj");
+                    console.log(a.get("conveyor.id"));
+                    12 == a.get("orderPiece.piece.pieceType.id") && (f += parseInt(a.get("nbPieces")))
+                     13 == a.get("orderPiece.piece.pieceType.id") && (g += parseInt(a.get("nbPieces")))
+                });
+                if(f==g){
+                this.set("categoryText_13", "");
+                this.set("style_13", "")}
+                else {
+                    if(f>g){this.set("categoryText_13", "Manque " + (f-g)); this.set("style_13", "color:white;background: #D7DF01")}
+                        else if(f<g){e.set("categoryText_13",
+                            g-f + " de plus"), e.set("style_13", "color:white;background: #D7DF01")}
+                }
 
                 this.createOrderPiece(13,24,{nb:parseInt(somme)});
                 this.set("categoryText_13", "");this.set("style_13", "")
@@ -169,7 +185,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                         10) : "13" === a.get("piece.pieceType.id") + "" && ( c += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"), 10));
                     return Ember.RSVP.Promise.resolve()
                 })).then(function() {if (d.get("conveyorOption_27.value")!=d.get("conveyorOption_11.value")) b=0;
-                   0 != b - c ? ((0 <  b - c) && (d.set("categoryText_13", "Manque " + (b - c)),d.set("style_13", "color:white;background: #ce3131")), (0 >  b - c) && (d.set("categoryText_13", c  - b + " de plus"),d.set("style_13", "color:white;background: #ce3131"))) : (d.set("categoryText_13",
+                   0 != b - c ? ((0 <  b - c) && (d.set("categoryText_13", "Manque " + (b - c)),d.set("style_13", "color:white;background: #D7DF01")), (0 >  b - c) && (d.set("categoryText_13", c  - b + " de plus"),d.set("style_13", "color:white;background: #D7DF01"))) : (d.set("categoryText_13",
                             ""),d.set("style_13", ""))
 
                 })

@@ -159,7 +159,7 @@ App.DealIndexController = Ember.ObjectController.extend({
 
                             console.log("I" + result[1].get('number') + " " + order.get('otp') + " " + result[2][i][0].get('zone') + " " + result[2][i][0].get('ref') + "  ||| " + ((i + 1) * 10) + " ||| " + refer + "  |||| " + result[2][i][1][j][0].get('nbPieces'));
 
-                            table += '"' + "I" + result[1].get('number') + "" + order.get('otp') + "" + result[2][i][0].get('zone') + "" + result[2][i][0].get('ref') + '";"' + ((j + 1) * 10) + '";"' + refer + '";"' + result[2][i][1][j][0].get('nbPieces') + '"\n'
+                            table += '"' + "I" + result[1]._data.number + "" + order.get('otp') + "" + result[2][i][0].get('zone') + "" + result[2][i][0].get('ref') + '";"' + ((j + 1) * 10) + '";"' + refer + '";"' + result[2][i][1][j][0].get('nbPieces') + '"\n'
 
                         }
 
@@ -169,7 +169,7 @@ App.DealIndexController = Ember.ObjectController.extend({
 
 
                     a = document.createElement("a");
-                    a.download = "Affaire|" + result[1].get('number') + "-OTP|" + order.get('otp') + ".csv";
+                    a.download = "Affaire|" + result[1]._data.number + "-OTP|" + order.get('otp') + ".csv";
                     a.href = csvData;
                     a.click()
                 });
