@@ -495,9 +495,9 @@ Em.RSVP.Promise.all(z).then(function(results){console.log('promiseall'+!results.
                 var somme=0;
                 console.log('hdshsdhshsdh');
                     this.get('pieceOrders').forEach(function(op){if(op.get('orderPiece.piece.pieceType.id')==12)somme+=op.get('nbPieces')});
-                   if(a!=0){
+                   if(somme!=0){
             this.createOrderPiece(13, 24, {
-                nb: a
+                nb: somme
             })}
                 //this.createOrderPiece(13,24,{nb:somme},1);
              }
