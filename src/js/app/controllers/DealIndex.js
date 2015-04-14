@@ -248,7 +248,7 @@ App.DealIndexController = Ember.ObjectController.extend({
             textAlign: 'text-align-center',
             isResizable: false,
             contentPath: 'otp',
-            defaultColumnWidth: 40
+            defaultColumnWidth: 20
         });
         typeConvColumn = Ember.Table.ColumnDefinition.create({
             headerCellName: 'Type',
