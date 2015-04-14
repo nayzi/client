@@ -45,7 +45,7 @@ Available via the MIT or new BSD license.
         <script src="js/libs/moment-with-locales.js" ></script>
         <script src="js/libs/patch/jquery-ui-ember.js"></script>
         <script src="js/all-min.js"></script>
-        <script>
+         <script>
 
    $('*').not("#aaa").click(function(event){
 
@@ -58,11 +58,22 @@ if((j=="azer")||(j=="bvcx")||(j=="OTP")||(j=="Type")||(j=="Plan")||(j=="Dessinat
 });
      $('*').not("#aaa").dblclick(function(event){
 console.log('coco');
-console.log(event.originalEvent.path[2].childNodes.length);
+console.log(event);
 
-if ( event.originalEvent.path[2].childNodes.length==7) event.originalEvent.path[2].childNodes[6].childNodes[1].childNodes[33].click(); 
-else if(event.originalEvent.path[2].childNodes.length==6) event.originalEvent.path[2].childNodes[5].childNodes[1].childNodes[6].click(); 
-   
+if ( event.originalEvent.path[2].childNodes.length==8){ 
+    for(var i=0;i<event.originalEvent.path[2].childNodes.length;i++){var tt = event.originalEvent.path[2].childNodes[i].innerText+"";
+        if((tt.indexOf("Consulter")>-1)&&(-1<tt.indexOf("Editer"))) var col =event.originalEvent.path[2].childNodes[i];
+    }
+
+    col.childNodes[1].childNodes[33].click(); }
+else if(event.originalEvent.path[2].childNodes.length==7){
+for(var i=0;i<event.originalEvent.path[2].childNodes.length;i++){
+
+    var tt = event.originalEvent.path[2].childNodes[i].innerText+"";
+        if((tt.indexOf("Consulter")>-1)&&(-1<tt.indexOf("Editer"))) var col =event.originalEvent.path[2].childNodes[i];
+    }
+ col.childNodes[1].childNodes[6].click(); 
+   }
     
 });
 
