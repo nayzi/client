@@ -55,7 +55,7 @@ App.DealsIndexController = Ember.ArrayController.extend({
             textAlign: 'text-align-center',
             isResizable: false,
             contentPath: 'number',
-            defaultColumnWidth: 60,
+            defaultColumnWidth: 20,
             minWidth: 20
         });
         clientColumn = Ember.Table.ColumnDefinition.create({
