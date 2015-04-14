@@ -19,6 +19,18 @@ App.DealsIndexController = Ember.ArrayController.extend({
         },
         create: function() {
             this.transitionToRoute('deals.createDeal');
+        },
+                woooow: function(a) {
+            console.log('l3eeeeeeeeeeeeeeeeeeeez');
+
+            var sortProp = event.path[0].innerText;
+
+            if (sortProp == "Client") sortProp = "clientName";
+            if (sortProp == "N°") sortProp = "number";
+            if (sortProp == "Affaire") sortProp = "dealName";
+
+            if (this.get("sortProperties").toString().toLowerCase() == sortProp.toLowerCase()) this.set('sortAscending', !this.get('sortAscending'));
+            this.set("sortProperties", sortProp.toLowerCase());
         }
     },
     numRows: function() {
@@ -27,7 +39,7 @@ App.DealsIndexController = Ember.ArrayController.extend({
         else
             return 0;
     }.property('filtered'),
-    sortProperties: ['number'],
+    sortProperties: 'number',
     sortAscending: true,
     filtered: function() {
         var data = [];
