@@ -28,6 +28,9 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                 
             });
             b.get('parentController').cleanUpOrderPiece('1');
+            b.set("categoryText_10", ""),b.set("style_10", "");
+            b.set("categoryText_13", ""),b.set("style_13", "");
+            b.set("categoryText_12", ""),b.set("style_12", "");
         },
         initialiserPieceOrder: function(typeId){
         var id = parseInt(this.get('parentController').getPieceList(typeId)[0].get('id'));
