@@ -173,7 +173,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                 }
 
                 
-                this.set("categoryText_13", "");this.set("style_13", "")
+               
              }
 
         } else if(pieceType+''=='13'){
