@@ -65,27 +65,27 @@ App.DealsIndexController = Ember.ArrayController.extend({
         numColumn = Ember.Table.ColumnDefinition.create({
             headerCellName: 'N°',
             textAlign: 'text-align-center',
-            isResizable: false,
+            isResizable: 1,
             contentPath: 'number',
-            defaultColumnWidth: 20,
-            minWidth: 20
+            defaultColumnWidth: 10,
+            minWidth: 10
         });
         clientColumn = Ember.Table.ColumnDefinition.create({
             headerCellName: 'Client',
             textAlign: 'text-align-center',
-            isResizable: false,
+            isResizable: 1,
             contentPath: 'clientName'
         });
         dealColumn = Ember.Table.ColumnDefinition.create({
             headerCellName: 'Affaire',
             textAlign: 'text-align-center',
-            isResizable: false,
+            isResizable: 1,
             contentPath: 'dealName'
         });
         EGColumn = Ember.Table.ColumnDefinition.create({
             headerCellName: 'EG',
             textAlign: 'text-align-center',
-            isResizable: false,
+            isResizable: 1,
             contentPath: 'eg',
             defaultColumnWidth: 40,
             minWidth: 40
@@ -93,7 +93,7 @@ App.DealsIndexController = Ember.ArrayController.extend({
         RALColumn = Ember.Table.ColumnDefinition.create({
             headerCellName: 'RAL manut',
             textAlign: 'text-align-center',
-            isResizable: false,
+            isResizable: 1,
             contentPath: 'ral',
             defaultColumnWidth: 80,
             minWidth: 80,
@@ -101,7 +101,7 @@ App.DealsIndexController = Ember.ArrayController.extend({
         RALUnderConveyorColumn = Ember.Table.ColumnDefinition.create({
             headerCellName: 'RAL sous manut',
             textAlign: 'text-align-center',
-            isResizable: false,
+            isResizable: 1,
             contentPath: 'ralUnderConveyor',
             defaultColumnWidth: 115,
             minWidth: 115
@@ -109,7 +109,7 @@ App.DealsIndexController = Ember.ArrayController.extend({
         actionColumn = Ember.Table.ColumnDefinition.create({
             headerCellName: 'Actions',
             textAlign: 'text-align-center',
-            isResizable: false,
+            isResizable: 1,
             tableCellViewClass: 'App.TableActionCell',
             defaultColumnWidth: 115,
             minWidth: 115,

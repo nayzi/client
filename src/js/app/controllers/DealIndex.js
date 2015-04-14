@@ -246,34 +246,34 @@ App.DealIndexController = Ember.ObjectController.extend({
         numColumn = Ember.Table.ColumnDefinition.create({
             headerCellName: 'OTP',
             textAlign: 'text-align-center',
-            isResizable: false,
+            isResizable: 1,
             contentPath: 'otp',
             defaultColumnWidth: 20
         });
         typeConvColumn = Ember.Table.ColumnDefinition.create({
             headerCellName: 'Type',
             textAlign: 'text-align-center',
-            isResizable: false,
+            isResizable: 1,
             contentPath: 'conveyorType.abbreviation',
             defaultColumnWidth: 50
         });
         planColumn = Ember.Table.ColumnDefinition.create({
             headerCellName: 'Plan',
             textAlign: 'text-align-center',
-            isResizable: false,
+            isResizable: 1,
             contentPath: 'plan'
         });
         drawerColumn = Ember.Table.ColumnDefinition.create({
             headerCellName: 'Dessinateur',
             textAlign: 'text-align-center',
-            isResizable: false,
+            isResizable: 1,
             contentPath: 'drawerName',
             minWidth: 90
         });
         lastEditedAtColumn = Ember.Table.ColumnDefinition.create({
             headerCellName: 'Dernière édition le',
             textAlign: 'text-align-center',
-            isResizable: false,
+            isResizable: 1,
             defaultColumnWidth: 125,
             maxWidth: 125,
             getCellContent: function(row) {
@@ -285,19 +285,19 @@ App.DealIndexController = Ember.ObjectController.extend({
         lastEditedByColumn = Ember.Table.ColumnDefinition.create({
             headerCellName: 'Edité par',
             textAlign: 'text-align-center',
-            isResizable: false,
+            isResizable: 1,
             contentPath: 'lastEditedBy'
         });
         lockedColumn = Ember.Table.ColumnDefinition.create({
             headerCellName: 'Verrouillé par',
             textAlign: 'text-align-center',
-            isResizable: false,
+            isResizable: 1,
             contentPath: 'lockedBy'
         });
         actionColumn = Ember.Table.ColumnDefinition.create({
             headerCellName: 'Actions',
             textAlign: 'text-align-center',
-            isResizable: false,
+            isResizable: 1,
             tableCellViewClass: 'App.TableActionCell',
             defaultColumnWidth: 190,
             maxWidth: 190,
