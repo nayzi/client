@@ -1425,6 +1425,7 @@ var p = this.get("conveyorType.pieceAvailabilities").get('content').toArray();
             return this._super();
         },
         template: Ember.Handlebars.compile(
+            "<span> {{view.text}}</span>" +
             "{{#if view.needCalculateButton}}" +
             "{{view view.calculateButton}}" +
             "{{#view view.dialog}}{{/view}}" +
