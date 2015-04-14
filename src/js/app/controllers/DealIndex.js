@@ -19,85 +19,94 @@ App.DealIndexController = Ember.ObjectController.extend({
     needs: ['popInDeal'],
     queryField: null,
     actions: {
-        showOrder: function(orderId) {console.log("dealindex : showorder :"+orderId);
-           this.transitionToRoute("deal.createOrder")
+        showOrder: function(orderId) {
+            console.log("dealindex : showorder :" + orderId);
+            this.transitionToRoute("deal.createOrder")
         },
         redirect: function(route, id) {
             this.transitionToRoute(route, id);
         },
         delete: function(id) {
-            this.get('store').find('order',id).then(function(z){z.deleteRecord();z.save()});
+            
+            this.get('store').find('order', id).then(function(z) {
+                var r = confirm("Veuillez confirmer la suppression du bon de commande OTP :"+z.get('otp'));
+            if (r == true) {
+                z.deleteRecord();
+                z.save()
+            }
+                
+            });
         },
         edit: function(a) {
             this.transitionToRoute("deal.edit", this.get('model').id)
         },
-        reference:function(a, b, c, d, e,deal,climat){//p.orderPiece.options  p.orderPiece.piece.erpRef c c.options model
-                return "hoho"
-                
-    for (var f = 0; f < a.length; f++) {
-        
-    var g = a[f][1].get('replace'),
-        k = a[f][0].get('optionValue'),
-        h = "";
-        if ("L4" == g && null != k && null != k.length) {
-            for (var t = 0; t < 4 - k.length; t++) h += "0";
-           k = h + k
-      }
-       "P" == g && ( b = b.replace("${P}", a[f][2].get('value')));
-        b = b.replace("${" + g + "}", k); - 1 < b.indexOf("B") && ("Basse" == a[f][2].get('label') || "Haute" == a[f][2].get('label')) &&
-             (b = b.replace("B", "Haute" == a[f][2].get('label') ? 2 : 1))
-     }
-    
-     b = b.replace("${EG4}", c.get('eg'));
-     a = "RAL" == c.get('ral') ? deal.get('ral') : c.get('ral');
-     b = b.replace("${RALU}", "RAL" == c.get('ralUnderConveyor') ? deal.get('ralUnderConveyor') : c.get('ralUnderConveyor'));
-     b = b.replace("${RAL}", a);
-     
-     if ("${Z}-${xxxx}-${yyy}-${zzz}-${vv-o}" == b || "${Y}-${xxxx}-${yyy}-${zzz}-${vv-o}" == b)
-        for ( b = b.replace("${Z}", "Z"),  b = b.replace("${Y}", "Y"), b = b.replace("${zzz}",
-                1E3 > c.get('eg') ? "0" + c.get('eg') : c.get('eg')), i = 0; i < d.length; i++)   "26" == d[i][1].get('id') && ( b = b.replace("${xxxx}", 1E3 > d[i][0].get('optionValue') ? "0" + d[i][0].get('optionValue') : d[i][0].get('optionValue'))), "19" == d[i][1].get('id') && (b = b.replace("${yyy}", d[i][0].get('optionValue'))), "26" == d[i][1].get('id') && (b = b.replace("${xxxx}", 1E3 > d[i][0].get('optionValue') ? "0" + d[i][0].get('optionValue') : d[i][0].get('optionValue'))),
-            "7" == d[i][1].get('id') && (a = "", null == climat.get('abbreviation') ? (a = parseInt(d[i][0].get('optionValue')),  a = 15 < a ? 55 : 0 < a ? 15 : "-") : a = climat.get('abbreviation'),  b = b.replace("${vv-o}", a));
-        
-         for (i = 0; i < d.length; i++) "7" == d[i][1].get('id') && (  null == climat.get('abbreviation')  ? (a = parseInt(d[i][0].get('optionValue')),
-          a = 15 < a ? 55 : 0 < a ? 15 : "-") : a = climat.get('abbreviation'),  b = b.replace("${V}", a)), b = b.replace("${" + d[i][1].get('replace') + "}", d[i][0].get('optionValue'));
-        console.log('reference ligne '+b);
-                return b;
+        reference: function(a, b, c, d, e, deal, climat) { //p.orderPiece.options  p.orderPiece.piece.erpRef c c.options model
+            return "hoho"
+
+            for (var f = 0; f < a.length; f++) {
+
+                var g = a[f][1].get('replace'),
+                    k = a[f][0].get('optionValue'),
+                    h = "";
+                if ("L4" == g && null != k && null != k.length) {
+                    for (var t = 0; t < 4 - k.length; t++) h += "0";
+                    k = h + k
+                }
+                "P" == g && (b = b.replace("${P}", a[f][2].get('value')));
+                b = b.replace("${" + g + "}", k); - 1 < b.indexOf("B") && ("Basse" == a[f][2].get('label') || "Haute" == a[f][2].get('label')) &&
+                    (b = b.replace("B", "Haute" == a[f][2].get('label') ? 2 : 1))
+            }
+
+            b = b.replace("${EG4}", c.get('eg'));
+            a = "RAL" == c.get('ral') ? deal.get('ral') : c.get('ral');
+            b = b.replace("${RALU}", "RAL" == c.get('ralUnderConveyor') ? deal.get('ralUnderConveyor') : c.get('ralUnderConveyor'));
+            b = b.replace("${RAL}", a);
+
+            if ("${Z}-${xxxx}-${yyy}-${zzz}-${vv-o}" == b || "${Y}-${xxxx}-${yyy}-${zzz}-${vv-o}" == b)
+                for (b = b.replace("${Z}", "Z"), b = b.replace("${Y}", "Y"), b = b.replace("${zzz}",
+                        1E3 > c.get('eg') ? "0" + c.get('eg') : c.get('eg')), i = 0; i < d.length; i++) "26" == d[i][1].get('id') && (b = b.replace("${xxxx}", 1E3 > d[i][0].get('optionValue') ? "0" + d[i][0].get('optionValue') : d[i][0].get('optionValue'))), "19" == d[i][1].get('id') && (b = b.replace("${yyy}", d[i][0].get('optionValue'))), "26" == d[i][1].get('id') && (b = b.replace("${xxxx}", 1E3 > d[i][0].get('optionValue') ? "0" + d[i][0].get('optionValue') : d[i][0].get('optionValue'))),
+                    "7" == d[i][1].get('id') && (a = "", null == climat.get('abbreviation') ? (a = parseInt(d[i][0].get('optionValue')), a = 15 < a ? 55 : 0 < a ? 15 : "-") : a = climat.get('abbreviation'), b = b.replace("${vv-o}", a));
+
+            for (i = 0; i < d.length; i++) "7" == d[i][1].get('id') && (null == climat.get('abbreviation') ? (a = parseInt(d[i][0].get('optionValue')),
+                a = 15 < a ? 55 : 0 < a ? 15 : "-") : a = climat.get('abbreviation'), b = b.replace("${V}", a)), b = b.replace("${" + d[i][1].get('replace') + "}", d[i][0].get('optionValue'));
+            console.log('reference ligne ' + b);
+            return b;
         },
         exporter: function(a) {
-             function reference(a,b,c,d,e,deal,climat){
-                               
-                       
-           
-                
-    for (var f = 0; f < a.length; f++) {
-        
-    var g = a[f][1].get('replace'),
-        k = a[f][0].get('optionValue'),
-        h = "";
-        if ("L4" == g && null != k && null != k.length) {
-            for (var t = 0; t < 4 - k.length; t++) h += "0";
-           k = h + k
-      }
-       "P" == g && ( b = b.replace("${P}", a[f][2].get('value')));
-        b = b.replace("${" + g + "}", k); - 1 < b.indexOf("B") && ("Basse" == a[f][2].get('label') || "Haute" == a[f][2].get('label')) &&
-             (b = b.replace("B", "Haute" == a[f][2].get('label') ? 2 : 1))
-     }
-    
-     b = b.replace("${EG4}", c.get('eg'));
-     a = "RAL" == c.get('ral') ? deal.get('ral') : c.get('ral');
-     b = b.replace("${RALU}", "RAL" == c.get('ralUnderConveyor') ? deal.get('ralUnderConveyor') : c.get('ralUnderConveyor'));
-     b = b.replace("${RAL}", a);
-     
-     if ("${Z}-${xxxx}-${yyy}-${zzz}-${vv-o}" == b || "${Y}-${xxxx}-${yyy}-${zzz}-${vv-o}" == b)
-        for ( b = b.replace("${Z}", "Z"),  b = b.replace("${Y}", "Y"), b = b.replace("${zzz}",
-                1E3 > c.get('eg') ? "0" + c.get('eg') : c.get('eg')), m = 0; m < d.length; m++)   "26" == d[m][1].get('id') && ( b = b.replace("${xxxx}", 1E3 > d[m][0].get('optionValue') ? "0" + d[m][0].get('optionValue') : d[m][0].get('optionValue'))), "19" == d[m][1].get('id') && (b = b.replace("${yyy}", d[m][0].get('optionValue'))), "26" == d[m][1].get('id') && (b = b.replace("${xxxx}", 1E3 > d[m][0].get('optionValue') ? "0" + d[m][0].get('optionValue') : d[m][0].get('optionValue'))),
-            "7" == d[m][1].get('id') && (a = "", null == climat.get('abbreviation') ? (a = parseInt(d[m][0].get('optionValue')),  a = 15 < a ? 55 : 0 < a ? 15 : "-") : a = climat.get('abbreviation'),  b = b.replace("${vv-o}", a));
-        
-         for (var k = 0; k < d.length; k++) "7" == d[k][1].get('id') && (  null == climat.get('abbreviation')  ? (a = parseInt(d[k][0].get('optionValue')),
-          a = 15 < a ? 55 : 0 < a ? 15 : "-") : a = climat.get('abbreviation'),  b = b.replace("${V}", a)), b = b.replace("${" + d[k][1].get('replace') + "}", d[k][0].get('optionValue'));
-        console.log('reference ligne '+b);
+            function reference(a, b, c, d, e, deal, climat) {
+
+
+
+
+                for (var f = 0; f < a.length; f++) {
+
+                    var g = a[f][1].get('replace'),
+                        k = a[f][0].get('optionValue'),
+                        h = "";
+                    if ("L4" == g && null != k && null != k.length) {
+                        for (var t = 0; t < 4 - k.length; t++) h += "0";
+                        k = h + k
+                    }
+                    "P" == g && (b = b.replace("${P}", a[f][2].get('value')));
+                    b = b.replace("${" + g + "}", k); - 1 < b.indexOf("B") && ("Basse" == a[f][2].get('label') || "Haute" == a[f][2].get('label')) &&
+                        (b = b.replace("B", "Haute" == a[f][2].get('label') ? 2 : 1))
+                }
+
+                b = b.replace("${EG4}", c.get('eg'));
+                a = "RAL" == c.get('ral') ? deal.get('ral') : c.get('ral');
+                b = b.replace("${RALU}", "RAL" == c.get('ralUnderConveyor') ? deal.get('ralUnderConveyor') : c.get('ralUnderConveyor'));
+                b = b.replace("${RAL}", a);
+
+                if ("${Z}-${xxxx}-${yyy}-${zzz}-${vv-o}" == b || "${Y}-${xxxx}-${yyy}-${zzz}-${vv-o}" == b)
+                    for (b = b.replace("${Z}", "Z"), b = b.replace("${Y}", "Y"), b = b.replace("${zzz}",
+                            1E3 > c.get('eg') ? "0" + c.get('eg') : c.get('eg')), m = 0; m < d.length; m++) "26" == d[m][1].get('id') && (b = b.replace("${xxxx}", 1E3 > d[m][0].get('optionValue') ? "0" + d[m][0].get('optionValue') : d[m][0].get('optionValue'))), "19" == d[m][1].get('id') && (b = b.replace("${yyy}", d[m][0].get('optionValue'))), "26" == d[m][1].get('id') && (b = b.replace("${xxxx}", 1E3 > d[m][0].get('optionValue') ? "0" + d[m][0].get('optionValue') : d[m][0].get('optionValue'))),
+                        "7" == d[m][1].get('id') && (a = "", null == climat.get('abbreviation') ? (a = parseInt(d[m][0].get('optionValue')), a = 15 < a ? 55 : 0 < a ? 15 : "-") : a = climat.get('abbreviation'), b = b.replace("${vv-o}", a));
+
+                for (var k = 0; k < d.length; k++) "7" == d[k][1].get('id') && (null == climat.get('abbreviation') ? (a = parseInt(d[k][0].get('optionValue')),
+                    a = 15 < a ? 55 : 0 < a ? 15 : "-") : a = climat.get('abbreviation'), b = b.replace("${V}", a)), b = b.replace("${" + d[k][1].get('replace') + "}", d[k][0].get('optionValue'));
+                console.log('reference ligne ' + b);
                 return b;
-        }
+            }
             var diz = this;
 
             this.get("store").find('order', a).then(function(o) {
@@ -111,47 +120,58 @@ App.DealIndexController = Ember.ObjectController.extend({
 
                                 return Ember.RSVP.Promise.all(po.map(function(poo) {
                                     return Ember.RSVP.Promise.all([poo, poo.get('orderPiece').then(function(op) {
-                                         return Ember.RSVP.Promise.all([op,op.get('piece'),op.get('options').then(function(opt){return Ember.RSVP.Promise.all(opt.map(function(optt){return Ember.RSVP.Promise.all([optt,optt.get('optionType').then(function(opttp){return opttp}),optt.get('option').then(function(opttp){return opttp})])}))}
-                                            )])
+                                        return Ember.RSVP.Promise.all([op, op.get('piece'), op.get('options').then(function(opt) {
+                                            return Ember.RSVP.Promise.all(opt.map(function(optt) {
+                                                return Ember.RSVP.Promise.all([optt, optt.get('optionType').then(function(opttp) {
+                                                    return opttp
+                                                }), optt.get('option').then(function(opttp) {
+                                                    return opttp
+                                                })])
+                                            }))
+                                        })])
                                     })])
                                 }))
-                            }),c.get('options').then(function(co){return Ember.RSVP.Promise.all(co.map(function(coo){
-                                    return Ember.RSVP.Promise.all([coo,coo.get('optionType').then(function(opttp){return opttp})])
-                            }))})])
+                            }), c.get('options').then(function(co) {
+                                return Ember.RSVP.Promise.all(co.map(function(coo) {
+                                    return Ember.RSVP.Promise.all([coo, coo.get('optionType').then(function(opttp) {
+                                        return opttp
+                                    })])
+                                }))
+                            })])
                         }))
-                    }),o.get('climat')
+                    }), o.get('climat')
 
 
                 ]).then(function(result) {
                     console.log('affaiiiiiiiiiiiiiire');
                     console.log(result[1]);
                     var order = result[0];
-                    
+
                     var table = ""
 
-                    for(var i=0;i<result[2].length;i++){//iteration sur les convoyeurs
-                        
-                        for(var j=0;j<result[2][i][1].length;j++){
-                            
-                            console.log("ligne "+i);
+                    for (var i = 0; i < result[2].length; i++) { //iteration sur les convoyeurs
 
-                            var refer = reference(result[2][i][1][j][1][2],result[2][i][1][j][1][1].get('erpRef'),result[2][i][0],result[2][i][2],order,result[1],result[3]);
-                           
-                            console.log("I"+result[1].get('number')+" "+order.get('otp')+" "+result[2][i][0].get('zone')+" "+result[2][i][0].get('ref')+"  ||| "+((i+1)*10)+" ||| "+refer+ "  |||| "+result[2][i][1][j][0].get('nbPieces'));
-                            
-                            table+='"'+"I"+result[1].get('number')+""+order.get('otp')+""+result[2][i][0].get('zone')+""+result[2][i][0].get('ref')+'";"'+((j+1)*10)+'";"'+refer+'";"'+result[2][i][1][j][0].get('nbPieces')+'"\n'
+                        for (var j = 0; j < result[2][i][1].length; j++) {
+
+                            console.log("ligne " + i);
+
+                            var refer = reference(result[2][i][1][j][1][2], result[2][i][1][j][1][1].get('erpRef'), result[2][i][0], result[2][i][2], order, result[1], result[3]);
+
+                            console.log("I" + result[1].get('number') + " " + order.get('otp') + " " + result[2][i][0].get('zone') + " " + result[2][i][0].get('ref') + "  ||| " + ((i + 1) * 10) + " ||| " + refer + "  |||| " + result[2][i][1][j][0].get('nbPieces'));
+
+                            table += '"' + "I" + result[1].get('number') + "" + order.get('otp') + "" + result[2][i][0].get('zone') + "" + result[2][i][0].get('ref') + '";"' + ((j + 1) * 10) + '";"' + refer + '";"' + result[2][i][1][j][0].get('nbPieces') + '"\n'
 
                         }
-                        
-                        }
-                           
-        csvData = "data:application/csv," + encodeURIComponent('"Code Article Pere";"Num Ligne Nom";"Code Article Composant";"Quantite Composant"\n' + table);
-        
-        
-        a = document.createElement("a");
-        a.download = "Affaire|"+result[1].get('number') +"-OTP|"+order.get('otp')+ ".csv";
-        a.href = csvData;
-        a.click()
+
+                    }
+
+                    csvData = "data:application/csv," + encodeURIComponent('"Code Article Pere";"Num Ligne Nom";"Code Article Composant";"Quantite Composant"\n' + table);
+
+
+                    a = document.createElement("a");
+                    a.download = "Affaire|" + result[1].get('number') + "-OTP|" + order.get('otp') + ".csv";
+                    a.href = csvData;
+                    a.click()
                 });
             })
 
@@ -162,18 +182,19 @@ App.DealIndexController = Ember.ObjectController.extend({
             // this.transitionToRoute("order.Exporter", a)
 
         },
-        woooow : function(a){console.log('l3eeeeeeeeeeeeeeeeeeeez');
+        woooow: function(a) {
+            console.log('l3eeeeeeeeeeeeeeeeeeeez');
 
-        var sortProp = event.path[0].innerText;
-      
-        if(sortProp=="Dessinateur") sortProp="drawerName";
-        if(sortProp=="Derni\u00e8re \u00e9dition le") sortProp="lastEditedAt";
-        if(sortProp=="Edit\u00e9 par") sortProp="createdBy";
-        if(sortProp=="Verrouill\u00e9 par") sortProp="lastEditedBy";
+            var sortProp = event.path[0].innerText;
 
-            if(this.get("sortProperties").toString().toLowerCase()==sortProp.toLowerCase()) this.set('sortAscending',!this.get('sortAscending'));
-            this.set("sortProperties",sortProp.toLowerCase());
-            }       
+            if (sortProp == "Dessinateur") sortProp = "drawerName";
+            if (sortProp == "Derni\u00e8re \u00e9dition le") sortProp = "lastEditedAt";
+            if (sortProp == "Edit\u00e9 par") sortProp = "createdBy";
+            if (sortProp == "Verrouill\u00e9 par") sortProp = "lastEditedBy";
+
+            if (this.get("sortProperties").toString().toLowerCase() == sortProp.toLowerCase()) this.set('sortAscending', !this.get('sortAscending'));
+            this.set("sortProperties", sortProp.toLowerCase());
+        }
     },
     sortProperties: 'OTP',
     sortAscending: false,
@@ -205,7 +226,7 @@ App.DealIndexController = Ember.ObjectController.extend({
                 var e = !0;
                 $.each(b, function(b, d) {
                     var g = RegExp(d, "i");
-                    if (!(g.test(a.get("otp")) || g.test(a.get("conveyorType.abbreviation").toLowerCase()) || g.test(a.get("drawerName")?a.get("drawerName").toLowerCase():"") || g.test(a.get("plan") ? a.get("plan").toLowerCase() : ""))) return e = !1
+                    if (!(g.test(a.get("otp")) || g.test(a.get("conveyorType.abbreviation").toLowerCase()) || g.test(a.get("drawerName") ? a.get("drawerName").toLowerCase() : "") || g.test(a.get("plan") ? a.get("plan").toLowerCase() : ""))) return e = !1
                 });
                 return e
             }).sortBy(this.get("sortProperties"));
@@ -214,7 +235,7 @@ App.DealIndexController = Ember.ObjectController.extend({
         console.log(a);
         return this.get("sortAscending") ? a : a.reverse()
     }.property("content.orders.isLoaded", "content.orders.@each", "queryField", "numRows", "sortProperties", "sortAscending"),
- 
+
     /**
      * Liste des colonnes
      * @property columns
@@ -257,7 +278,7 @@ App.DealIndexController = Ember.ObjectController.extend({
             maxWidth: 125,
             getCellContent: function(row) {
                 var d = moment(row.get('lastEditedAt')).format('llll');
-                if (d=moment(0).format('llll')) d = "non modifié";
+                if (d = moment(0).format('llll')) d = "non modifié";
                 return d;
             }
         });
