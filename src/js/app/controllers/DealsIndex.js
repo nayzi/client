@@ -30,7 +30,7 @@ App.DealsIndexController = Ember.ArrayController.extend({
             if (sortProp == "Affaire") sortProp = "dealName";
 
             if (this.get("sortProperties").toString().toLowerCase() == sortProp.toLowerCase()) this.set('sortAscending', !this.get('sortAscending'));
-            this.set("sortProperties", sortProp.toLowerCase());
+            this.set("sortProperties", sortProp);
         }
     },
     numRows: function() {
