@@ -172,7 +172,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                             g-f + " de plus"), e.set("style_13", "color:white;background: #D7DF01")}
                 }
 
-                this.createOrderPiece(13,24,{nb:parseInt(somme)});
+                
                 this.set("categoryText_13", "");this.set("style_13", "")
              }
 
