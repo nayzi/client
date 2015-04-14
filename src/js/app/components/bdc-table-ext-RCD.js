@@ -141,16 +141,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
 
                 })
             });
-            console.log("RCD checkControlBoard");
-            console.log("nbRange");
-            console.log(a);
-            console.log("nbComp");
-            console.log(b);
-            console.log("nbControlBoard");
-            console.log(c);
-            console.log("self");
-            console.log(d)
-            console.log('checkControlBoardelse');
+            
             if(this.get("conveyorOption_27.value")==this.get("conveyorOption_11.value")){console.log('yyyyyy');
                 
                 console.log(this.get('conveyorOption_27'));
@@ -168,8 +159,8 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                 this.set("style_13", "")}
                 else {
                     if(f>g){this.set("categoryText_13", "Manque " + (f-g)); this.set("style_13", "color:white;background: #D7DF01")}
-                        else if(f<g){e.set("categoryText_13",
-                            g-f + " de plus"), e.set("style_13", "color:white;background: #D7DF01")}
+                        else if(f<g){this.set("categoryText_13",
+                            g-f + " de plus"), this.set("style_13", "color:white;background: #D7DF01")}
                 }
 
                 
