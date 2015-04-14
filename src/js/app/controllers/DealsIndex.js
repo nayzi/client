@@ -10,12 +10,14 @@ App.DealsIndexController = Ember.ArrayController.extend({
             this.transitionToRoute(route, id);
         },
         delete: function(id) {
-            this.get('store').find("deal", id).then(function(a) {
-                a.deleteRecord();
-                a.get('isDeleted'); // => true
-                a.save(); // => DELETE to /posts/1
+            this.get('store').find('deal', id).then(function(z) {
+                var r = confirm("Veuillez confirmer la suppression de l'affaire  :"+z.get('dealName')+" identifiée par :"+z.get('number'));
+            if (r == true) {
+                z.deleteRecord();
+                z.save()
+            }
+                
             });
-            console.log('Delete deal with id: ' + id);
         },
         create: function() {
             this.transitionToRoute('deals.createDeal');
