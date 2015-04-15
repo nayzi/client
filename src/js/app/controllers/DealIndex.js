@@ -21,7 +21,7 @@ App.DealIndexController = Ember.ObjectController.extend({
     actions: {
         showOrder: function(orderId) {
             console.log("dealindex : showorder :" + orderId);
-            this.transitionToRoute("deal.createOrder")
+            this.transitionToRoute("deal.updateOrder")
         },
         redirect: function(route, id) {
             this.transitionToRoute(route, id);
