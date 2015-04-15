@@ -5,18 +5,25 @@
 
 App.DealsIndexController = Ember.ArrayController.extend({
     queryField: null,
+    needs: ["popInDeals"],
     actions: {
         redirect: function(route, id) {
             this.transitionToRoute(route, id);
         },
-        delete: function(id) {
-            this.get('store').find('deal', id).then(function(z) {
-                var r = confirm("Veuillez confirmer la suppression de l'affaire  :"+z.get('dealName')+" identifiée par :"+z.get('number'));
-            if (r == true) {
-                return Ember.RSVP.Promise.all([ z.get('orders').then(function(os){return os.map(function(o){console.log('suppression de lordre');console.log(o);o.deleteRecord(); o.save();return Ember.RSVP.Promise.resolve()});})]).then(function(f){z.deleteRecord(); z.save()})
-            }
+        conf: function(a) {
+            this.set('controllers.popInDeals.jojo',a);
+
+
+        },
+        delete: function(a) {
+        console.log('suprosososos'+a);
+            this.get("store").find("deal", a).then(function(a) {
                 
-            });
+                 return Ember.RSVP.Promise.all([    a.get('orders').then(function(os){return os.map(function(o){console.log('suppression de lordre');console.log(o);o.deleteRecord(); o.save();return Ember.RSVP.Promise.resolve()});})]).then(function(f){a.deleteRecord(); a.save()})
+
+                //  a.deleteRecord(); a.save()
+                
+            })
         },
         create: function() {
             this.transitionToRoute('deals.createDeal');
@@ -151,8 +158,10 @@ App.DealsIndexController = Ember.ArrayController.extend({
                                 label: "Supprimer",
                                 text: false,
                                 click: function() {
-                                    this.get('controller.parentView.controller').send('delete', row.get('id'));
-                                },
+                                this.get("controller.parentView.controller").send("conf", a.get("id"))
+                                $(".dialog-delete-deal").dialog("open")
+                               
+                            },
                                 disabled: false
                             })
                         })
