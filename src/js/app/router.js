@@ -15,6 +15,7 @@ App.Router.map(function() {
         this.resource('deal', {path: 'deal/:deal_id'}, function() {
             this.route('createOrder', {path: 'createOrder/:otp/:conv_type'});
             this.route('edit');
+            this.route('updateOrder', {path: 'updateOrder/:otp/:conv_type'});
             this.resource('order', {path: 'order/:order_id'}, function() {
                 this.route('Exporter');
                 this.route("Delete");
