@@ -13,7 +13,7 @@ App.DealsIndexController = Ember.ArrayController.extend({
             this.get('store').find('deal', id).then(function(z) {
                 var r = confirm("Veuillez confirmer la suppression de l'affaire  :"+z.get('dealName')+" identifiée par :"+z.get('number'));
             if (r == true) {
-                return Ember.RSVP.Promise.all([ a.get('orders').then(function(os){return os.map(function(o){console.log('suppression de lordre');console.log(o);o.deleteRecord(); o.save();return Ember.RSVP.Promise.resolve()});})]).then(function(f){z.deleteRecord(); z.save()})
+                return Ember.RSVP.Promise.all([ z.get('orders').then(function(os){return os.map(function(o){console.log('suppression de lordre');console.log(o);o.deleteRecord(); o.save();return Ember.RSVP.Promise.resolve()});})]).then(function(f){z.deleteRecord(); z.save()})
             }
                 
             });
