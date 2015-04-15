@@ -15,6 +15,6 @@
  * @extends AbstractViews.ListView
  */
 App.DealUpdateOrderView = App.AbstractViews.ListView.extend({
-    templateName: 'DealUpdateOrder',
+    templateName: 'dealUpdateOrder',
     classNames: ['order']
 });
