@@ -56,7 +56,7 @@ App.DealUpdateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRout
         }
     },
     beforeModel: function(transition) {console.log('beforeModel DealUpdateOrderRoute');
-        var convTypeId = parseInt(transition.params['deal.createOrder'].conv_type);
+        var convTypeId = parseInt(transition.params['deal.updateOrder'].conv_type);
         if (convTypeId !== 3) { // Si jamais la page n'existe pas
             this.transitionTo('deal.index');
         } else {
@@ -142,7 +142,7 @@ App.DealUpdateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRout
     },
     renderTemplate: function(controller, model) {console.log('renderTemplate DealUpdateOrderRoute');
         this.render('DealUpdate');
-        this.render('headerDealUpdate', {
+        this.render('headerDealCreate', {
             into: 'DealUpdate',
             outlet: 'header'
         });
