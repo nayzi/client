@@ -158,7 +158,7 @@ App.DealsIndexController = Ember.ArrayController.extend({
                                 label: "Supprimer",
                                 text: false,
                                 click: function() {
-                                this.get("controller.parentView.controller").send("conf", a.get("id"))
+                                this.get("controller.parentView.controller").send("conf", row.get("id"))
                                 $(".dialog-delete-deal").dialog("open")
                                
                             },
