@@ -141,14 +141,14 @@ App.DealUpdateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRout
         Ember.run.next(controller, controller.send, 'addConveyor');
     },
     renderTemplate: function(controller, model) {console.log('renderTemplate DealUpdateOrderRoute');
-        this.render('DealUpdate');
+        this.render('dealUpdate');
         this.render('headerDealCreate', {
-            into: 'DealUpdate',
+            into: 'dealUpdate',
             outlet: 'header'
         });
         
-        this.render('DealUpdateOrder', {
-            into: 'DealUpdate',
+        this.render('dealUpdateOrder', {
+            into: 'dealUpdate',
             outlet: 'content'
         });
     }
