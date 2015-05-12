@@ -624,9 +624,9 @@ Em.RSVP.Promise.all(z).then(function(results){console.log('promiseall'+!results.
                             strapLength: 112
                         }), e =
                         0, Ember.RSVP.Promise.resolve();;
-                    return g.generateOrderPiece.call(g, k, {
+                    return /*g.generateOrderPiece.call(g, k, {
                         nb: a / 2
-                    }), h = !0, Ember.RSVP.Promise.resolve()
+                    }),*/ h = !0, Ember.RSVP.Promise.resolve()
                 });
                 return Ember.RSVP.Promise.resolve()
             })).finally(function() {
