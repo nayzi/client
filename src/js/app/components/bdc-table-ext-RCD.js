@@ -135,10 +135,12 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
         var b = Math.floor(parseInt(this.get("conveyorOption_2_value"), 10) / parseInt(this.get("conveyorOption_26_value"), 10)),
             c = 0,
             d = 0,
+            d1 = 0,
             e = this;
         var dd = [];
+        var dd1 = [];
         var cc = [];
-        if ([4, 12, 5].contains(parseInt(a))) {
+        if ([4, 12, 5, 14].contains(parseInt(a))) {
             if (console.log("checkControlBoard"), console.log(b), this.get("parentController.orderPieces").then(function(a) {
                     Ember.RSVP.Promise.all(a.map(function(a) {
                         if ("5" === a.get("piece.pieceType.id") + "") {
@@ -153,6 +155,13 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                                 d += parseInt(e.get("pieceOrder_" + a.get("clientId") + "_value"), 10);
                                 dd.pushObject(a.get('clientId'));
                             }
+                        } else if ("14" === a.get("piece.pieceType.id") + "") {
+                            console.log('haaanta ');
+                            console.log(a.get('clientId'));
+                            if (!dd.contains(a.get('clientId'))) {
+                                d1 += parseInt(e.get("pieceOrder_" + a.get("clientId") + "_value"), 10);
+                                dd1.pushObject(a.get('clientId'));
+                            }
                         }
 
                         return Ember.RSVP.Promise.resolve()
@@ -165,7 +174,9 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                         console.log(c);
                         console.log('resultattt : ' + (b + c - d));
                         0 != b + c - d ? (0 < b + c - d && (e.set("categoryText_12", "Manque " + (b + c - d)), e.set("style_12", "color:white;background: #ce3131")), 0 > b + c - d && (e.set("categoryText_12",
-                            d - b - c + " de plus"), e.set("style_12", "color:white;background: #ce3131"))) : (e.set("categoryText_12", ""), e.set("style_12", ""))
+                            d - b - c + " de plus"), e.set("style_12", "color:white;background: #ce3131"))) : (e.set("categoryText_12", ""), e.set("style_12", ""));
+                        0 != b + c - d1 ? (0 < b + c - d1 && (e.set("categoryText_14", "Manque " + (b + c - d1)), e.set("style_14", "color:white;background: #D7DF01")), 0 > b + c - d1 && (e.set("categoryText_14",
+                            d1 - b - c + " de plus"), e.set("style_14", "color:white;background: #D7DF01"))) : (e.set("categoryText_14", ""), e.set("style_14", ""))
                     })
                 }), this.get("conveyorOption_27.value") == this.get("conveyorOption_11.value")) {
                 console.log("yyyyyy");
@@ -182,7 +193,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                     13 == a.get("orderPiece.piece.pieceType.id") && (h += parseInt(a.get("nbPieces")))
                 });
                 f == h ? (this.set("categoryText_13", ""), this.set("style_13", "")) : f > h ? (this.set("categoryText_13", "Manque " + (f - h)), this.set("style_13", "color:white;background: #D7DF01")) : f < h && (this.set("categoryText_13", h - f + " de plus"), this.set("style_13", "color:white;background: #D7DF01"));
-                f == k ? (this.set("categoryText_14", ""), this.set("style_14", "")) : f > k ? (this.set("categoryText_14", "Manque " + (f - k)), this.set("style_14", "color:white;background: #D7DF01")) : f < k && (this.set("categoryText_14", k - f + " de plus"), this.set("style_14", "color:white;background: #D7DF01"))
+                
             }
         } else "13" == a + "" ? this.get("parentController.orderPieces").then(function(a) {
                 console.log('hana13');
@@ -584,6 +595,7 @@ Em.RSVP.Promise.all(z).then(function(results){console.log('promiseall'+!results.
         console.log("nbComp");
         console.log(b);
         this.set("categoryText_12", '');
+        this.set("categoryText_14", '');
         console.log("conveyorOption_19.label");
         console.log(parseInt(this.get("conveyorOption_19.label"), 10));
         console.log("conveyorOption_26.label");
