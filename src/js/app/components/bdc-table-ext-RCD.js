@@ -27,10 +27,17 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                 b.calculateDecomposition();
                 
             });
-            b.get('parentController').cleanUpOrderPiece('1');
-            b.set("categoryText_10", ""),b.set("style_10", "");
-            b.set("categoryText_13", ""),b.set("style_13", "");
-            b.set("categoryText_12", ""),b.set("style_12", "");
+            b.get("parentController").cleanUpOrderPiece("1");
+            b.set("categoryText_10", "");
+            b.set("style_10", "");
+            b.set("categoryText_13", "");
+            b.set("style_13", "");
+            b.set("categoryText_14", "");
+            b.set("style_14", "");
+            b.set("categoryText_12", "");
+            b.set("style_12", "");
+            b.set("categoryText_1", "");
+            b.set("style_1", "")
         },
         initialiserPieceOrder: function(typeId){
         var id = parseInt(this.get('parentController').getPieceList(typeId)[0].get('id'));
@@ -46,21 +53,26 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
         };
     }),
     ConveyorOption_26_valueValues: function() {
-        var data = [];
-
-        if (this.get('conveyorOption_19.label') !== 0) {
-            for (var i = 2; i < 16; ++i) {
-                data.pushObject(Ember.Object.create({
-                    id: i * parseInt(this.get('conveyorOption_19.label'), 10)
-                }));
-            }
-        }
+        var a = [];
+        if (0 !== this.get("conveyorOption_19.label"))
+            for (var b = 2; 16 > b; ++b) a.pushObject(Ember.Object.create({
+                id: b * parseInt(this.get("conveyorOption_19.label"), 10)
+            }));
         console.log("RCD ConveyorOption_26_valueValues");
         console.log("data");
-        console.log(data);
-        this.set("conveyorOption_26_value",data[0].id)
-        return data;
-    }.property('conveyorOption_19'),
+        console.log(this.get('content').id);
+        var diz = this;
+        if (this.get('content').id == null) diz.set("conveyorOption_26_value", a[0].id);
+        diz.get('options').map(function(o) {
+            if (o.get('optionType.id') == 26) {
+                console.log("hahahsshnfqs");
+                console.log(o.get('optionValue'));
+                diz.set("conveyorOption_26_value", parseInt(o.get('optionValue')));
+            }
+        })
+
+        return a
+    }.property("conveyorOption_19"),
     hasAlreadyCalculated: function(pieceTypeId) {
         return this.get('pieceOrders').any(function(pieceOrder) {
             return pieceOrder.get('orderPiece.piece.pieceType.id') === 1 + '' && pieceOrder.get('nbPieces') > 0;
@@ -71,158 +83,171 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
             "Cela aura pour effet de remettre à zéro les longerons, rouleaux complémentaires et courroies.";
     },
     checkStringers: function() {
-        var text = "";
-        var nbStringers = 0;
-        var totalLength = 0;
-        var self = this;
-
-        this.get('parentController.orderPieces').then(function(orderPieces) {
-            Ember.RSVP.Promise.all(orderPieces.map(function(orderPiece) {
-                if (orderPiece.get('piece.pieceType.id') + '' === 1 + '') {
-                    nbStringers = nbStringers + parseInt(self.get('pieceOrder_' + orderPiece.get('clientId') + '_value'), 10);
-
-                    return orderPiece.get('options').then(function(options) {
-                        options.forEach(function(option) {
-                            if (option.get('optionType.id') === 1 + '') {
-                                totalLength = totalLength + parseInt(option.get('optionValue'), 10) * parseInt(self.get('pieceOrder_' + orderPiece.get('clientId') + '_value'), 10);
-                            }
-                        });
-
-                        return Ember.RSVP.Promise.resolve();
-                    });
-                }
-            })).then(function() {
-                if (parseInt(self.get('conveyorOption_2_value'), 10) !== totalLength / 2) {
-                    text = "Longueur N.V.";
-                } else if (nbStringers % 2 !== 0) {
-                    text = "Non pair";
-                }
-
-                self.set('categoryText_1', text);
-                text!=""? self.set("style_1", "color:white;background: #ce3131"):self.set("style_1", "");
-            });
-        });
-        console.log("RCD checkStringers");
-        console.log("text");
-        console.log(text);
-        console.log("nbStringers");
-        console.log(nbStringers);
-        console.log("totalLength");
-        console.log(totalLength);
-        console.log("self");
-        console.log(self);
-    },
-    checkControlBoard: function(pieceType) {
-        var a = Math.floor(parseInt(this.get("conveyorOption_2_value"), 10) / parseInt(this.get("conveyorOption_26_value"), 10)),
+        var a = "",
             b = 0,
             c = 0,
             d = this;
+        var div = 2;
+        var l = [];
 
-        if (([4,12].contains(parseInt(pieceType)))) {
+        this.get("parentController.orderPieces").then(function(e) {
+            Ember.RSVP.Promise.all(e.map(function(a) {
+                console.log('checkStringers po' + d.get("pieceOrder_" + a.get("clientId") + "_value"));
 
-            console.log('checkControlBoard');
-            console.log(a);
-            this.get("parentController.orderPieces").then(function(e) {
-                Ember.RSVP.Promise.all(e.map(function(a) {
-                    "5" === a.get("piece.pieceType.id") + "" ? b += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"),
-                        10) : "12" === a.get("piece.pieceType.id") + "" && (c += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"), 10));
-                    return Ember.RSVP.Promise.resolve()
-                })).then(function() {
-                    console.log('ccccccccccc');
-                    console.log(c);
-                    console.log('a');
-                    console.log(a);
-                    console.log('b');
-                    console.log(b);
-                    if ((a + b - c) != 0) {
-                        if ((a + b - c) > 0) {d.set("categoryText_12", "Manque " + (a + b - c));d.set("style_12", "color:white;background: #ce3131")}
-                        if ((a + b - c) < 0) {d.set("categoryText_12", (c - a - b) + " de plus");d.set("style_12", "color:white;background: #ce3131")}
-                    } else {d.set("categoryText_12", "");d.set("style_12", "")}
+                if (!l.contains(a.get("clientId"))) {
+                    if ("1" === a.get("piece.pieceType.id") +
+                        "") {
+                        a.get("options").then(function(b) {
+                            b.forEach(function(b) {
+                                if ("1" === b.get("optionType.id")) {
+                                    var l = parseInt(b.get("optionValue"), 10) * parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"), 10);
+                                    console.log('caaaaaaaalc :' + a.get("clientId") + '  ' + b.get("optionValue") + ' ' + d.get("pieceOrder_" + a.get("clientId") + "_value"));
+                                    c += l > 0 ? l : 0;
+                                }
+                            });
+                            return Ember.RSVP.Promise.resolve()
+                        });
+                        l.pushObject(a.get("clientId"));
+                        var l2 = parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"), 10);
+                        return b += l2 > 0 ? l2 : 0;
+                    }
+                }
+            })).then(function() {
+                parseInt(d.get("conveyorOption_2_value"), 10) !== c / div ? a = "Longueur N.V." : 0 !== b % 2 && (a = "Non pair");
+                d.set("categoryText_1", a);
+                "" != a ? d.set("style_1", "color:white;background: #ce3131") : d.set("style_1",
+                    "");
+                console.log("RCD checkStringers");
+                console.log("text");
+                console.log(a);
+                console.log("nbStringers");
+                console.log(b);
+                console.log("totalLength");
+                console.log(c);
+                console.log("self " + div);
+                console.log(d.get('content').id)
+            })
+        });
 
-                })
-            });
-            
-            if(this.get("conveyorOption_27.value")==this.get("conveyorOption_11.value")){console.log('yyyyyy');
-                
-                console.log(this.get('conveyorOption_27'));
-                var f = 0;
-                var g = 0;
+    },
+    checkControlBoard: function(a) {
+        console.log('checkControlBoard  ' + a);
+        var b = Math.floor(parseInt(this.get("conveyorOption_2_value"), 10) / parseInt(this.get("conveyorOption_26_value"), 10)),
+            c = 0,
+            d = 0,
+            e = this;
+        var dd = [];
+        var cc = [];
+        if ([4, 12, 5].contains(parseInt(a))) {
+            if (console.log("checkControlBoard"), console.log(b), this.get("parentController.orderPieces").then(function(a) {
+                    Ember.RSVP.Promise.all(a.map(function(a) {
+                        if ("5" === a.get("piece.pieceType.id") + "") {
+                            if (!cc.contains(a.get('clientId'))) {
+                                c += parseInt(e.get("pieceOrder_" + a.get("clientId") + "_value"), 10);
+                                cc.pushObject(a.get('clientId'))
+                            }
+                        } else if ("12" === a.get("piece.pieceType.id") + "") {
+                            console.log('haaanta ');
+                            console.log(a.get('clientId'));
+                            if (!dd.contains(a.get('clientId'))) {
+                                d += parseInt(e.get("pieceOrder_" + a.get("clientId") + "_value"), 10);
+                                dd.pushObject(a.get('clientId'));
+                            }
+                        }
+
+                        return Ember.RSVP.Promise.resolve()
+                    })).then(function() {
+                        console.log("ddddddddddddd");
+                        console.log(d);
+                        console.log("b");
+                        console.log(b);
+                        console.log("c");
+                        console.log(c);
+                        console.log('resultattt : ' + (b + c - d));
+                        0 != b + c - d ? (0 < b + c - d && (e.set("categoryText_12", "Manque " + (b + c - d)), e.set("style_12", "color:white;background: #ce3131")), 0 > b + c - d && (e.set("categoryText_12",
+                            d - b - c + " de plus"), e.set("style_12", "color:white;background: #ce3131"))) : (e.set("categoryText_12", ""), e.set("style_12", ""))
+                    })
+                }), this.get("conveyorOption_27.value") == this.get("conveyorOption_11.value")) {
+                console.log("yyyyyy");
+                console.log(this.get("conveyorOption_27"));
+                var f = 0,
+                    k = 0,
+                    h = 0;
                 console.log(this.get("conveyorOption_27"));
                 this.get("pieceOrders").forEach(function(a) {
                     console.log("jjjjjjjjj");
                     console.log(a.get("conveyor.id"));
-                    12 == a.get("orderPiece.piece.pieceType.id") && (f += parseInt(a.get("nbPieces")))
-                     13 == a.get("orderPiece.piece.pieceType.id") && (g += parseInt(a.get("nbPieces")))
+                    12 == a.get("orderPiece.piece.pieceType.id") && (f += parseInt(a.get("nbPieces")));
+                    14 == a.get("orderPiece.piece.pieceType.id") && (k += parseInt(a.get("nbPieces")));
+                    13 == a.get("orderPiece.piece.pieceType.id") && (h += parseInt(a.get("nbPieces")))
                 });
-                if(f==g){
-                this.set("categoryText_13", "");
-                this.set("style_13", "")}
-                else {
-                    if(f>g){this.set("categoryText_13", "Manque " + (f-g)); this.set("style_13", "color:white;background: #D7DF01")}
-                        else if(f<g){this.set("categoryText_13",
-                            g-f + " de plus"), this.set("style_13", "color:white;background: #D7DF01")}
-                }
-
-                
-               
-             }
-
-        } else if(pieceType+''=='13'){
-
-            
-            this.get("parentController.orderPieces").then(function(e) {
-                Ember.RSVP.Promise.all(e.map(function(a) {
-                    "12" === a.get("piece.pieceType.id") + "" ? b += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"),
-                        10) : "13" === a.get("piece.pieceType.id") + "" && ( c += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"), 10));
-                    return Ember.RSVP.Promise.resolve()
-                })).then(function() {if (d.get("conveyorOption_27.value")!=d.get("conveyorOption_11.value")) b=0;
-                   0 != b - c ? ((0 <  b - c) && (d.set("categoryText_13", "Manque " + (b - c)),d.set("style_13", "color:white;background: #D7DF01")), (0 >  b - c) && (d.set("categoryText_13", c  - b + " de plus"),d.set("style_13", "color:white;background: #D7DF01"))) : (d.set("categoryText_13",
-                            ""),d.set("style_13", ""))
-
-                })
-            });
-        }
-        else if(pieceType+''=='10'){
-
-            
-            this.get("parentController.orderPieces").then(function(e) {
-                Ember.RSVP.Promise.all(e.map(function(a) {
-                    "1" === a.get("piece.pieceType.id") + "" ? b += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"),
-                        10) : "10" === a.get("piece.pieceType.id") + "" && ( c += parseInt(d.get("pieceOrder_" + a.get("clientId") + "_value"), 10));
+                f == h ? (this.set("categoryText_13", ""), this.set("style_13", "")) : f > h ? (this.set("categoryText_13", "Manque " + (f - h)), this.set("style_13", "color:white;background: #D7DF01")) : f < h && (this.set("categoryText_13", h - f + " de plus"), this.set("style_13", "color:white;background: #D7DF01"));
+                f == k ? (this.set("categoryText_14", ""), this.set("style_14", "")) : f > k ? (this.set("categoryText_14", "Manque " + (f - k)), this.set("style_14", "color:white;background: #D7DF01")) : f < k && (this.set("categoryText_14", k - f + " de plus"), this.set("style_14", "color:white;background: #D7DF01"))
+            }
+        } else "13" == a + "" ? this.get("parentController.orderPieces").then(function(a) {
+                console.log('hana13');
+                var l1 = [];
+                var l2 = [];
+                Ember.RSVP.Promise.all(a.map(function(a) {
+                    var plus = 0;
+                    "12" === a.get("piece.pieceType.id") +
+                        "" ? (!l1.contains(a.get("clientId"))) && (l1.pushObject(a.get("clientId")), c += parseInt(e.get("pieceOrder_" + a.get("clientId") + "_value"), 10), console.log('hnaaaalll  ' + a.get("clientId") + '   ' + e.get("pieceOrder_" + a.get("clientId") + "_value"))) : "13" === a.get("piece.pieceType.id") + "" && (!l2.contains(a.get("clientId"))) && (l2.pushObject(a.get("clientId")), plus = e.get("pieceOrder_" + a.get("clientId") + "_value"), d += (plus == undefined) ? 0 : parseInt(plus, 10), console.log('hadakifach'), console.log(plus));
                     return Ember.RSVP.Promise.resolve()
                 })).then(function() {
-                   0 != b/2 - c ? ((0 <  b/2 - c) && (d.set("categoryText_10", "Manque " + (b/2 - c)),d.set("style_10", "color:white;background: #ce3131")), (0 >  b/2 - c) && (d.set("categoryText_10", c  - b/2 + " de plus"),d.set("style_10", "color:white;background: #ce3131"))) : (d.set("categoryText_10",
-                            ""),d.set("style_10", ""))
-
+                    console.log('hana1313');
+                    console.log(c + '    ' + d);
+                    e.get("conveyorOption_27.value") != e.get("conveyorOption_11.value") && (c = 0);
+                    0 != c - d ? (0 < c - d && (e.set("categoryText_13", "Manque " + (c - d)), e.set("style_13", "color:white;background: #D7DF01")), 0 > c - d && (e.set("categoryText_13", d - c + " de plus"), e.set("style_13", "color:white;background: #D7DF01"))) :
+                        (e.set("categoryText_13", ""), e.set("style_13", ""))
                 })
-            });
-        }
+            }) : "10" == a + "" ? this.get("parentController.orderPieces").then(function(a) {
+                console.log('ha7na fl10');
+                console.log(a);
+                Ember.RSVP.Promise.all(a.map(function(a) {
+                    "1" === a.get("piece.pieceType.id") + "" ? (!cc.contains(a.get('clientId'))) && (parseInt(e.get("pieceOrder_" + a.get("clientId") + "_value"), 10) > 0) && (cc.pushObject(a.get("clientId")), c += parseInt(e.get("pieceOrder_" + a.get("clientId") + "_value"), 10)) : "10" === a.get("piece.pieceType.id") + "" && (!dd.contains(a.get('clientId'))) && (dd.pushObject(a.get('clientId')), d += parseInt(e.get("pieceOrder_" + a.get("clientId") + "_value"), 10));
+                    return Ember.RSVP.Promise.resolve()
+                })).then(function() {
+                    console.log('res c ' + c + ' d ' + d + ' : ' + ((c / 2) - d));
+                    0 != c / 2 - d ? (0 < c / 2 - d && (e.set("categoryText_10", "Manque " + (c / 2 - d)), e.set("style_10",
+                        "color:white;background: #ce3131")), 0 > c / 2 - d && (e.set("categoryText_10", d - c / 2 + " de plus"), e.set("style_10", "color:white;background: #ce3131"))) : (e.set("categoryText_10", ""), e.set("style_10", ""))
+                })
+            }) :
+            "14" == a + "" && this.get("parentController.orderPieces").then(function(a) {
+                console.log('hana13');
+                var l1 = [];
+                var l2 = [];
+                Ember.RSVP.Promise.all(a.map(function(a) {
+                    var plus = 0;
+                    "12" === a.get("piece.pieceType.id") +
+                        "" ? (!l1.contains(a.get("clientId"))) && (l1.pushObject(a.get("clientId")), c += parseInt(e.get("pieceOrder_" + a.get("clientId") + "_value"), 10), console.log('hnaaaalll  ' + a.get("clientId") + '   ' + e.get("pieceOrder_" + a.get("clientId") + "_value"))) : "14" === a.get("piece.pieceType.id") + "" && (!l2.contains(a.get("clientId"))) && (l2.pushObject(a.get("clientId")), plus = e.get("pieceOrder_" + a.get("clientId") + "_value"), d += (plus == undefined) ? 0 : parseInt(plus, 10), console.log('hadakifach'), console.log(plus));
+                    return Ember.RSVP.Promise.resolve()
+                })).then(function() {
+                    console.log('hana1313');
+                    console.log(c + '    ' + d);
+                    e.get("conveyorOption_27.value") != e.get("conveyorOption_11.value") && (c = 0);
+                    0 != c - d ? (0 < c - d && (e.set("categoryText_14", "Manque " + (c - d)), e.set("style_14", "color:white;background: #D7DF01")), 0 > c - d && (e.set("categoryText_14", d - c + " de plus"), e.set("style_14", "color:white;background: #D7DF01"))) :
+                        (e.set("categoryText_14", ""), e.set("style_14", ""))
+                })
+            })
     },
-calculateDecomposition: function() {
+    calculateDecomposition: function() {
         console.log("RCD calculateDecomposition");
         console.log("this");
         console.log(this);
         var a = this;
-        if (!this.get("hasError"))
-            if (this.hasAlreadyCalculated("1")) {
-                
-
-                this.get("parentController.orderPieces").then(function(b) {
-                    b.forEach(function(b) {
-                        console.log('fffffff');
-                        console.log(b.get('piece.pieceType.id'));
-                        console.log('deleeeeete');
-                        a.set("pieceOrder_" + b.get("clientId") + "_value", 0)
-                    });
-
-                    console.log("RCD calculateDecomposition :initializeStringers");
-                    console.log("params");
-                    console.log(a.generateStringerList());
-                    a.initializeStringers(a.generateStringerList());
-                    a.initializeComplementaryPieces()
-                })
-            } else this.initializeStringers(this.generateStringerList()), this.initializeComplementaryPieces()
-             
+        this.get("hasError") || (this.hasAlreadyCalculated("1") ? this.get("parentController.orderPieces").then(function(b) {
+            b.forEach(function(b) {
+                console.log("fffffff");
+                console.log(b.get("piece.pieceType.id"));
+                console.log("deleeeeete");
+                a.set("pieceOrder_" + b.get("clientId") + "_value", 0)
+            });
+            console.log("RCD calculateDecomposition :initializeStringers");
+            console.log("params");
+            console.log(a.generateStringerList());
+            a.initializeStringers(a.generateStringerList());
+            a.initializeComplementaryPieces()
+        }) : (this.initializeStringers(this.generateStringerList()), this.initializeComplementaryPieces()))
     },
     generateStringerList: function() {
         console.log('RCD generateStringerList');
@@ -484,33 +509,63 @@ Em.RSVP.Promise.all(z).then(function(results){console.log('promiseall'+!results.
            console.log('taillllllle '+total.uniq().length)
     },
     Conv: function() {
-        console.log('zzzzzzzzzzzzzzzz');
-        this.set("categoryText_13", "");this.set("style_13", "");
-        if(this.get("conveyorOption_27.value")==undefined){console.log('iniiiiiiiitialisation');
-        console.log(this);
-        this.get('store').unloadAll('pieceOrder');
-        // this.createOrderPiece(0,29,{nb:0},1);
-        // this.createOrderPiece(0,30,{nb:0},1);
-        // this.createOrderPiece(10,15,{nb:0},1);
-        // this.createOrderPiece(17,27,{nb:0},1);
-        // this.createOrderPiece(17,28,{nb:0},1);
+        console.log("zzzzzzzzzzzzzzzz " + this.get("conveyorOption_27.value") + '   ' + this.get("conveyorOption_11.value"));
+        console.log(this.get('content').id);
+        this.set("categoryText_13", "");
+        this.set("style_13", "");
+        this.set("categoryText_14", "");
+        this.set("style_14", "");
+        var diz = this;
+        var a = 0;
+        if (void 0 == this.get("conveyorOption_27.value")) {
+            console.log("iniiiiiiiitialisation");
+            console.log(this.get('pieceOrders'));
 
-          //  this.get('store').all('pieceOrder').map(function(p){p.deleteRecord()});
-    }
-        console.log(this);
-        if(this.get("conveyorOption_27.value")==this.get("conveyorOption_11.value")){console.log('yyyyyy');
-                var somme=0;
-                console.log('hdshsdhshsdh');
-                    this.get('pieceOrders').forEach(function(op){if(op.get('orderPiece.piece.pieceType.id')==12)somme+=op.get('nbPieces')});
-                   if(somme!=0){
-            this.createOrderPiece(13, 24, {
-                nb: somme
-            })}
-                //this.createOrderPiece(13,24,{nb:somme},1);
-             }
-             else if(this.get("conveyorOption_27.value")!=undefined&&undefined!=this.get("conveyorOption_11.value")){this.createOrderPiece(13,24,{nb:0});}
-      
-    }.observes("conveyorOption_11","conveyorOption_27"),    
+        } else {
+            if (this.get("conveyorOption_27.value") == this.get("conveyorOption_11.value")) {
+                console.log("yyyyyy");
+
+                console.log("hdshsdhshsdh");
+                this.get("pieceOrders").forEach(function(b) {
+                    12 == b.get("orderPiece.piece.pieceType.id") && (a += parseInt(b.get("nbPieces")))
+                });
+
+
+
+
+            }
+            this.addObserver("conveyorOption_" + 2 + "_value", function(a, b, c, d) {
+                console.log('ozueyrzaeur');
+                console.log(a);
+                console.log(b);
+                console.log(c);
+                console.log(d);
+                this.checkStringers()
+            });
+            var po13 = this.get("pieceOrders").findBy('orderPiece.piece.pieceType.id', '13');
+            console.log('xcvsdfgeruytjh');
+            console.log(po13);
+            if (po13 != undefined) {
+                if (po13.id == null) {
+                    po13.get('orderPiece').then(function(op) {
+                        diz.set("pieceOrder_" + op.get('clientId') + "_value", a)
+                    })
+                } else {
+                    console.log('iuzerzeuor :' + (this.get("conveyorOption_27.value") == this.get("conveyorOption_11.value")) + '    ' + a);
+                    console.log(po13._data.orderPiece.get('clientId'));
+                    this.set("pieceOrder_" + po13._data.orderPiece.get('clientId') + "_value", a);;
+                    console.log(po13);
+                    po13.set('nbPieces', a)
+                }
+            }
+            if (po13 == undefined) {
+                if (a != 0) diz.createOrderPiece(13, 24, {
+                    nb: a
+                })
+            }
+        }
+
+    }.observes("conveyorOption_11", "conveyorOption_27"),  
     initializeComplementaryPieces: function() {
         console.log("RCD initializeComplementaryPieces");
         var a = Math.floor(parseInt(this.get("conveyorOption_2_value"), 10) / parseInt(this.get("conveyorOption_26_value"), 10)),

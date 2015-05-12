@@ -1,50 +1,5 @@
-/* 
- * @license PASC Client - Fives
- * Available via the MIT or new BSD license.
- */
-
-/**
- * @module App
- * @submodule Vues
- */
-
-/**
- * En-tête de la gestion des bons de commande
- * @class HeaderDealCreateView
- * @namespace App
- * @extends AbstractViews.HeaderView
- */
-App.HeaderDealCreateView = App.AbstractViews.HeaderView.extend({
+App.HeaderDealUpdateView = App.AbstractViews.HeaderView.extend({
     templateName: "headerDealCreate",
-    dialog: JQ.DialogView.extend({
-        classNames: ["dialog-update-order"],
-        resizable: !1,
-        show: {
-            effect: "blind",
-            duration: 10
-        },
-        hide: {
-            effect: "blind",
-            duration: 500
-        },
-        autoOpen: !1,
-        modal: !0,
-        width: 400,
-        title: "Informations",
-        text: 'jijijij',
-        init: function() {
-            var a = this;
-
-            this.set("buttons", [{
-                text: "Ok",
-                click: function() {
-
-                    $(this).dialog("close")
-                }
-            }]);
-            return this._super()
-        }
-    }),
     fullscreenButton: JQ.ButtonView.extend({
         label: "Plein \u00e9cran (F11)",
         icons: {
@@ -67,7 +22,7 @@ App.HeaderDealCreateView = App.AbstractViews.HeaderView.extend({
         }
     }),
     saveButton: JQ.ButtonView.extend({
-        label: "Sauvegarder",
+        label: "Modifier",
         icons: {
             primary: "ui-icon-disk"
         },

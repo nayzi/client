@@ -16,140 +16,156 @@
  * @uses Ember.SimpleAuth.AuthenticatedRouteMixin
  */
 App.DealCreateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
-    actions: { 
-        willTransition: function() {console.log('willTransition DealCreateOrderRoute');
-            var record = this.controller.get('model');
-            console.log('willtransition');console.log(this.controller.get('model'));
-            this.controller.removeOptionOberservers();
-            
-            return Ember.RSVP.Promise.all([record.get('conveyors').then(function(conveyors) {
-                return Ember.RSVP.Promise.all([conveyors.map(function(conveyor) {
-                    return Ember.RSVP.Promise.all([conveyor.get('pieceOrders').then(function(pieceOrders) {
-                        pieceOrders.forEach(function(pieceOrder) {
-                            pieceOrder.rollback();
-                        });
-                    }), conveyor.get('options').then(function(options) {
-                        options.forEach(function(option) {
-                            option.rollback();
-                        });
-                    })]).then(function() {
-                        conveyor.rollback();
-                    });
-                })]);
-            }), record.get('orderPieces').then(function(orderPieces) {
-                return Ember.RSVP.Promise.all(orderPieces.map(function(orderPiece) {
-                    return orderPiece.get('options').then(function(options) {
-                        options.forEach(function(option) {
-                            option.rollback();
-                        });
-                    }).then(function() {
-                        orderPiece.rollback();
-                    });
-                }));
-            }), record.get('options').then(function(options) {
-                options.forEach(function(option) {
-                    option.rollback();
+    actions: {
+        willTransition: function(transition) {
+
+            console.log("willTransition DealCreateOrderRoute");
+            if ((transition.targetName != 'deal.updateOrder') && !confirm("Voulez vous quitter la page en cours et perdre les nouvelles saisies?"))
+                transition.abort();
+            else {
+
+                var a = this.controller.get("model");
+                console.log("willtransition");
+                console.log(this.controller.get("model"));
+                this.controller.removeOptionOberservers();
+
+                return Ember.RSVP.Promise.all([a.get("conveyors").then(function(a) {
+                    return Ember.RSVP.Promise.all([a.map(function(a) {
+                        return Ember.RSVP.Promise.all([a.get("pieceOrders").then(function(a) {
+                                a.forEach(function(a) {
+                                    a.rollback()
+                                })
+                            }),
+                            a.get("options").then(function(a) {
+                                a.forEach(function(a) {
+                                    a.rollback()
+                                })
+                            })
+                        ]).then(function() {
+                            a.rollback()
+                        })
+                    })])
+                }), a.get("orderPieces").then(function(a) {
+                    return Ember.RSVP.Promise.all(a.map(function(a) {
+                        return a.get("options").then(function(a) {
+                            a.forEach(function(a) {
+                                a.rollback()
+                            })
+                        }).then(function() {
+                            a.rollback()
+                        })
+                    }))
+                }), a.get("options").then(function(a) {
+                    a.forEach(function(a) {
+                        a.rollback()
+                    })
+                })]).then(function() {
+                    a.rollback()
                 });
-            })]).then(function() {
-                record.rollback();
-            });
+                this.store.unloadAll('climat');
+
+            }
+
+
+
+
         }
     },
-    beforeModel: function(transition) {console.log('beforeModel DealCreateOrderRoute');
-        var convTypeId = parseInt(transition.params['deal.createOrder'].conv_type);
-        if (convTypeId !== 3) { // Si jamais la page n'existe pas
-            this.transitionTo('deal.index');
-        } else {
-            var climats = this.store.find('climat');
-            var optTypes = this.store.find('optionType');
-            var convType = this.store.find('conveyorType', convTypeId);
-            var pieceTypes = this.store.find('pieceType');
-            
+    beforeModel: function(a) {
 
-            this.set('ClimatValues', climats);
-            this.set('convTypeObject', convType);
-            this.set('OptTypes', optTypes);
-            this.set('PieceTypes', pieceTypes);
-            
-
-            return Ember.RSVP.Promise.all([climats, optTypes, pieceTypes, convType.then(function(cType) {
-                return Ember.RSVP.Promise.all([cType.get('conveyorTypeOptions').then(function(data) {
-                    var options = [];
-
-                    data.forEach(function(item) {
-                        options.push(item.get('_data.option.id'));
+        console.log("beforeModel DealCreateOrderRoute");
+        var b = parseInt(a.params["deal.createOrder"].conv_type);
+        if (3 !== b) this.transitionTo("deal.index");
+        else {
+            a = this.store.find("climat");
+            var c = this.store.find("optionType"),
+                b = this.store.find("conveyorType", b),
+                d = this.store.find("pieceType");
+            this.set("ClimatValues", a);
+            this.set("convTypeObject", b);
+            this.set("OptTypes", c);
+            this.set("PieceTypes", d);
+            return Ember.RSVP.Promise.all([a, c, d, b.then(function(a) {
+                return Ember.RSVP.Promise.all([a.get("conveyorTypeOptions").then(function(a) {
+                    var b = [];
+                    a.forEach(function(a) {
+                        b.push(a.get("_data.option.id"))
                     });
-
-                    return data.get('store').find('option', {'ids': options.uniq()}).then(function(dataOptions) {
-                        var opt = [];
-
-                        data.forEach(function(item) {
-                            opt.push(item.get('option'));
+                    return a.get("store").find("option", {
+                        ids: b.uniq()
+                    }).then(function(b) {
+                        var c = [];
+                        a.forEach(function(a) {
+                            c.push(a.get("option"))
                         });
-
-                        dataOptions.forEach(function(option) {
-                            opt.push(option.get('optionType'));
+                        b.forEach(function(a) {
+                            c.push(a.get("optionType"))
                         });
-
-                        // Make sure to resolve all the relations
-                        // Will not make any HTTP request because all data are already loaded
-                        return Ember.RSVP.Promise.all(opt);
+                        return Ember.RSVP.Promise.all(c)
+                    })
+                }), a.get("pieceAvailabilities").then(function(a) {
+                    var b = [];
+                    a.forEach(function(a) {
+                        b.push(a.get("_data.piece.id"))
                     });
-                }), cType.get('pieceAvailabilities').then(function(pieceAvailabilities) {
-                    var availabilities = [];
-
-                    pieceAvailabilities.forEach(function(item) {
-                        availabilities.push(item.get('_data.piece.id'));
-                    });
-
-                    return pieceAvailabilities.get('store').find('piece', {'ids': availabilities}).then(function(pieces) {
-                        return Ember.RSVP.Promise.all(pieceAvailabilities.map(function(pieceAvailability) {
-                            return pieceAvailability.get('piece').then(function(piece) {
-                                return Ember.RSVP.Promise.all([piece.get('options').then(function(options) {
-                                    return Ember.RSVP.Promise.all(options.map(function(option) {
-                                        return option.get('optionType');
-                                    }));
-                                }), piece.get('pieceType'), piece.get('climats')]);
-                            });
-                        }));
-                    });
-                })]);
-            })]);
+                    return a.get("store").find("piece", {
+                        ids: b
+                    }).then(function(b) {
+                        return Ember.RSVP.Promise.all(a.map(function(a) {
+                            return a.get("piece").then(function(a) {
+                                return Ember.RSVP.Promise.all([a.get("options").then(function(a) {
+                                        return Ember.RSVP.Promise.all(a.map(function(a) {
+                                            return a.get("optionType")
+                                        }))
+                                    }),
+                                    a.get("pieceType"), a.get("climats")
+                                ])
+                            })
+                        }))
+                    })
+                })])
+            })])
         }
     },
-    model: function(params, transition) {console.log('model DealCreateOrderRoute');
-    console.log(this.get('store'));
-        return this.get('store').createRecord('order', {
-            otp: params.otp
-        });
+    model: function(a, b) {
+        console.log('iniiiiit dealcreeee');
+        console.log(this);
+        console.log(this.get('controller'));
+        console.log("model DealCreateOrderRoute");
+        console.log(this.get("store"));
+        return this.get("store").createRecord("order", {
+            otp: a.otp
+        })
     },
-    afterModel: function(model) {console.log('afterModel DealCreateOrderRoute');
-        return this.get('convTypeObject').then(function(cType) {
-            model.set('conveyorType', cType);
-        });
+    afterModel: function(a) {
+        console.log("afterModel DealCreateOrderRoute");
+        return this.get("convTypeObject").then(function(b) {
+            a.set("conveyorType", b)
+        })
     },
-    setupController: function(controller, model) {console.log('setupController DealCreateOrderRoute');
-        this._super(controller, model);
+    setupController: function(a, b) {
 
-        model.set('deal', this.modelFor('deal'));
-        controller.set('ClimatValues', this.get('ClimatValues'));
-        controller.set('PieceTypes', this.get('PieceTypes'));
-        controller.set('Pieces', this.get('Pieces'));
-        controller.set('OptionTypes', this.get('OptTypes'));
+        this._super(a, b);
+        b.set("deal", this.modelFor("deal"));
+        a.set("ClimatValues",
+            this.get("ClimatValues"));
+        a.set("PieceTypes", this.get("PieceTypes"));
+        a.set("Pieces", this.get("Pieces"));
+        a.set("OptionTypes", this.get("OptTypes"));
+        a.initLateProperties();
 
-        controller.initLateProperties();
-        Ember.run.next(controller, controller.send, 'addConveyor');
+        Ember.run.next(a, a.send, "addConveyor")
     },
-    renderTemplate: function(controller, model) {console.log('renderTemplate DealCreateOrderRoute');
-        this.render('dealCreate');
-        this.render('headerDealCreate', {
-            into: 'dealCreate',
-            outlet: 'header'
+    renderTemplate: function(a, b) {
+        console.log("renderTemplate DealCreateOrderRoute");
+        this.render("dealCreate");
+        this.render("headerDealCreate", {
+            into: "dealCreate",
+            outlet: "header"
         });
-        
-        this.render('dealCreateOrder', {
-            into: 'dealCreate',
-            outlet: 'content'
-        });
+        this.render("dealCreateOrder", {
+            into: "dealCreate",
+            outlet: "content"
+        })
     }
 });

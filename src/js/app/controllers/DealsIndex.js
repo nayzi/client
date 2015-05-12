@@ -7,168 +7,160 @@ App.DealsIndexController = Ember.ArrayController.extend({
     queryField: null,
     needs: ["popInDeals"],
     actions: {
-        redirect: function(route, id) {
-            this.transitionToRoute(route, id);
+        redirect: function(a, b) {
+            this.transitionToRoute(a, b)
         },
-        conf: function(a) {
-            this.set('controllers.popInDeals.jojo',a);
 
-
-        },
         delete: function(a) {
-        console.log('suprosososos'+a);
+            console.log("suprosososos" + a);
             this.get("store").find("deal", a).then(function(a) {
-                
-                 return Ember.RSVP.Promise.all([    a.get('orders').then(function(os){return os.map(function(o){console.log('suppression de lordre');console.log(o);o.deleteRecord(); o.save();return Ember.RSVP.Promise.resolve()});})]).then(function(f){a.deleteRecord(); a.save()})
-
-                //  a.deleteRecord(); a.save()
-                
+                return Ember.RSVP.Promise.all([a.get("orders").then(function(a) {
+                    return a.map(function(a) {
+                        console.log("suppression de lordre");
+                        console.log(a);
+                        a.deleteRecord();
+                        a.save();
+                        return Ember.RSVP.Promise.resolve()
+                    })
+                })]).then(function(c) {
+                    a.deleteRecord();
+                    a.save()
+                })
             })
         },
         create: function() {
-            this.transitionToRoute('deals.createDeal');
+            this.transitionToRoute("deals.createDeal")
         },
-                woooow: function(a) {
-            console.log('l3eeeeeeeeeeeeeeeeeeeez');
-
-            var sortProp = event.path[0].innerText;
-
-            if (sortProp == "Client") sortProp = "clientName";
-            if (sortProp == "N°") sortProp = "number";
-            if (sortProp == "Affaire") sortProp = "dealName";
-
-            if (this.get("sortProperties").toString().toLowerCase() == sortProp.toLowerCase()) this.set('sortAscending', !this.get('sortAscending'));
-            this.set("sortProperties", sortProp);
+        woooow: function(a) {
+            console.log("l3eeeeeeeeeeeeeeeeeeeez");
+            a = event.path[0].innerText;
+            "Client" == a && (a = "clientName");
+            "N\u00b0" == a && (a = "number");
+            "Affaire" == a && (a = "dealName");
+            this.get("sortProperties").toString().toLowerCase() == a.toLowerCase() && this.set("sortAscending", !this.get("sortAscending"));
+            this.set("sortProperties", a)
         }
     },
     numRows: function() {
-        if (this.get('filtered'))
-            return this.get('filtered').get('length');
-        else
-            return 0;
-    }.property('filtered'),
-    sortProperties: 'number',
-    sortAscending: true,
+        return this.get("filtered") ? this.get("filtered").get("length") : 0
+    }.property("filtered"),
+    sortProperties: "number",
+    sortAscending: !0,
     filtered: function() {
-        var data = [];
-
-        if (this.get('queryField') && this.get('queryField').length > 1) {
-            var queryParams = this.get('queryField').split(' ');
-            data = this.get('content').filter(function(item) {
-                return queryParams.every(function(param) {
-                    var pattern = new RegExp(param, 'i');
-                    return (
-                        pattern.test(item.get('number')) || pattern.test(item.get('clientName').toLowerCase()) || pattern.test(item.get('dealName').toLowerCase())
-                    );
-                });
-            }).sortBy(this.get('sortProperties'));
-        } else {
-            data = this.get('content').sortBy(this.get('sortProperties'));
-        }
-
-        return (this.get('sortAscending') ? data : data.reverse());
-    }.property('content.@each', 'queryField', 'numRows', 'sortProperties', 'sortAscending'),
+        var a = [];
+        if (this.get("queryField") && 1 < this.get("queryField").length) var b = this.get("queryField").split(" "),
+            a = this.get("content").filter(function(a) {
+                return b.every(function(b) {
+                    b = RegExp(b, "i");
+                    return b.test(a.get("number")) || b.test(a.get("clientName").toLowerCase()) || b.test(a.get("dealName").toLowerCase())
+                })
+            }).sortBy(this.get("sortProperties"));
+        else a = this.get("content").sortBy(this.get("sortProperties"));
+        return this.get("sortAscending") ?
+            a : a.reverse()
+    }.property("content.@each", "queryField", "numRows", "sortProperties", "sortAscending"),
     columns: Ember.computed(function() {
-        var numColumn, clientColumn, dealColumn, EGColumn, RALColumn, RALUnderConveyorColumn, actionColumn;
-        numColumn = Ember.Table.ColumnDefinition.create({
-            headerCellName: 'N°',
-            textAlign: 'text-align-center',
+        var a, b, c, d, e, f, h;
+        a = Ember.Table.ColumnDefinition.create({
+            headerCellName: "N\u00b0",
+            textAlign: "text-align-center",
             isResizable: 1,
-            contentPath: 'number',
+            contentPath: "number",
             defaultColumnWidth: 10,
             minWidth: 10
         });
-        clientColumn = Ember.Table.ColumnDefinition.create({
-            headerCellName: 'Client',
-            textAlign: 'text-align-center',
+        b = Ember.Table.ColumnDefinition.create({
+            headerCellName: "Client",
+            textAlign: "text-align-center",
             isResizable: 1,
-            contentPath: 'clientName'
+            contentPath: "clientName"
         });
-        dealColumn = Ember.Table.ColumnDefinition.create({
-            headerCellName: 'Affaire',
-            textAlign: 'text-align-center',
+        c = Ember.Table.ColumnDefinition.create({
+            headerCellName: "Affaire",
+            textAlign: "text-align-center",
             isResizable: 1,
-            contentPath: 'dealName'
+            contentPath: "dealName"
         });
-        EGColumn = Ember.Table.ColumnDefinition.create({
-            headerCellName: 'EG',
-            textAlign: 'text-align-center',
+        d = Ember.Table.ColumnDefinition.create({
+            headerCellName: "EG",
+            textAlign: "text-align-center",
             isResizable: 1,
-            contentPath: 'eg',
+            contentPath: "eg",
             defaultColumnWidth: 40,
             minWidth: 40
         });
-        RALColumn = Ember.Table.ColumnDefinition.create({
-            headerCellName: 'RAL manut',
-            textAlign: 'text-align-center',
+        e = Ember.Table.ColumnDefinition.create({
+            headerCellName: "RAL manut",
+            textAlign: "text-align-center",
             isResizable: 1,
-            contentPath: 'ral',
+            contentPath: "ral",
             defaultColumnWidth: 80,
-            minWidth: 80,
+            minWidth: 80
         });
-        RALUnderConveyorColumn = Ember.Table.ColumnDefinition.create({
-            headerCellName: 'RAL sous manut',
-            textAlign: 'text-align-center',
+        f = Ember.Table.ColumnDefinition.create({
+            headerCellName: "RAL sous manut",
+            textAlign: "text-align-center",
             isResizable: 1,
-            contentPath: 'ralUnderConveyor',
+            contentPath: "ralUnderConveyor",
             defaultColumnWidth: 115,
             minWidth: 115
         });
-        actionColumn = Ember.Table.ColumnDefinition.create({
-            headerCellName: 'Actions',
-            textAlign: 'text-align-center',
+        h = Ember.Table.ColumnDefinition.create({
+            headerCellName: "Actions",
+            textAlign: "text-align-center",
             isResizable: 1,
-            tableCellViewClass: 'App.TableActionCell',
+            tableCellViewClass: "App.TableActionCell",
             defaultColumnWidth: 115,
             minWidth: 115,
-            getCellContent: function(row) {
+            getCellContent: function(a) {
                 return {
-                    id: row.get('id'),
-                    buttonList: [
-                        Ember.Object.create({
-                            rights: 'all',
-                            button: JQ.ButtonView.extend({
-                                icons: {
-                                    primary: 'ui-icon-document'
-                                },
-                                label: "Consulter",
-                                text: false,
-                                click: function() {
-                                    this.get('controller.parentView.controller').send('redirect', 'deal', row.get('id'));
-                                }
-                            })
-                        }), Ember.Object.create({
-                            rights: [1, 2],
-                            button: JQ.ButtonView.extend({
-                                icons: {
-                                    primary: 'ui-icon-pencil'
-                                },
-                                label: "Editer",
-                                text: false,
-                                click: function() {
-                                    this.get('controller.parentView.controller').send('redirect', 'deal.edit', row.get('id'));
-                                }
-                            })
-                        }), Ember.Object.create({
-                            rights: [1, 2],
-                            button: JQ.ButtonView.extend({
-                                icons: {
-                                    primary: 'ui-icon-trash'
-                                },
-                                label: "Supprimer",
-                                text: false,
-                                click: function() {
-                                this.get("controller.parentView.controller").send("conf", row.get("id"))
-                                $(".dialog-delete-deal").dialog("open")
-                               
+                    id: a.get("id"),
+                    buttonList: [Ember.Object.create({
+                        rights: "all",
+                        button: JQ.ButtonView.extend({
+                            icons: {
+                                primary: "ui-icon-document"
                             },
-                                disabled: false
-                            })
+                            label: "Consulter",
+                            text: !1,
+                            click: function() {
+                                this.get("controller.parentView.controller").send("redirect",
+                                    "deal", a.get("id"))
+                            }
                         })
-                    ]
-                };
+                    }), Ember.Object.create({
+                        rights: [1, 2],
+                        button: JQ.ButtonView.extend({
+                            icons: {
+                                primary: "ui-icon-pencil"
+                            },
+                            label: "Editer",
+                            text: !1,
+                            click: function() {
+                                this.get("controller.parentView.controller").send("redirect", "deal.edit", a.get("id"))
+                            }
+                        })
+                    }), Ember.Object.create({
+                        rights: [1, 2],
+                        button: JQ.ButtonView.extend({
+                            icons: {
+                                primary: "ui-icon-trash"
+                            },
+                            label: "Supprimer",
+                            text: !1,
+                            click: function() {
+                                console.log('hnaaaaaalallalala');
+                                console.log(a.get('id'));
+                                console.log(this);
+                                console.log(this.get('parent'));
+                                $(".dialog-delete-deal").data('id', a.get('id')).dialog("open")
+                            },
+                            disabled: !1
+                        })
+                    })]
+                }
             }
         });
-        return [numColumn, clientColumn, dealColumn, EGColumn, RALColumn, RALUnderConveyorColumn, actionColumn];
+        return [a, b, c, d, e, f, h]
     })
 });

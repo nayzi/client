@@ -16,363 +16,319 @@
  * @extends Ember.ObjectController
  */
 App.DealIndexController = Ember.ObjectController.extend({
-    needs: ['popInDeal'],
+    needs: ["popInDeal"],
     queryField: null,
     actions: {
-        showOrder: function(orderId) {
-            console.log("dealindex : showorder :" + orderId);
-            this.transitionToRoute("deal.updateOrder",orderId,3)
+        showOrder: function(a) {
+            console.log("dealindex : showorder :" + a);
+            this.transitionToRoute("deal.updateOrder", a, 3)
         },
-        redirect: function(route, id) {
-            this.transitionToRoute(route, id);
+        redirect: function(a, b) {
+            this.transitionToRoute(a, b)
         },
-        delete: function(id) {
-            
-            this.get('store').find('order', id).then(function(z) {
-                var r = confirm("Veuillez confirmer la suppression du bon de commande OTP :"+z.get('otp'));
-            if (r == true) {
-                z.deleteRecord();
-                z.save()
-            }
-                
-            });
+        delete: function(a) {
+            this.get("store").find("order", a).then(function(a) {
+                !0 == confirm("Veuillez confirmer la suppression du bon de commande OTP :" + a.get("otp")) && (a.deleteRecord(), a.save())
+            })
         },
         edit: function(a) {
-            this.transitionToRoute("deal.edit", this.get('model').id)
+            this.transitionToRoute("deal.edit",
+                this.get("model").id)
         },
-        reference: function(a, b, c, d, e, deal, climat) { //p.orderPiece.options  p.orderPiece.piece.erpRef c c.options model
+        reference: function(a, b, c, d, e, f, h) {
             return "hoho"
-
-            for (var f = 0; f < a.length; f++) {
-
-                var g = a[f][1].get('replace'),
-                    k = a[f][0].get('optionValue'),
-                    h = "";
-                if ("L4" == g && null != k && null != k.length) {
-                    for (var t = 0; t < 4 - k.length; t++) h += "0";
-                    k = h + k
-                }
-                "P" == g && (b = b.replace("${P}", a[f][2].get('value')));
-                b = b.replace("${" + g + "}", k); - 1 < b.indexOf("B") && ("Basse" == a[f][2].get('label') || "Haute" == a[f][2].get('label')) &&
-                    (b = b.replace("B", "Haute" == a[f][2].get('label') ? 2 : 1))
-            }
-
-            b = b.replace("${EG4}", c.get('eg'));
-            a = "RAL" == c.get('ral') ? deal.get('ral') : c.get('ral');
-            b = b.replace("${RALU}", "RAL" == c.get('ralUnderConveyor') ? deal.get('ralUnderConveyor') : c.get('ralUnderConveyor'));
-            b = b.replace("${RAL}", a);
-
-            if ("${Z}-${xxxx}-${yyy}-${zzz}-${vv-o}" == b || "${Y}-${xxxx}-${yyy}-${zzz}-${vv-o}" == b)
-                for (b = b.replace("${Z}", "Z"), b = b.replace("${Y}", "Y"), b = b.replace("${zzz}",
-                        1E3 > c.get('eg') ? "0" + c.get('eg') : c.get('eg')), i = 0; i < d.length; i++) "26" == d[i][1].get('id') && (b = b.replace("${xxxx}", 1E3 > d[i][0].get('optionValue') ? "0" + d[i][0].get('optionValue') : d[i][0].get('optionValue'))), "19" == d[i][1].get('id') && (b = b.replace("${yyy}", d[i][0].get('optionValue'))), "26" == d[i][1].get('id') && (b = b.replace("${xxxx}", 1E3 > d[i][0].get('optionValue') ? "0" + d[i][0].get('optionValue') : d[i][0].get('optionValue'))),
-                    "7" == d[i][1].get('id') && (a = "", null == climat.get('abbreviation') ? (a = parseInt(d[i][0].get('optionValue')), a = 15 < a ? 55 : 0 < a ? 15 : "-") : a = climat.get('abbreviation'), b = b.replace("${vv-o}", a));
-
-            for (i = 0; i < d.length; i++) "7" == d[i][1].get('id') && (null == climat.get('abbreviation') ? (a = parseInt(d[i][0].get('optionValue')),
-                a = 15 < a ? 55 : 0 < a ? 15 : "-") : a = climat.get('abbreviation'), b = b.replace("${V}", a)), b = b.replace("${" + d[i][1].get('replace') + "}", d[i][0].get('optionValue'));
-            console.log('reference ligne ' + b);
-            return b;
         },
         exporter: function(a) {
-            function reference(a, b, c, d, e, deal, climat) {
-
-
-
-
-                for (var f = 0; f < a.length; f++) {
-
-                    var g = a[f][1].get('replace'),
-                        k = a[f][0].get('optionValue'),
-                        h = "";
-                    if ("L4" == g && null != k && null != k.length) {
-                        for (var t = 0; t < 4 - k.length; t++) h += "0";
-                        k = h + k
-                    }
-                    "P" == g && (b = b.replace("${P}", a[f][2].get('value')));
-                    b = b.replace("${" + g + "}", k); - 1 < b.indexOf("B") && ("Basse" == a[f][2].get('label') || "Haute" == a[f][2].get('label')) &&
-                        (b = b.replace("B", "Haute" == a[f][2].get('label') ? 2 : 1))
-                }
-
-                b = b.replace("${EG4}", c.get('eg'));
-                a = "RAL" == c.get('ral') ? deal.get('ral') : c.get('ral');
-                b = b.replace("${RALU}", "RAL" == c.get('ralUnderConveyor') ? deal.get('ralUnderConveyor') : c.get('ralUnderConveyor'));
-                b = b.replace("${RAL}", a);
-
-                if ("${Z}-${xxxx}-${yyy}-${zzz}-${vv-o}" == b || "${Y}-${xxxx}-${yyy}-${zzz}-${vv-o}" == b)
-                    for (b = b.replace("${Z}", "Z"), b = b.replace("${Y}", "Y"), b = b.replace("${zzz}",
-                            1E3 > c.get('eg') ? "0" + c.get('eg') : c.get('eg')), m = 0; m < d.length; m++) "26" == d[m][1].get('id') && (b = b.replace("${xxxx}", 1E3 > d[m][0].get('optionValue') ? "0" + d[m][0].get('optionValue') : d[m][0].get('optionValue'))), "19" == d[m][1].get('id') && (b = b.replace("${yyy}", d[m][0].get('optionValue'))), "26" == d[m][1].get('id') && (b = b.replace("${xxxx}", 1E3 > d[m][0].get('optionValue') ? "0" + d[m][0].get('optionValue') : d[m][0].get('optionValue'))),
-                        "7" == d[m][1].get('id') && (a = "", null == climat.get('abbreviation') ? (a = parseInt(d[m][0].get('optionValue')), a = 15 < a ? 55 : 0 < a ? 15 : "-") : a = climat.get('abbreviation'), b = b.replace("${vv-o}", a));
-
-                for (var k = 0; k < d.length; k++) "7" == d[k][1].get('id') && (null == climat.get('abbreviation') ? (a = parseInt(d[k][0].get('optionValue')),
-                    a = 15 < a ? 55 : 0 < a ? 15 : "-") : a = climat.get('abbreviation'), b = b.replace("${V}", a)), b = b.replace("${" + d[k][1].get('replace') + "}", d[k][0].get('optionValue'));
-                console.log('reference ligne ' + b);
-                return b;
-            }
             var diz = this;
-
-            this.get("store").find('order', a).then(function(o) {
-                console.log('voila notre ordre ');
-
-
-
-                return Ember.RSVP.Promise.all([o, o.get('deal'), o.get('conveyors').then(function(cs) {
-                        return Ember.RSVP.Promise.all(cs.map(function(c) {
-                            return Ember.RSVP.Promise.all([c, c.get('pieceOrders').then(function(po) {
-
-                                return Ember.RSVP.Promise.all(po.map(function(poo) {
-                                    return Ember.RSVP.Promise.all([poo, poo.get('orderPiece').then(function(op) {
-                                        return Ember.RSVP.Promise.all([op, op.get('piece'), op.get('options').then(function(opt) {
-                                            return Ember.RSVP.Promise.all(opt.map(function(optt) {
-                                                return Ember.RSVP.Promise.all([optt, optt.get('optionType').then(function(opttp) {
-                                                    return opttp
-                                                }), optt.get('option').then(function(opttp) {
-                                                    return opttp
+            this.get("store").find("order", a).then(function(b) {
+                console.log("voila notre ordre ");
+                return Ember.RSVP.Promise.all([b, b.get("deal"), b.get("conveyors").then(function(a) {
+                    return Ember.RSVP.Promise.all(a.map(function(a) {
+                        return Ember.RSVP.Promise.all([a, a.get("pieceOrders").then(function(a) {
+                            return Ember.RSVP.Promise.all(a.map(function(a) {
+                                return Ember.RSVP.Promise.all([a, a.get("orderPiece").then(function(a) {
+                                    return Ember.RSVP.Promise.all([a,
+                                        a.get("piece"), a.get("options").then(function(a) {
+                                            return Ember.RSVP.Promise.all(a.map(function(a) {
+                                                return Ember.RSVP.Promise.all([a, a.get("optionType").then(function(a) {
+                                                    return a
+                                                }), a.get("option").then(function(a) {
+                                                    return a
                                                 })])
                                             }))
-                                        })])
-                                    })])
-                                }))
-                            }), c.get('options').then(function(co) {
-                                return Ember.RSVP.Promise.all(co.map(function(coo) {
-                                    return Ember.RSVP.Promise.all([coo, coo.get('optionType').then(function(opttp) {
-                                        return opttp
-                                    })])
-                                }))
-                            })])
-                        }))
-                    }), o.get('climat')
+                                        })
+                                    ])
+                                })])
+                            }));
 
+                        }), a.get("options").then(function(a) {
+                            return Ember.RSVP.Promise.all(a.map(function(a) {
+                                return Ember.RSVP.Promise.all([a, a.get("optionType").then(function(a) {
+                                    return a
+                                })])
+                            }))
+                        })])
+                    }))
+                }), b.get("climat")]).then(function(b) {
+                    console.log("affaiiiiiiiiiiiiiire");
+                    console.log(b[2]);
 
-                ]).then(function(result) {
-                    console.log('affaiiiiiiiiiiiiiire');
-                    console.log(result[1]);
-                    var order = result[0];
+                    for (var d = b[0], e = "", f = 0; f < b[2].length; f++)
+                        for (var h = 0; h < b[2][f][1].length; h++) {
+                            var lll = [];
+                            console.log('convoyeuuuuuur');
+                            lll = b[2][f][1].sort(function(x, y) {
 
-                    var table = ""
+                                var res = 0;
+                                if ((parseInt(x[1][1]._data.pieceType.id) == 1) && (parseInt(y[1][1]._data.pieceType.id) == 1)) {
+                                    console.log('1 & 1 ' + x[1][2][0][0]._data.optionValue + "  " + y[1][2][0][0]._data.optionValue);
+                                    res = x[1][2][0][0]._data.optionValue - y[1][2][0][0]._data.optionValue;
+                                    if (res == 0) res = x[1][2][1][2]._data.value < y[1][2][1][2]._data.value ? -1 : 1;
+                                    console.log('comparaison1 ' + x[1][1]._data.pieceType.id + ' ' + y[1][1]._data.pieceType.id + '   ' + res);
+                                } else if (parseInt(x[1][1]._data.pieceType.id) == 0) {
+                                    if (parseInt(y[1][1]._data.pieceType.id) == 0) {
+                                        res = parseInt(x[1][1].id) - parseInt(y[1][1].id)
+                                    } else {
+                                        if (parseInt(y[1][1]._data.pieceType.id) == 1) {
+                                            res = 1
+                                        } else res = -1
+                                    }
+                                    console.log('comparaison2 ' + x[1][1]._data.pieceType.id + ' ' + y[1][1]._data.pieceType.id + '   ' + res);
+                                } else if (parseInt(y[1][1]._data.pieceType.id) == 0) {
 
-                    for (var i = 0; i < result[2].length; i++) { //iteration sur les convoyeurs
+                                    if (parseInt(x[1][1]._data.pieceType.id) == 1) {
+                                        res = -1
+                                    } else res = 1;
+                                    console.log('comparaison3 ' + x[1][1]._data.pieceType.id + ' ' + y[1][1]._data.pieceType.id + '   ' + res);
 
-                        for (var j = 0; j < result[2][i][1].length; j++) {
+                                } else if (parseInt(x[1][1]._data.pieceType.id) == parseInt(y[1][1]._data.pieceType.id)) {
+                                    res = parseInt(x[1][1].id) - parseInt(y[1][1].id)
+                                    console.log('comparaison4 ' + x[1][1].id + '  & ' + y[1][1].id + '  :' + x[1][1]._data.pieceType.id + ' ' + y[1][1]._data.pieceType.id + '   ' + res);
+                                } else {
+                                    res = parseInt(x[1][1]._data.pieceType.id) - parseInt(y[1][1]._data.pieceType.id);
+                                    console.log('comparaison5 ' + x[1][1]._data.pieceType.id + ' ' + y[1][1]._data.pieceType.id + '   ' + res);
+                                }
 
-                            console.log("ligne " + i);
+                                return res;
+                            });
+                            console.log(b[2][f][1]);
+                            console.log('apres');
+                            console.log(lll);
 
-                            var refer = reference(result[2][i][1][j][1][2], result[2][i][1][j][1][1].get('erpRef'), result[2][i][0], result[2][i][2], order, result[1], result[3]);
-
-                            console.log("I" + result[1].get('number') + " " + order.get('otp') + " " + result[2][i][0].get('zone') + " " + result[2][i][0].get('ref') + "  ||| " + ((i + 1) * 10) + " ||| " + refer + "  |||| " + result[2][i][1][j][0].get('nbPieces'));
-
-                            table += '"' + "I" + result[1]._data.number + "" + order.get('otp') + "" + result[2][i][0].get('zone') + "" + result[2][i][0].get('ref') + '";"' + ((j + 1) * 10) + '";"' + refer + '";"' + result[2][i][1][j][0].get('nbPieces') + '"\n'
-
+                            console.log("ligne " + f);
+                            var k;
+                            k = b[2][f][1][h][1][2];
+                            for (var g = b[2][f][1][h][1][1].get("erpRef"), s = b[2][f][0], p = b[2][f][2], t = b[1], n = b[3], q = 0; q < k.length; q++) {
+                                var r = k[q][1].get("replace"),
+                                    l = k[q][0].get("optionValue"),
+                                    u = "";
+                                if ("L4" == r && null != l && null != l.length) {
+                                    for (var v = 0; v < 4 - l.length; v++) u += "0";
+                                    l = u + l
+                                }
+                                "P" == r && (g = g.replace("${P}", k[q][2].get("value")));
+                                g = g.replace("${" + r + "}", l); - 1 < g.indexOf("B") && ("Basse" == k[q][2].get("label") ||
+                                    "Haute" == k[q][2].get("label")) && (g = g.replace("B", "Haute" == k[q][2].get("label") ? 2 : 1))
+                            }
+                            g = g.replace("${EG4}", s.get("eg"));
+                            k = "RAL" == s.get("ral") ? t.get("ral") : s.get("ral");
+                            g = g.replace("${RALU}", "RAL" == s.get("ralUnderConveyor") ? t.get("ralUnderConveyor") : s.get("ralUnderConveyor"));
+                            g = g.replace("${RAL}", k);
+                            if ("${Z}-${xxxx}-${yyy}-${zzz}-${vv-o}" == g || "${Y}-${xxxx}-${yyy}-${zzz}-${vv-o}" == g)
+                                for (g = g.replace("${Z}", "Z"), g = g.replace("${Y}", "Y"), g = g.replace("${zzz}", 1E3 > s.get("eg") ? "0" + s.get("eg") : s.get("eg")),
+                                    m = 0; m < p.length; m++) "26" == p[m][1].get("id") && (g = g.replace("${xxxx}", 1E3 > p[m][0].get("optionValue") ? "0" + p[m][0].get("optionValue") : p[m][0].get("optionValue"))), "19" == p[m][1].get("id") && (g = g.replace("${yyy}", p[m][0].get("optionValue"))), "26" == p[m][1].get("id") && (g = g.replace("${xxxx}", 1E3 > p[m][0].get("optionValue") ? "0" + p[m][0].get("optionValue") : p[m][0].get("optionValue"))), "7" == p[m][1].get("id") && (k = "", null == n.get("abbreviation") ? (k = parseInt(p[m][0].get("optionValue")), k = 15 < k ? 55 : 0 < k ? 15 : "-") : k = n.get("abbreviation"),
+                                    g = g.replace("${vv-o}", k));
+                            for (l = 0; l < p.length; l++) "7" == p[l][1].get("id") && (null == n.get("abbreviation") ? (k = parseInt(p[l][0].get("optionValue")), k = 15 < k ? 55 : 0 < k ? 15 : "-") : k = n.get("abbreviation"), g = g.replace("${V}", k)), g = g.replace("${" + p[l][1].get("replace") + "}", p[l][0].get("optionValue"));
+                            console.log("reference ligne " + g);
+                            k = g;
+                            console.log("I" + b[1].get("number") + " " + d.get("otp") + " " + b[2][f][0].get("zone") + " " + b[2][f][0].get("ref") + "  ||| " + 10 * (f + 1) + " ||| " + k + "  |||| " + b[2][f][1][h][0].get("nbPieces"));
+                            var nombre = b[2][f][1][h][0].get("nbPieces");
+                            diz.get('store').unloadRecord(b[2][f][1][h][0]);
+                            if (b[2][f][1][h][1][1].id == 28) nombre = (nombre / 2000).toFixed(2);
+                            e +=
+                                '"I' + b[1]._data.number + "" + d.get("otp") + "" + b[2][f][0].get("zone") + "" + b[2][f][0].get("ref") + '";"' + 10 * (h + 1) + '";"' + k + '";"' + nombre + '"\n'
                         }
-
-                    }
-
-                    csvData = "data:application/csv," + encodeURIComponent('"Code Article Pere";"Num Ligne Nom";"Code Article Composant";"Quantite Composant"\n' + table);
-
-
+                    console.log('expppppppp');
+                    // diz.get('store').unloadAll('pieceOrder');
+                    // diz.get('store').unloadAll('orderPiece');
+                    csvData = "data:application/csv," + encodeURIComponent('"Code Article Pere";"Num Ligne Nom";"Code Article Composant";"Quantite Composant"\n' + e);
                     a = document.createElement("a");
-                    a.download = "Affaire|" + result[1]._data.number + "-OTP|" + order.get('otp') + ".csv";
+                    a.download = "Affaire|" + b[1]._data.number + "-OTP|" + d.get("otp") + ".csv";
                     a.href = csvData;
-                    a.click()
-                });
-            })
+                    a.click();
 
-
-
-
-
-            // this.transitionToRoute("order.Exporter", a)
-
+                })
+            });
         },
         woooow: function(a) {
-            console.log('l3eeeeeeeeeeeeeeeeeeeez');
-
-            var sortProp = event.path[0].innerText;
-            if (sortProp == "plan") sortProp = "plan";
-            if (sortProp == "Dessinateur") sortProp = "drawerName";
-            if (sortProp == "Derni\u00e8re \u00e9dition le") sortProp = "lastEditedAt";
-            if (sortProp == "Edit\u00e9 par") sortProp = "createdBy";
-            if (sortProp == "Verrouill\u00e9 par") sortProp = "lastEditedBy";
-
-            if (this.get("sortProperties").toString().toLowerCase() == sortProp.toLowerCase()) this.set('sortAscending', !this.get('sortAscending'));
-            this.set("sortProperties", sortProp);
+            console.log("l3eeeeeeeeeeeeeeeeeeeez");
+            a = event.path[0].innerText;
+            "plan" == a && (a = "plan");
+            "Dessinateur" == a && (a = "drawerName");
+            "Derni\u00e8re \u00e9dition le" == a && (a = "lastEditedAt");
+            "Edit\u00e9 par" == a && (a = "createdBy");
+            "Verrouill\u00e9 par" == a && (a = "lastEditedBy");
+            this.get("sortProperties").toString().toLowerCase() == a.toLowerCase() && this.set("sortAscending", !this.get("sortAscending"));
+            this.set("sortProperties", a)
         }
     },
-    sortProperties: 'OTP',
-    sortAscending: false,
-    /**
-     * Nombre d'élément dans la liste à afficher
-     * @property numRows
-     * @type {Integer}
-     */
+    sortProperties: "OTP",
+    sortAscending: !1,
     numRows: function() {
-        if (this.get('filtered') !== undefined)
-            return this.get('filtered').get('length');
-        else
-            return 0;
-    }.property('filtered'),
-    /**
-     * Liste d'élément à afficher
-     * @property filtered
-     * @type {App.Order[]}
-     */
+        return void 0 !== this.get("filtered") ? this.get("filtered").get("length") : 0
+    }.property("filtered"),
     filtered: function() {
-        console.log('fhsdkf');
-        console.log(this.get('selection'));
-        var ths = this;
-        console.log('fiiiilter');
+        console.log("fhsdkf");
+        console.log(this.get("selection"));
+        console.log("fiiiilter");
         console.log(this.get("sortProperties"));
         var a = [];
         if (this.get("queryField") && 1 < this.get("queryField").length) var b = this.get("queryField").split(" "),
             a = this.get("content.orders").filter(function(a, d) {
                 var e = !0;
                 $.each(b, function(b, d) {
-                    var g = RegExp(d, "i");
-                    if (!(g.test(a.get("otp")) || g.test(a.get("conveyorType.abbreviation").toLowerCase()) || g.test(a.get("drawerName") ? a.get("drawerName").toLowerCase() : "") || g.test(a.get("plan") ? a.get("plan").toLowerCase() : ""))) return e = !1
+                    var k = RegExp(d, "i");
+                    if (!(k.test(a.get("otp")) || k.test(a.get("conveyorType.abbreviation").toLowerCase()) || k.test(a.get("drawerName") ? a.get("drawerName").toLowerCase() : "") ||
+                            k.test(a.get("plan") ? a.get("plan").toLowerCase() : ""))) return e = !1
                 });
                 return e
             }).sortBy(this.get("sortProperties"));
         else a = this.get("content.orders").sortBy(this.get("sortProperties"));
-        console.log('soooort');
+        console.log("soooort");
         console.log(a);
         return this.get("sortAscending") ? a : a.reverse()
     }.property("content.orders.isLoaded", "content.orders.@each", "queryField", "numRows", "sortProperties", "sortAscending"),
-
-    /**
-     * Liste des colonnes
-     * @property columns
-     * @type {Ember.Table.ColumnDefinition[]}
-     */
     columns: Ember.computed(function() {
-        var numColumn, typeConvColumn, planColumn, drawerColumn, lastEditedAtColumn, lastEditedByColumn, actionColumn, lockedColumn;
-        numColumn = Ember.Table.ColumnDefinition.create({
-            headerCellName: 'OTP',
-            textAlign: 'text-align-center',
+        var a, b, c, d, e, f, h, k;
+        a = Ember.Table.ColumnDefinition.create({
+            headerCellName: "OTP",
+            textAlign: "text-align-center",
             isResizable: 1,
-            contentPath: 'otp',
+            contentPath: "otp",
             defaultColumnWidth: 20
         });
-        typeConvColumn = Ember.Table.ColumnDefinition.create({
-            headerCellName: 'Type',
-            textAlign: 'text-align-center',
+        b = Ember.Table.ColumnDefinition.create({
+            headerCellName: "Type",
+            textAlign: "text-align-center",
             isResizable: 1,
-            contentPath: 'conveyorType.abbreviation',
+            contentPath: "conveyorType.abbreviation",
             defaultColumnWidth: 50
         });
-        planColumn = Ember.Table.ColumnDefinition.create({
-            headerCellName: 'Plan',
-            textAlign: 'text-align-center',
+        c = Ember.Table.ColumnDefinition.create({
+            headerCellName: "Plan",
+            textAlign: "text-align-center",
             isResizable: 1,
-            contentPath: 'plan'
+            contentPath: "plan"
         });
-        drawerColumn = Ember.Table.ColumnDefinition.create({
-            headerCellName: 'Dessinateur',
-            textAlign: 'text-align-center',
+        d = Ember.Table.ColumnDefinition.create({
+            headerCellName: "Dessinateur",
+            textAlign: "text-align-center",
             isResizable: 1,
-            contentPath: 'drawerName',
+            contentPath: "drawerName",
             minWidth: 90
         });
-        lastEditedAtColumn = Ember.Table.ColumnDefinition.create({
-            headerCellName: 'Dernière édition le',
-            textAlign: 'text-align-center',
+        e = Ember.Table.ColumnDefinition.create({
+            headerCellName: "Derni\u00e8re \u00e9dition le",
+            textAlign: "text-align-center",
             isResizable: 1,
             defaultColumnWidth: 125,
             maxWidth: 125,
-            getCellContent: function(row) {
-                var d = moment(row.get('lastEditedAt')).format('llll');
-                if (d = moment(0).format('llll')) d = "non modifié";
-                return d;
+            getCellContent: function(a) {
+                a = moment(a.get("lastEditedAt")).format("llll");
+                if (a = moment(0).format("llll")) a = "non modifi\u00e9";
+                return a
             }
         });
-        lastEditedByColumn = Ember.Table.ColumnDefinition.create({
-            headerCellName: 'Edité par',
-            textAlign: 'text-align-center',
+        f = Ember.Table.ColumnDefinition.create({
+            headerCellName: "Edit\u00e9 par",
+            textAlign: "text-align-center",
             isResizable: 1,
-            contentPath: 'lastEditedBy'
+            contentPath: "lastEditedBy"
         });
-        lockedColumn = Ember.Table.ColumnDefinition.create({
-            headerCellName: 'Verrouillé par',
-            textAlign: 'text-align-center',
+        k = Ember.Table.ColumnDefinition.create({
+            headerCellName: "Verrouill\u00e9 par",
+            textAlign: "text-align-center",
             isResizable: 1,
-            contentPath: 'lockedBy'
+            contentPath: "lockedBy"
         });
-        actionColumn = Ember.Table.ColumnDefinition.create({
-            headerCellName: 'Actions',
-            textAlign: 'text-align-center',
+        h = Ember.Table.ColumnDefinition.create({
+            headerCellName: "Actions",
+            textAlign: "text-align-center",
             isResizable: 1,
-            tableCellViewClass: 'App.TableActionCell',
+            tableCellViewClass: "App.TableActionCell",
             defaultColumnWidth: 190,
             maxWidth: 190,
-            getCellContent: function(row) {
+            getCellContent: function(a) {
                 return {
-                    id: row.get('id'),
-                    buttonList: [
-                        Ember.Object.create({
-                            rights: 'all',
-                            button: JQ.ButtonView.extend({
-                                icons: {
-                                    primary: 'ui-icon-document'
-                                },
-                                label: "Consulter",
-                                text: false,
-                                click: function() {
-                                    this.get("controller.parentView.controller").send("showOrder", row.get('id'));
-                                }
-                            })
-                        }), Ember.Object.create({
-                            rights: 'all',
-                            button: JQ.ButtonView.extend({
-                                icons: {
-                                    primary: 'ui-icon-pencil'
-                                },
-                                label: "Editer",
-                                text: false,
-                                click: function() {
-                                    this.get('controller.parentView.controller').send('redirect', 'order.edit', row.get('id'));
-                                },
-                                disabled: true
-                            })
-                        }), Ember.Object.create({
-                            rights: 'all',
-                            button: JQ.ButtonView.extend({
-                                icons: {
-                                    primary: 'ui-icon-print'
-                                },
-                                label: "Imprimer",
-                                text: false,
-                                click: function() {
-                                    this.get('controller.parentView.controller').send('redirect', 'order.print', row.get('id'));
-                                },
-                                disabled: true
-                            })
-                        }), Ember.Object.create({
-                            rights: 'all',
-                            button: JQ.ButtonView.extend({
-                                icons: {
-                                    primary: 'ui-icon-extlink'
-                                },
-                                label: "Exporter",
-                                text: false,
-                                click: function() {
-                                    this.get('controller.parentView.controller').send('exporter', row.get('id'));
-                                }
-                            })
-                        }), Ember.Object.create({
-                            rights: [1, 2],
-                            button: JQ.ButtonView.extend({
-                                icons: {
-                                    primary: 'ui-icon-trash'
-                                },
-                                label: "Supprimer",
-                                text: false,
-                                click: function() {
-                                    this.get('controller.parentView.controller').send('delete', row.get('id'));
-                                },
-                                disabled: false
-                            })
+                    id: a.get("id"),
+                    buttonList: [Ember.Object.create({
+                        rights: "all",
+                        button: JQ.ButtonView.extend({
+                            icons: {
+                                primary: "ui-icon-document"
+                            },
+                            label: "Consulter",
+                            text: !1,
+                            click: function() {
+                                this.get("controller.parentView.controller").send("showOrder",
+                                    a.get("id"))
+                            }
                         })
-                    ]
-                };
+                    }), Ember.Object.create({
+                        rights: "all",
+                        button: JQ.ButtonView.extend({
+                            icons: {
+                                primary: "ui-icon-pencil"
+                            },
+                            label: "Editer",
+                            text: !1,
+                            click: function() {
+                                this.get("controller.parentView.controller").send("redirect", "order.edit", a.get("id"))
+                            },
+                            disabled: !0
+                        })
+                    }), Ember.Object.create({
+                        rights: "all",
+                        button: JQ.ButtonView.extend({
+                            icons: {
+                                primary: "ui-icon-print"
+                            },
+                            label: "Imprimer",
+                            text: !1,
+                            click: function() {
+                                this.get("controller.parentView.controller").send("redirect", "order.print", a.get("id"))
+                            },
+                            disabled: !0
+                        })
+                    }), Ember.Object.create({
+                        rights: "all",
+                        button: JQ.ButtonView.extend({
+                            icons: {
+                                primary: "ui-icon-extlink"
+                            },
+                            label: "Exporter",
+                            text: !1,
+                            click: function() {
+                                this.get("controller.parentView.controller").send("exporter", a.get("id"))
+                            }
+                        })
+                    }), Ember.Object.create({
+                        rights: [1, 2],
+                        button: JQ.ButtonView.extend({
+                            icons: {
+                                primary: "ui-icon-trash"
+                            },
+                            label: "Supprimer",
+                            text: !1,
+                            click: function() {
+                                this.get("controller.parentView.controller").send("delete", a.get("id"))
+                            },
+                            disabled: !1
+                        })
+                    })]
+                }
             }
         });
-        return [numColumn, typeConvColumn, planColumn, drawerColumn, lastEditedAtColumn, lastEditedByColumn, lockedColumn, actionColumn];
+        return [a, b, c, d, e, f, k, h]
     })
 });

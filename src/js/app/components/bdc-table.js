@@ -401,79 +401,251 @@
             return newPieceOrder
         },
 
-        getConveyorOption: function(optionTypeId) {
-            console.log("getConveyorOption appeleeee");
-            var newConvOption = this.get("options").findBy("optionType.id", optionTypeId + "");
-            console.log("getConveyorOption newConvOption");
-            console.log(newConvOption);
-            var opts = this.get("parentController.conveyorType.conveyorTypeOptions").map(function(cOpt) {
-                    if (cOpt.get("isConveyorOption") &&
-                        cOpt.get("option.optionType.id") + "" === optionTypeId + "") return cOpt.get("option.content")
-                }).compact(),
-                d = this.get("parentController.conveyorType.conveyorTypeOptions").map(function(a) {
-                    if (a.get("isConveyorOption") && "19" == a.get("option.optionType.id") + "") return a.get("option.content")
+getConveyorOption: function(a, res) {
+
+            var ttttype = parseInt(a);
+            console.log('recherche de loption' + a);
+            console.log(this.get('id'));
+            console.log(this.get('model'));
+
+            var diz = this;
+
+            if ((this.get('id') != null) && (ttttype != 2) && (ttttype != 7)) {
+
+                var z = this.get('model.options').then(function(convos) {
+                    return Ember.RSVP.Promise.all(convos.map(function(convo) {
+                        return Ember.RSVP.Promise.all([convo.get('optionType').then(function(x) {
+                            return x
+                        }), convo, convo.get('option').then(function(z) {
+                            return z
+                        })])
+                    }))
+                }).then(function(jk) {
+                    var convOption;
+                    var convOptionDef;
+                    jk.forEach(function(x) {
+
+                        if (x[0].id == a) {
+                            convOption = x[1];
+                            convOptionDef = x[2];
+
+                        }
+
+
+                    })
+                    var b = convOption;
+
+
+
+                    var c = diz.get("parentController.conveyorType.conveyorTypeOptions").map(function(b) {
+                        if (b.get("isConveyorOption") && b.get("option.optionType.id") + "" === a + "") {
+
+
+                            return b.get("option.content")
+                        }
+                    }).compact();
+                    d = diz.get("parentController.conveyorType.conveyorTypeOptions").map(function(a) {
+                        if (a.get("isConveyorOption") &&
+                            "19" == a.get("option.optionType.id") + "") {
+                            if (ttttype == 2) console.log('test2');
+                            console.log(a.get("option.content"));
+                            return a.get("option.content")
+                        }
+                    }).compact().findBy("isDefault", !0);
+                    if (ttttype == 2) {
+                        console.log('test3');
+                        console.log(c);
+                        console.log(d);
+                    }
+
+                    var e = convOptionDef;
+
+
+                    var f = e._data.value;
+
+
+
+                    if ("26" == a + "") {
+                        console.log('hjqffq');
+                        console.log(c)
+                    }
+
+                    c = Ember.Object.create({
+                        name: "conveyorOption_" + a,
+                        options: 0 < c.length && c.objectAt(0).get("isCustomizable") ? c.objectAt(0) : c,
+                        isArray: !(0 < c.length && c.objectAt(0).get("isCustomizable")),
+                        isOptType26: "26" === a
+                    });
+
+                    if ("26" === a) c.options._data.value = 336;
+                    console.log('cccckckckckck');
+                    console.log(c);
+                    b = convOption;
+                    diz.get("options").then(function(a) {
+                        a.addObject(convOption)
+                    });
+
+
+                    if (void 0 === diz.get("conveyorOption_" + a) || "19" === a + "" && "0" === diz.get("conveyorOption_" + a + ".label") + "") diz.set("conveyorOption_" +
+                        a, e), diz.addObserver("conveyorOption_" + a, function(c, d) {
+
+                        b.set("option", c.get(d));
+                        diz.get("options").map(function(b) {
+                            a + "" == b.get("optionType.id") + "" && b.set("optionValue", c.get(d)._data.label)
+                        });
+                        "19" != a + "" && "26" != a + "" || diz.get("options").map(function(a) {
+                            console.log('wayli1');
+                            "19" == a.get("optionType.id") + "" && a.set("optionValue", c.get(d)._data.label);
+                            "26" == a.get("optionType.id") + "" && (a.set("optionValue", 2 * parseInt(c.get(d)._data.label, 10)), console.log("ooooooooo"), console.log(parseInt(c.get(d)._data.value, 10)))
+                        })
+                    }), c.get("isArray") ? (diz.addValidation("conveyorOption_" + a, ValidationsLibrary.get(diz.get("parentController.conveyorType.id"), "conveyorOption_" + a), !0), diz.get("parentController.childObservers").contains("conveyorOption_" + a) || diz.get("parentController.childObservers").pushObject("conveyorOption_" + a)) : (diz.set("conveyorOption_" + a + "_value",
+                        e.get("value")), diz.addValidation("conveyorOption_" + a + "_value", ValidationsLibrary.get(diz.get("parentController.conveyorType.id"), "conveyorOption_" + a)), diz.addObserver("conveyorOption_" + a + "_value", function(c, d) {
+
+                        b.set("optionValue", c.get(d))
+                    }), diz.get("parentController.childObservers").contains("conveyorOption_" + a) || diz.get("parentController.childObservers").pushObjects(["conveyorOption_" +
+                        a, "conveyorOption_" + a + "_value"
+                    ]));
+                    console.log('njsnjfnsjdfnsdf');
+                    console.log(ttttype);
+                    if (ttttype == 2) {
+                        console.log('test4');
+                        console.log(c);
+                        console.log(b);
+                    };
+                    diz.get("options").map(function(a) {
+                        "26" == a.get("optionType.id") && null == a.get("optionValue") && (console.log("haaaahya2"), a.set("optionValue", 2 * parseInt(sender.get(key)._data.label, 10)))
+                    });
+                    res.set('content', c);
+                    console.log('hahahahahdiiii');
+                    console.log(c);
+                    //res.set('dddd',c);
+                    console.log('hfjhdsfhfjdhsdj1  ' + a);
+                    if (a + '' == 2 + '') {
+
+                        diz.addObserver("conveyorOption_" + a + "_value", function(a, b, c, d) {
+                            console.log('ozueyrzaeur');
+                            console.log(a);
+                            console.log(b);
+                            console.log(c);
+                            console.log(d);
+                            diz.checkStringers()
+                        })
+                    }
+
+
+
+
+                });
+
+            } else {
+
+                var b = this.get("options").findBy("optionType.id", a + "");
+
+
+                var c = diz.get("parentController.conveyorType.conveyorTypeOptions").map(function(b) {
+                    if (b.get("isConveyorOption") && b.get("option.optionType.id") + "" === a + "") {
+                        if (ttttype == 2) {
+                            console.log('test1');
+                            console.log(b.get("option.content"));
+                        }
+                        return b.get("option.content")
+                    }
+                }).compact();
+                d = diz.get("parentController.conveyorType.conveyorTypeOptions").map(function(a) {
+                    if (a.get("isConveyorOption") &&
+                        "19" == a.get("option.optionType.id") + "") {
+                        if (ttttype == 2) console.log('test2');
+                        console.log(a.get("option.content"));
+                        return a.get("option.content")
+                    }
                 }).compact().findBy("isDefault", !0);
-            console.log("getConveyorOption opts");
-            console.log(opts);
-            var defaultVal = opts.findBy("isDefault", !0);
-            console.log("getConveyorOption defaultVal");
-            console.log(defaultVal);
-            var defV = defaultVal._data.value;
-            "26" == optionTypeId + "" && (console.log("vvvvvvvv"), defV = 2 *
-                parseInt(d._data.value, 10));
-            opts = Ember.Object.create({
-                name: "conveyorOption_" + optionTypeId,
-                options: 0 < opts.length && opts.objectAt(0).get("isCustomizable") ? opts.objectAt(0) : opts,
-                isArray: !(0 < opts.length && opts.objectAt(0).get("isCustomizable")),
-                isOptType26: "26" === optionTypeId
-            });
-            console.log("getConveyorOption ret");
-            console.log(opts);
-            Ember.isEmpty(newConvOption) && (console.log("getConveyorOption isEmpty"), newConvOption = this.get("store").createRecord("conveyorOption", {
-                    optionType: this.get("parentController.parentController.OptionTypes").findBy("id", optionTypeId + ""),
-                    option: defaultVal ? defaultVal : null,
-                    optionValue: defV
-                }),
-                console.log(newConvOption), this.get("options").then(function(a) {
-                    a.addObject(newConvOption)
+                if (ttttype == 2) {
+                    console.log('test3');
+                    console.log(c);
+                    console.log(d);
+                }
+
+
+                var e = c.findBy("isDefault", !0);
+
+                var f = e._data.value;
+                "26" == a + "" && (console.log("vvvvvvvv"), f = 2 * parseInt(d._data.value, 10));
+                c = Ember.Object.create({
+                    name: "conveyorOption_" + a,
+                    options: 0 < c.length && c.objectAt(0).get("isCustomizable") ? c.objectAt(0) : c,
+                    isArray: !(0 < c.length && c.objectAt(0).get("isCustomizable")),
+                    isOptType26: "26" === a
+                });
+
+                Ember.isEmpty(b) && (console.log("getConveyorOption isEmpty"), b = this.get("store").createRecord("conveyorOption", {
+                    optionType: this.get("parentController.parentController.OptionTypes").findBy("id", a + ""),
+                    option: e ? e : null,
+                    optionValue: f
+                }), console.log(b), this.get("options").then(function(a) {
+                    a.addObject(b)
                 }));
-            if (void 0 === this.get("conveyorOption_" + optionTypeId) || "19" === optionTypeId + "" && "0" === this.get("conveyorOption_" + optionTypeId + ".label") + "") this.set("conveyorOption_" + optionTypeId, defaultVal), this.addObserver("conveyorOption_" + optionTypeId, function(c, d) {
-                console.log('observer6');
-                console.log("trigger2 declenche :" + optionTypeId);
 
-              
-                console.log("c");
+                if (void 0 === this.get("conveyorOption_" + a) || "19" === a + "" && "0" === this.get("conveyorOption_" + a + ".label") + "") this.set("conveyorOption_" +
+                    a, e), this.addObserver("conveyorOption_" + a, function(c, d) {
+
+                    b.set("option", c.get(d));
+                    this.get("options").map(function(b) {
+                        a + "" == b.get("optionType.id") + "" && b.set("optionValue", c.get(d)._data.label)
+                    });
+                    "19" != a + "" && "26" != a + "" || this.get("options").map(function(a) {
+                        "19" == a.get("optionType.id") + "" && a.set("optionValue", c.get(d)._data.label);
+                        "26" == a.get("optionType.id") + "" && (a.set("optionValue", 2 * parseInt(c.get(d)._data.label, 10)), console.log("ooooooooo"), console.log(parseInt(c.get(d)._data.value, 10)))
+                    })
+                }), c.get("isArray") ? (this.addValidation("conveyorOption_" + a, ValidationsLibrary.get(this.get("parentController.conveyorType.id"), "conveyorOption_" + a), !0), this.get("parentController.childObservers").contains("conveyorOption_" + a) || this.get("parentController.childObservers").pushObject("conveyorOption_" + a)) : (this.set("conveyorOption_" + a + "_value",
+                    "26" === a ? 2 * parseInt(this.get("conveyorOption_19.label"), 10) : e.get("value")), this.addValidation("conveyorOption_" + a + "_value", ValidationsLibrary.get(this.get("parentController.conveyorType.id"), "conveyorOption_" + a)), this.addObserver("conveyorOption_" + a + "_value", function(c, d) {
+
+                    b.set("optionValue", c.get(d))
+                }), this.get("parentController.childObservers").contains("conveyorOption_" + a) || this.get("parentController.childObservers").pushObjects(["conveyorOption_" +
+                    a, "conveyorOption_" + a + "_value"
+                ]));
+                console.log('njsnjfnsjdfnsdf22');
+                console.log(ttttype);
+                if (ttttype == 2) {
+                    console.log('test4');
+                    console.log(c);
+                    console.log(b);
+                };
+                this.get("options").map(function(a) {
+                    "26" == a.get("optionType.id") && null == a.get("optionValue") && (a.set("optionValue", 2 * parseInt(sender.get(key)._data.label, 10)))
+                });
+
+                //res.set('content',c);
+                console.log('leeeenom lifih2');
                 console.log(c);
-                console.log("d");
-                console.log(d);
-                console.log("c.get(d)");
-                console.log(c.get(d));
-                newConvOption.set("option", c.get(d));
-                this.get("options").map(function(aa) {
-                    optionTypeId + "" == aa.get("optionType.id") + "" && aa.set("optionValue", c.get(d)._data.label);
-                })
-                if ((optionTypeId + '' == ("19")) || (optionTypeId + '' == ("26"))) {
-                    this.get("options").map(function(aa) {
-                        "19" == aa.get("optionType.id") + "" && aa.set("optionValue", c.get(d)._data.label);
 
-                        "26" == aa.get("optionType.id") + "" && (aa.set("optionValue", 2 * parseInt(c.get(d)._data.label,
-                            10)), console.log("ooooooooo"), console.log(parseInt(c.get(d)._data.value, 10)))
+                if (a == 2 || a == 7) {
+                    if (this.get('id') != null)
+
+                        this.get('model').get('options').then(function(x) {
+                        x.map(function(c) {
+                            c.get('optionType').then(function(x) {
+                                console.log('dqsdcxwc ' + x.id);
+                                console.log(x);
+                                if (x.id == 2 || x.id == 7) {
+                                    console.log('conv227  ' + x.id);
+                                    diz.set('conveyorOption_' + x.id + '_value', c.get('optionValue'));
+
+
+                                }
+                            });
+                        })
                     })
                 }
-            }), opts.get("isArray") ? (this.addValidation("conveyorOption_" + optionTypeId, ValidationsLibrary.get(this.get("parentController.conveyorType.id"), "conveyorOption_" + optionTypeId), !0), this.get("parentController.childObservers").contains("conveyorOption_" + optionTypeId) || this.get("parentController.childObservers").pushObject("conveyorOption_" + optionTypeId)) : (this.set("conveyorOption_" + optionTypeId + "_value", "26" === optionTypeId ? 2 * parseInt(this.get("conveyorOption_19.label"), 10) : defaultVal.get("value")), this.addValidation("conveyorOption_" +
-                optionTypeId + "_value", ValidationsLibrary.get(this.get("parentController.conveyorType.id"), "conveyorOption_" + optionTypeId)), this.addObserver("conveyorOption_" + optionTypeId + "_value", function(c, d) {
-                console.log('observer7');
-                console.log("trigger1 declenche :" + optionTypeId);
-                newConvOption.set("optionValue", c.get(d))
-            }), this.get("parentController.childObservers").contains("conveyorOption_" + optionTypeId) || this.get("parentController.childObservers").pushObjects(["conveyorOption_" + optionTypeId, "conveyorOption_" + optionTypeId + "_value"]));
-            console.log("return ret");
-            console.log(opts);
-            this.get("options").map(function(a) {
-                "26" == a.get("optionType.id") &&
-                    (null == a.get("optionValue") && (console.log("haaaahya2"), a.set("optionValue", 2 * parseInt(sender.get(key)._data.label, 10))))
-            });
-            return opts
+                console.log('hfjhdsfhfjdhsdj2  ' + a);
+
+                return c
+            }
+
+
         }
+
+
+
     });
 
     /**
@@ -496,6 +668,9 @@
             addConveyor: function() {
                 this.initConveyor();
             },
+            updateConveyor: function(c) {
+                this.initupdateConveyor(c)
+             },
             moveLeft: function(conveyor) {
                 this.updateConveyorPosition(conveyor, this.get('sortAscending') ? -1 : 1);
             },
@@ -527,6 +702,11 @@
             });
 
             this.addObject(newConv);
+        },
+        initupdateConveyor: function(a) {
+            console.log('initupdateConveyor');
+            console.log(a);
+            this.addObject(a)
         }
     });
 }(), function() {
@@ -542,6 +722,11 @@
             addConveyor: function() {
                 this.get('contentController').send('addConveyor');
             },
+            updateConveyor: function(c) {
+               console.log('updateConveyor1');
+               console.log(c);
+                this.get("contentController").send("updateConveyor", c)
+             },
             removeConveyor: function(conveyor) {
                 this.deleteConveyor(conveyor);
             },
@@ -588,6 +773,7 @@
             this.set('contentController', null);
         },
         deleteConveyor: function(conveyor) {
+            this.get('parentController').get('toDelete').pushObject(a);
             this.get('conveyors').then(function(conveyors) {
                 conveyors.removeObject(conveyor);
             });
@@ -624,48 +810,49 @@
 
             return data;
         }).property(),
-        cleanUpOrderPiece: function(pieceTypeId) {
-            var self = this;
-            var orderPieceToRemove;
-            var rowData = this.get('headerRowData').find(function(row) {
-                return row.get('kind') === 'pieceType' && row.get('pieceType.id') === pieceTypeId;
-            });
-
-            orderPieceToRemove = rowData.get('pieces').filter(function(piece) {
-                return this.get('childControllers').every(function(ctrl) {
-                    return ((ctrl.get('pieceOrder_' + piece.get('clientId') + '_value') + '' === 0 + '')||ctrl.get('pieceOrder_' + piece.get('clientId') + '_value') + '' === '' + '')&&(piece.get('isComputed')==0) ;
+        cleanUpOrderPiece: function(a) {
+            var b = this,
+                diz = this,
+                c, d = this.get("headerRowData").find(function(b) {
+                    return "pieceType" === b.get("kind") && b.get("pieceType.id") === a
                 });
+            c = d.get("pieces").filter(function(a) {
+                return this.get("childControllers").every(function(b) {
+                    return ("0" ===
+                        b.get("pieceOrder_" + a.get("clientId") + "_value") + "" || "" === b.get("pieceOrder_" + a.get("clientId") + "_value") + "") && 0 == a.get("isComputed")
+                })
             }, this);
-
-            this.get('orderPieces').then(function(orderPieces) {
-                orderPieces.removeObjects(orderPieceToRemove);
+            this.get("orderPieces").then(function(a) {
+                console.log('hna la suppression');
+                console.log(a);
+                console.log(b);
+                b.get('parentController').get('toDelete').pushObjects(c);
+                a.removeObjects(c)
             });
-            rowData.get('pieces').removeObjects(orderPieceToRemove);
-
-            Ember.RSVP.Promise.all(this.get('childControllers').map(function(ctrl) {
-                return ctrl.get('pieceOrders').then(function(pieceOrders) {
-                    return Ember.RSVP.Promise.all(orderPieceToRemove.map(function(orderPiece) {
-                        return Ember.RSVP.Promise.all(pieceOrders.map(function(pieceOrder) {
-                            return pieceOrder.get('orderPiece').then(function(orderP) {
-                                if (orderP.get('clientId') === orderPiece.get('clientId')) {
-                                    pieceOrders.removeObject(pieceOrder);
-                                    pieceOrder.deleteRecord();
-                                }
-                            });
-                        }));
-                    }));
-                });
+            d.get("pieces").removeObjects(c);
+            Ember.RSVP.Promise.all(this.get("childControllers").map(function(a) {
+                return a.get("pieceOrders").then(function(a) {
+                    return Ember.RSVP.Promise.all(c.map(function(b) {
+                        return Ember.RSVP.Promise.all(a.map(function(c) {
+                            return c.get("orderPiece").then(function(d) {
+                                d.get("clientId") ===
+                                    b.get("clientId") && (diz.get('parentController').get('toDelete').pushObject(c), a.removeObject(c), c.deleteRecord())
+                            })
+                        }))
+                    }))
+                })
             })).then(function() {
-                orderPieceToRemove.forEach(function(orderPiece) {
-                    orderPiece.get('options').then(function(options) {
-                        options.map(function(option) {
-                            option.deleteRecord();
+                c.forEach(function(a) {
+                    a.get("options").then(function(b) {
+                        b.map(function(a) {
+                            a.deleteRecord()
                         });
-                        orderPiece.deleteRecord();
-                    });
+                        diz.get('parentController').get('toDelete').pushObject(a);
+                        a.deleteRecord()
+                    })
                 });
-                Ember.run.next(self, self.send, 'conveyorsDidChange');
-            });
+                Ember.run.next(b, b.send, "conveyorsDidChange")
+            })
         },
         needToResize: false,
         childControllers: Ember.computed(function() {
@@ -801,47 +988,57 @@
 
             return ret;
         },
-        initOrderPiece: function(pieceTypeId, existingOrderPiece,piece) {
-
+        initOrderPiece: function(a, b, c) {
             var d;
-            console.log('initOrderPiece');
-            console.log(pieceTypeId);
+            if (2 == arguments.length) {
+                console.log("deuux");
+                console.log("a");
+                console.log(a);
+                console.log("b");
+                console.log(b);
+                console.log('pieeecece ' + a + ' ' + b.id);
+                console.log(b.get("piece"));
+                console.log('lalalw');
+                console.log('miaw' + this.get('store').all('orderPiece').contains(b));
+                d = b;
 
+                // this.set("orderPiece_" + d.get("id"), b.get("piece"))
+            }
 
-            console.log('lllllll');
-            console.log('arguments a: '+pieceTypeId+' c: '+piece);
+            console.log("initOrderPiece");
+            console.log(a);
+
+            console.log("lllllll");
+            console.log("arguments a: " + a + " c: " + c);
             console.log(arguments);
-
-
             1 == arguments.length ? d = this.get("store").createRecord("orderPiece", {
                 order: this.get("model"),
-                piece: this.getPieceList(pieceTypeId)[0],
-                isComputed: (pieceTypeId+''=='0'||pieceTypeId+''=='17')
-            }) : 2 == arguments.length ? (console.log("deuux"), console.log('a'), console.log(pieceTypeId), console.log('b'), console.log(existingOrderPiece), d = existingOrderPiece, this.set("orderPiece_" + d.get("id"), existingOrderPiece.get("piece"))) : 3 == arguments.length && (d = this.get("store").createRecord("orderPiece", {
+                piece: this.getPieceList(a)[0],
+                isComputed: "0" == a + "" || "17" == a + ""
+            }) : 3 == arguments.length && (d = this.get("store").createRecord("orderPiece", {
                 order: this.get("model"),
-                piece: this.getPiece(piece),
-                isComputed: (pieceTypeId+''=='0'||(pieceTypeId+''=='17'&&piece+''=='28'))
-            }), this.set("orderPiece_" + d.get("clientId"), this.getPiece(piece)));
+                piece: this.getPiece(c),
+                isComputed: "0" == a + "" || "17" == a + "" && "28" == c + ""
+            }), this.set("orderPiece_" + d.get("clientId"), this.getPiece(c)));
             this.addObserver("orderPiece_" + d.get("id"), function(a, b) {
-                console.log('observer8');
+                console.log("observer8");
                 console.log(a.get(b));
-                d.set("piece",
-                    a.get(b))
+                d.set("piece", a.get(b))
             });
             console.log("nouveaux orderpiece cree" + arguments.length);
-            console.log(d.get('piece'));
+            console.log(d.get("piece"));
             this.get("orderPieces").then(function(a) {
-                console.log('observer88');
-                console.log(d.get('piece') != null);
-                if (d.get('piece') != null) a.pushObject(d)
+                console.log("observer88");
+                console.log(a);
+                console.log(null != d.get("piece"));
+                null != d.get("piece") && a.pushObject(d)
             });
             this.get("headerRowData").find(function(b) {
-                return "pieceType" === b.get("kind") && b.get("pieceType.id") === pieceTypeId
+                return "pieceType" === b.get("kind") && b.get("pieceType.id") === a
             }).get("pieces").pushObject(d);
             Ember.run.next(this, this.send, "conveyorsDidChange");
-            console.log("orderpiece cree " + pieceTypeId);
+            console.log("orderpiece cree " + a);
             console.log(d);
-
             return d
         },
         initHeaderData: function() {
@@ -877,51 +1074,70 @@ var p = this.get("conveyorType.pieceAvailabilities").get('content').toArray();
             console.log(piece);
             return piece},
         initHeaderRowData: function() {
-            var headerRowData = [
-                Ember.Object.create({
-                    kind: 'conveyorProperties'
+            var list = [];
+            var diz = this;
+            var a = [Ember.Object.create({
+                    kind: "conveyorProperties"
+                })],
+                b = [];
+            this.get("conveyorType.conveyorTypeOptions").forEach(function(a) {
+                console.log("opt :");
+                console.log(a.get("option.optionType.label"));
+                a.get("isConveyorOption") && "2" !== a.get("option.optionType.id") && "3" !== a.get("option.optionType.id") && (b.findBy("id", a.get("option.optionType.id")) || b.pushObject(Ember.Object.create({
+                    kind: "conveyorTypeOption",
+                    label: a.get("option.optionType.label"),
+                    id: a.get("option.optionType.id")
+                })))
+            });
+            a.pushObjects(b);
+            var c = [];
+            this.get("conveyorType.pieceAvailabilities").forEach(function(a) {
+                console.log("pieceAvailabilities :");
+                console.log(a);
+                c.findBy("pieceType.id", a.get("piece.pieceType.id")) || c.pushObject(Ember.Object.create({
+                    kind: "pieceType",
+                    pieceType: a.get("piece.pieceType.content"),
+                    pieces: []
+                }))
+            });
+            a.pushObjects(c);
+            this.set("headerRowData", a);
+            var d = this;
+            console.log('gfgfgf');
+            console.log(d);
+            this.get('conveyors').then(function(cnvs) {
+                cnvs.map(function(cnv) {
+                    cnv.get('pieceOrders').then(function(pos) {
+                        pos.map(function(poss) {
+                            console.log('pieceOrderrrr' + poss.id + '  ');
+
+                            poss.get('orderPiece').then(function(a) {
+
+
+                                if (!list.contains(a)) {
+                                    list.pushObject(a);
+
+                                    d.initOrderPiece(a._data.piece._data.pieceType.id, a);
+
+
+                                    //     : b.strapLength && a.get("piece").then(function(d) {
+                                    //     d.get("options").then(function(d) {
+                                    //         var f = d.findBy("label", b.strapLength + "");
+                                    //         a.get("options").then(function(a) {
+                                    //             c.set("parentController.firstColController.orderPieceOption_" + a.findBy("optionType.id", "19").get("clientId"), f)
+                                    //         })
+                                    //     })
+                                    // });
+                                }
+                                console.log('wach kayn lmochkil ' + a._data.id);
+                                console.log(d.get('firstColController'));
+                            })
+                        });
+                    })
                 })
-            ];
+            })
 
-            var optTypes = [];
 
-            this.get('conveyorType.conveyorTypeOptions').forEach(function(opt) {console.log('opt :');console.log(opt.get('option.optionType.label'));
-                if (opt.get('isConveyorOption') && opt.get('option.optionType.id') !== 2 + '' && opt.get('option.optionType.id') !== 3 + '') {
-                    if (!optTypes.findBy('id', opt.get('option.optionType.id'))) {
-                        optTypes.pushObject(Ember.Object.create({
-                            kind: 'conveyorTypeOption',
-                            label: opt.get('option.optionType.label'),
-                            id: opt.get('option.optionType.id')
-                        }));
-                    }
-                }
-            });
-
-            headerRowData.pushObjects(optTypes);
-
-            var orderPieces = [];
-
-            this.get('conveyorType.pieceAvailabilities').forEach(function(pieceAvailability) {
-                console.log('pieceAvailabilities :');console.log(pieceAvailability);
-                if (!orderPieces.findBy('pieceType.id', pieceAvailability.get('piece.pieceType.id'))) {
-                    orderPieces.pushObject(Ember.Object.create({
-                        kind: 'pieceType',
-                        pieceType: pieceAvailability.get('piece.pieceType.content'),
-                        pieces: []
-                    }));
-                }
-            });
-
-            headerRowData.pushObjects(orderPieces);
-
-            this.set('headerRowData', headerRowData);
-            
-            var self = this;
-            this.get('orderPieces').then(function(orderPieces) {
-                orderPieces.forEach(function(orderPiece) {console.log('orderPieces :');console.log(piece.pieceType.label);
-                    self.initOrderPiece(orderPiece.get('piece.pieceType.id'), orderPiece);
-                });
-            });
         }
     });
 }(), function() {
@@ -984,23 +1200,42 @@ var p = this.get("conveyorType.pieceAvailabilities").get('content').toArray();
         }),
         pieceType: Ember.computed.alias('parentView.pieceType'),
         climatDidChange: function() {
-            if (this.get('controller.parentController.isSubmitting')) {
-                return;
-            }
+            console.log('cliiiimat did change');
+            if (!this.get("controller.parentController.isSubmitting")) {
+                var a =
+                    this.get("controller.parentController").getPieceList(this.get("pieceType.id"));
+                var b = this;
+                if (!Ember.isEmpty(this.get("piece"))) {
 
-            var pieceList = this.get('controller.parentController').getPieceList(this.get("pieceType.id"));
+                    console.log('climatDidChange waw');
+                    console.log(this.get("piece.climats"));
+                    if (this.get("piece.climats") == undefined) {
+                        console.log('hanta kat9reb');
 
-            if (!Ember.isEmpty(this.get('piece'))) {
-                var self = this;
-                this.get('piece.climats').then(function(climats) {
-                    if (!climats.isAny('id', self.get('controller.parentController.climat.id'))) {
-                        self.set('piece', pieceList.objectAt(0));
+                        this.get("piece").then(function(p) {
+                            p.get('climats').then(function(cl) {
+
+                                cl.isAny("id", b.get("controller.parentController.climat.id")) || b.set("piece", a.objectAt(0))
+                            })
+                        })
+
+                    } else {
+                        console.log('climaaaaaat');
+                        console.log(b);
+                        this.get("piece.climats").then(function(c) {
+                            c.isAny("id", b.get("controller.parentController.climat.id")) || b.set("piece", a.objectAt(0))
+                        })
                     }
-                });
+                } else {
+                    console.log('hanta kat9reb2');
+                    console.log(this);
+                    console.log(this.get('parentView.content')._data.piece);
+                    this.set('piece', this.get('parentView.content')._data.piece);
+                    this.pieceDidChange()
+                }
+                this.set("pieceList", a)
             }
-
-            this.set('pieceList', pieceList);
-        }.observes('controller.parentController.climat'),
+        }.observes("controller.parentController.climat"),
         pieceList: Ember.A(),
         piece: {},
         init: function() {
@@ -1052,41 +1287,115 @@ var p = this.get("conveyorType.pieceAvailabilities").get('content').toArray();
             });
         }.observes('piece'),
         pieceDidChange: function() {
-            var self = this;
-            Ember.RSVP.Promise.cast(this.get('piece')).then(function(piece) {
-                self.set('content.piece', piece);
-            });
+            console.log('pddchng');
+            console.log(this.get("content"));
+            var a = this;
+            var diz = this;
 
-            var optList = this.get('controller.parentController').getPieceOptionsList(this.get('piece'), this.get('content'));
 
-            optList.forEach(function(item) {
-                var name = item.get('name');
-                this.set('controller.' + name, item.get('defaultVal'));
-                this.addObserver('controller.' + name, function(sender, key) {
-                    sender.set(name, sender.get(key));
-                    item.get('pieceOption').set('option', sender.get(key));
-                });
+            if (this.get("content").id != null) {
+                this.get("content").get('options').then(function(opts) {
+                    console.log('gh1');
+                    console.log(opts);
+                    return Ember.RSVP.Promise.all(opts.map(function(opt) {
+                        return Ember.RSVP.Promise.all([a.get("piece").get('options').then(function(x) {
+                            return x
+                        }), opt, opt.get('optionType').then(function(k) {
+                            return k
+                        }), opt.get('option')])
+                    }))
+                }).then(function(jk) {
+                    console.log('laliiiiiiiiiiiisssss');
+                    console.log(jk);
+                    var b = (function(a, b, diz) {
 
-                if (item.get('isArray')) {
-                    this.get('controller').addValidation(name, ValidationsLibrary.get(
-                        this.get('controller.parentController.conveyorType.id'),
-                        'pieceOrderOption_' + item.get('optionType.id')
-                        ));
-                } else {
-                    this.get('controller').addValidation(name + '_value', ValidationsLibrary.get(
-                        this.get('controller.parentController.conveyorType.id'),
-                        'pieceOrderOption_' + item.get('optionType.id')
-                        ));
 
-                    this.set('controller.' + name + '_value', item.get('defaultVal.value'));
-                    this.addObserver('controller.' + name + '_value', function(sender, key) {
-                        sender.set(name + '_value', sender.get(key));
-                        item.get('pieceOption').set('optionValue', sender.get(key));
+
+                        var c = [];
+                        if (Ember.isEmpty(a) || Ember.isEmpty(b)) return c;
+                        console.log('getPieceOptionsList');
+                        console.log(a);
+                        console.log(b);
+                        var opv;
+                        var options = a.get("options");
+                        options.forEach(function(a) {
+                            console.log('appppppppppppppp');
+                            console.log(a);
+                            console.log(a.get("optionType.id"));
+                            console.log(jk);
+
+                            jk.forEach(function(x) {
+                                console.log('llllaw' + a.get("optionType.id"));
+                                console.log(x[3]);
+                                console.log(a);
+                                console.log(x);
+                                console.log(x[2].get('id'));
+                                if (x[2].get('id') == a.get("optionType.id")) opv = x
+                            });
+                            console.log('pouuurndss' + a.get("optionType.id"));
+                            console.log(opv[3]);
+                            console.log(a);
+                            var b = this.findBy("optionTypeId", a.get("optionType.id"));
+                            console.log('bbbbb');
+                            console.log(b);
+                            console.log(opv[3]);
+                            console.log(a);
+                            var defval;
+                            opv[3].set('value', opv[1].get('optionValue'));
+                            b ? (b.get("options").pushObject(a), b.set("defaultVal", opv[3])) : (a = Ember.Object.create({
+                                optionTypeId: opv[3].get("optionType.id"),
+                                optionType: opv[3].get("optionType.content"),
+                                options: opv[3].get("isCustomizable") ? a : [a],
+                                isArray: !opv[3].get("isCustomizable"),
+                                defaultVal: opv[3],
+                                pieceOption: opv[1],
+                                name: 'orderPieceOption_' + opv[1].id
+                            }), this.pushObject(a))
+                        }, c);
+
+
+                        console.log('resssususus');
+                        console.log(c);
+                        return c
+                    })(diz.get("piece"), diz.get("content"), diz);
+                    b.forEach(function(a) {
+                        console.log('hna le3B');
+                        console.log(a.get("name"));
+                        console.log(a.get("defaultVal"));
+                        var b = a.get("name");
+                        diz.set("controller." + b, a.get("defaultVal"));
+                        diz.addObserver("controller." + b, function(e, f) {
+                            e.set(b, e.get(f));
+                            a.get("pieceOption").set("option", e.get(f))
+                        });
+                        a.get("isArray") ? diz.get("controller").addValidation(b, ValidationsLibrary.get(diz.get("controller.parentController.conveyorType.id"),
+                            "pieceOrderOption_" + a.get("optionType.id"))) : (diz.get("controller").addValidation(b + "_value", ValidationsLibrary.get(diz.get("controller.parentController.conveyorType.id"), "pieceOrderOption_" + a.get("optionType.id"))), diz.set("controller." + b + "_value", a.get("defaultVal.value")), diz.addObserver("controller." + b + "_value", function(e, f) {
+                            e.set(b + "_value", e.get(f));
+                            a.get("pieceOption").set("optionValue", e.get(f))
+                        }))
+                    }, diz);
+                    diz.set("optTypeList", b)
+
+
+
+                })
+            } else {
+                var b = this.get("controller.parentController").getPieceOptionsList(this.get("piece"), this.get("content"));
+                b.forEach(function(a) {
+                    var b = a.get("name");
+                    this.set("controller." + b, a.get("defaultVal"));
+                    this.addObserver("controller." + b, function(e, f) {
+                        e.set(b, e.get(f));
+                        a.get("pieceOption").set("option", e.get(f))
                     });
-                }
-            }, this);
-
-            this.set('optTypeList', optList);
+                    a.get("isArray") ? this.get("controller").addValidation(b, ValidationsLibrary.get(this.get("controller.parentController.conveyorType.id"),
+                        "pieceOrderOption_" + a.get("optionType.id"))) : (this.get("controller").addValidation(b + "_value", ValidationsLibrary.get(this.get("controller.parentController.conveyorType.id"), "pieceOrderOption_" + a.get("optionType.id"))), this.set("controller." + b + "_value", a.get("defaultVal.value")), this.addObserver("controller." + b + "_value", function(e, f) {
+                        e.set(b + "_value", e.get(f));
+                        a.get("pieceOption").set("optionValue", e.get(f))
+                    }))
+                }, this);
+                this.set("optTypeList", b)
+            }
         },
         template: Ember.Handlebars.compile(
             "{{#if controller.isEditing}}" +
@@ -1261,17 +1570,24 @@ var p = this.get("conveyorType.pieceAvailabilities").get('content').toArray();
      * @uses BdcTable.CellMixin
      */
     PASC.BdcTable.CellView = Ember.View.extend(PASC.BdcTable.CellMixin, {
-        isComputed: Ember.computed(function() {var j = this.get("controller").getPieceOrder(this.get("parentView.content"), this.get("parentView.pieceType.id")).get('isComputed');
-            console.log('computed cell :');
-            console.log(j);console.log(' type : '+this.get("parentView.pieceType.id"));
-            return (j==1)
+        isComputed: Ember.computed(function() {
+            var a = this.get("controller").getPieceOrder(this.get("parentView.content"), this.get("parentView.pieceType.id")).get("isComputed");
+            console.log("computed cell :");
+            console.log(a);
+            console.log(" type : ");
+            console.log(this.get("parentView.content")._data.isComputed);
+            if (a != null) return a == 1;
+            return 1 == this.get("parentView.content")._data.isComputed
         }),
         classNames: ["bdc-table-cell-content"],
         pieceName: Ember.computed(function() {
+            console.log('cellvieeeew');
+            console.log(this.get("parentView"));
             return "pieceOrder_" + this.get("parentView.content.clientId")
         }),
         propertyValue: function() {
-            return this.get("controller." + this.get("pieceName") + "_value")
+            return this.get("controller." +
+                this.get("pieceName") + "_value")
         },
         template: Ember.Handlebars.compile("{{#if controller.isEditing}}{{view PASC.BdcTable.TextField name\x3dview.pieceName disabled\x3dview.isComputed searchForLateAction\x3dtrue}}{{else}}{{view.propertyValue }}{{/if}}")
     });
@@ -1284,22 +1600,42 @@ var p = this.get("conveyorType.pieceAvailabilities").get('content').toArray();
      * @uses BdcTable.CellMixin
      */
     PASC.BdcTable.CellOptionView = Ember.View.extend(PASC.BdcTable.CellMixin, {
-        classNames: ['bdc-table-cell-content'],
-        content: Ember.computed(function() {
-            return this.get('controller').getConveyorOption(this.get('parentView.content.id'));
-        }),
+        classNames: ["bdc-table-cell-content"],
+        varr: true,
+        varr2: true,
+        content: function() {
+            console.log('fqksjdq');
+            console.log(this.get('varr'));
+
+
+            if (this.get('varr')) {
+                var z = this.get("controller").getConveyorOption(this.get("parentView.content.id"), this);
+                console.log('hna bdat lm3ma3a :' + this.get("parentView.content.id"));
+                this.set('varr', false);
+                console.log('ggggggggggggggg1');
+                console.log(z);
+                return z;
+            } else {
+                console.log('ggggggggggggggg2');
+                return this.get('content')
+            }
+
+
+
+        }.property('varr'),
         needCalculateButton: Ember.computed(function() {
-            return this.get('parentView.content.id') === 2 + '';
+            console.log('dbhqskdkqjd');
+            return "2" ===
+                this.get("parentView.content.id")
         }),
-        template: Ember.Handlebars.compile("{{#if view.content.isArray}}" +
-            "{{view PASC.BdcTable.Select name=view.content.name content=view.content.options optionLabelPath='content.label' optionValuePath='content.id'}}" +
-            "{{else}}{{#if view.content.isOptType26}}" +
-            "{{view App.Select name='conveyorOption_26_value' content=controller.ConveyorOption_26_valueValues optionLabelPath='content.id' optionValuePath='content.id' value=controller.conveyorOption_26_value}}" +
-            "{{else}}" +
-            "{{view PASC.BdcTable.TextField name=view.content.name}}" +
-            "{{/if}}{{/if}}"
-            )
-    });
+        dddd: function(a) {
+            console.log('waaaaaayaya');
+            var res = this.get('content.name');
+            console.log(res);
+            return res
+        }.property('content'),
+        template: Ember.Handlebars.compile("{{#if view.content.isArray}}{{view PASC.BdcTable.Select name\x3dview.content.name content\x3dview.content.options optionLabelPath\x3d'content.label' optionValuePath\x3d'content.id'}}{{else}}{{#if view.content.isOptType26}}{{view App.Select name\x3d'conveyorOption_26_value' content\x3dcontroller.ConveyorOption_26_valueValues optionLabelPath\x3d'content.id' optionValuePath\x3d'content.id' value\x3dcontroller.conveyorOption_26_value}}{{else}}{{view PASC.BdcTable.TextField name\x3dview.content.name extra\x3dview.dddd}}{{/if}}{{/if}}")
+    })
 }(), function() {
     /**
      * Définition d'une ligne
@@ -1368,18 +1704,17 @@ var p = this.get("conveyorType.pieceAvailabilities").get('content').toArray();
             text: !1,
                       
             click: function() {
-                console.log('ajouter ligne');
-                //console.log(this.get('controller.parentController').get('orderPieces').get('content.content'));
-                var list = [];
-                this.get('controller.parentController').get("orderPieces").get('content').forEach(function(z) {
-                    if ((z != null) && (z.get('piece') != null)) list.pushObject(z.get('piece').get('content').get('erpRef'))
-                });
-                console.log('tttttttt'+this.get("parentView.tailleList"));
-                console.log(this.get('controller.parentController').getPieceList(this.get("parentView.content.id")).length);
-                console.log('lllliiiiiiist'+this.get("parentView.change"));
-                //this.set("disabled",this.get("parentView.tailleList")<=1);
-                //this.set("parentView.removeButton.disabled",0);
-                this.set("parentView.change",parseInt(this.get("parentView.change"))+1);
+                console.log("ajouter ligne");
+                var a = [];
+                if (this.get("controller.parentController").get("orderPieces").get("content") != null)
+                    this.get("controller.parentController").get("orderPieces").get("content").forEach(function(b) {
+                        null !=
+                            b && null != b.get("piece") && null != b.get("piece").get("content") && a.pushObject(b.get("piece").get("content").get("erpRef"))
+                    });
+                console.log("tttttttt" + this.get("parentView.tailleList"));
+                console.log(this.get("controller.parentController").getPieceList(this.get("parentView.content.id")).length);
+                console.log("lllliiiiiiist" + this.get("parentView.change"));
+                this.set("parentView.change", parseInt(this.get("parentView.change")) + 1);
                 this.get("controller").send("addLine", this.get("parentView.content.id"))
             }
         }),
@@ -1643,26 +1978,25 @@ var p = this.get("conveyorType.pieceAvailabilities").get('content').toArray();
     });
 
     PASC.BdcTable.ColumnView = Ember.CollectionView.extend(PASC.BdcTable.ColumnMixin, {
-        createChildView: function(viewClass, attrs) {
-            if (attrs.content.kind === 'pieceType') {console.log('createchildview2');console.log(attrs.content.pieceType._data.label);
-                viewClass = PASC.BdcTable.RowGroupView;
-            } else if (attrs.content.kind === 'conveyorTypeOption') {
-                viewClass = PASC.BdcTable.RowView.extend({
-                    cell: PASC.BdcTable.CellOptionView
-                });
-            } else {
-                viewClass = PASC.BdcTable.RowGroupConvView;
-                attrs.content = [
-                    Ember.Object.create({name: 'zone'}),
-                    Ember.Object.create({name: 'eg'}),
-                    Ember.Object.create({name: 'ral'}),
-                    Ember.Object.create({name: 'ralUnderConveyor'})
-                ];
-            }
-
-            return this._super(viewClass, attrs);
+        createChildView: function(a, b) {
+            console.log('createchildview222');
+            console.log(a);
+            console.log(b);
+            "pieceType" === b.content.kind ? (console.log("createchildview2"), console.log(b.content.pieceType._data.label),
+                a = PASC.BdcTable.RowGroupView) : "conveyorTypeOption" === b.content.kind ? a = PASC.BdcTable.RowView.extend({
+                cell: PASC.BdcTable.CellOptionView
+            }) : (a = PASC.BdcTable.RowGroupConvView, b.content = [Ember.Object.create({
+                name: "zone"
+            }), Ember.Object.create({
+                name: "eg"
+            }), Ember.Object.create({
+                name: "ral"
+            }), Ember.Object.create({
+                name: "ralUnderConveyor"
+            }), ]);
+            return this._super(a, b)
         }
-    });
+    })
     /** End Column */
 }(), function() {
 

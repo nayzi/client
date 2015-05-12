@@ -45,35 +45,35 @@ Available via the MIT or new BSD license.
         <script src="js/libs/moment-with-locales.js" ></script>
         <script src="js/libs/patch/jquery-ui-ember.js"></script>
         <script src="js/all-min.js"></script>
-         <script>
-$('*').not("#aaa").keypress(function(event) {
+<script>
+// $('*').not("#aaa").keypress(function(event) {
         
-        if (event.charCode == 13) {console.log($('.ember-table-selected')[1].className);}
-        if (event.charCode == 13) {
-            if ($('.ember-table-selected')[1].childNodes[0].childNodes.length == 8) {
-                for (var i = 0; i < 8; i++) {
-                    var tt =  $('.ember-table-selected')[1].childNodes[0].childNodes[i].innerText + "";
-                    if ((tt.indexOf("Consulter") > -1) && (-1 < tt.indexOf("Editer"))) var col =$('.ember-table-selected')[1].childNodes[0].childNodes[i];
-                }
+//         if (event.charCode == 13) {console.log($('.ember-table-selected')[1].className);}
+//         if (event.charCode == 13) {
+//             if ($('.ember-table-selected')[1].childNodes[0].childNodes.length == 8) {
+//                 for (var i = 0; i < 8; i++) {
+//                     var tt =  $('.ember-table-selected')[1].childNodes[0].childNodes[i].innerText + "";
+//                     if ((tt.indexOf("Consulter") > -1) && (-1 < tt.indexOf("Editer"))) var col =$('.ember-table-selected')[1].childNodes[0].childNodes[i];
+//                 }
 
-                col.childNodes[1].childNodes[33].click();
-            } else if ($('.ember-table-selected')[1].childNodes[0].childNodes.length == 7) {
-                for (var i = 0; i < 7; i++) {
+//                 col.childNodes[1].childNodes[33].click();
+//             } else if ($('.ember-table-selected')[1].childNodes[0].childNodes.length == 7) {
+//                 for (var i = 0; i < 7; i++) {
 
-                    var tt = $('.ember-table-selected')[1].childNodes[0].childNodes[i].innerText + "";
-                    console.log('cooooood');
-                    console.log(tt);
-                    if ((tt.indexOf("Consulter") > -1) && (-1 < tt.indexOf("Editer"))) var col = $('.ember-table-selected')[1].childNodes[0].childNodes[i];
-                }
-                col.childNodes[1].childNodes[6].click();
-            }
+//                     var tt = $('.ember-table-selected')[1].childNodes[0].childNodes[i].innerText + "";
+//                     console.log('cooooood');
+//                     console.log(tt);
+//                     if ((tt.indexOf("Consulter") > -1) && (-1 < tt.indexOf("Editer"))) var col = $('.ember-table-selected')[1].childNodes[0].childNodes[i];
+//                 }
+//                 col.childNodes[1].childNodes[6].click();
+//             }
 
 
 
-        }
+//         }
 
-        console.log($('.ember-table-selected'));
-    })
+//         console.log($('.ember-table-selected'));
+//     })
    $('*').not("#aaa").click(function(event){
 
 var j = event.target.innerText;
@@ -92,7 +92,7 @@ if ( event.originalEvent.path[2].childNodes.length==8){
         if((tt.indexOf("Consulter")>-1)&&(-1<tt.indexOf("Editer"))) var col =event.originalEvent.path[2].childNodes[i];
     }
 
-    col.childNodes[1].childNodes[33].click(); }
+    col.childNodes[1].childNodes[6].click(); }
 else if(event.originalEvent.path[2].childNodes.length==7){
 for(var i=0;i<event.originalEvent.path[2].childNodes.length;i++){
 
