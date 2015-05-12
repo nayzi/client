@@ -674,6 +674,9 @@ Em.RSVP.Promise.all(z).then(function(results){console.log('promiseall'+!results.
         this.createOrderPiece(12, 22, {
             nb: a
         });
+        this.createOrderPiece(14, 26, {
+            nb: a
+        });
         this.createOrderPiece(17, 27, {
             nb: a
         });
