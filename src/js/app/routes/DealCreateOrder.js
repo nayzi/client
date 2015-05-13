@@ -75,8 +75,8 @@ App.DealCreateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRout
 
         console.log("beforeModel DealCreateOrderRoute");
         var b = parseInt(a.params["deal.createOrder"].conv_type);
-        if (3 !== b) this.transitionTo("deal.index");
-        else {
+        
+        if (3 == b) {
             a = this.store.find("climat");
             var c = this.store.find("optionType"),
                 b = this.store.find("conveyorType", b),
@@ -126,6 +126,60 @@ App.DealCreateOrderRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRout
                 })])
             })])
         }
+        if (4 == b) {
+            var FM = this.store.find("FournisseurMoteur"),
+                FB = this.store.find("Fournisseurbande"),
+                c = this.store.find("optionType"),
+                b = this.store.find("conveyorType", b),
+                d = this.store.find("pieceType");
+                a = this.store.find("climat");
+            this.set("FournisseurMoteur", FM);
+            this.set("Fournisseurbande", FB);
+            this.set("convTypeObject", b);
+            this.set("OptTypes", c);
+            this.set("PieceTypes", d);
+            return Ember.RSVP.Promise.all([a,FM,FB, c, d, b.then(function(a) {
+                return Ember.RSVP.Promise.all([a.get("conveyorTypeOptions").then(function(a) {
+                    var b = [];
+                    a.forEach(function(a) {
+                        b.push(a.get("_data.option.id"))
+                    });
+                    return a.get("store").find("option", {
+                        ids: b.uniq()
+                    }).then(function(b) {
+                        var c = [];
+                        a.forEach(function(a) {
+                            c.push(a.get("option"))
+                        });
+                        b.forEach(function(a) {
+                            c.push(a.get("optionType"))
+                        });
+                        return Ember.RSVP.Promise.all(c)
+                    })
+                }), a.get("pieceAvailabilities").then(function(a) {
+                    var b = [];
+                    a.forEach(function(a) {
+                        b.push(a.get("_data.piece.id"))
+                    });
+                    return a.get("store").find("piece", {
+                        ids: b
+                    }).then(function(b) {
+                        return Ember.RSVP.Promise.all(a.map(function(a) {
+                            return a.get("piece").then(function(a) {
+                                return Ember.RSVP.Promise.all([a.get("options").then(function(a) {
+                                        return Ember.RSVP.Promise.all(a.map(function(a) {
+                                            return a.get("optionType")
+                                        }))
+                                    }),
+                                    a.get("pieceType"), a.get("climats")
+                                ])
+                            })
+                        }))
+                    })
+                })])
+            })])
+        }
+        else this.transitionTo("deal.index");
     },
     model: function(a, b) {
         console.log('iniiiiit dealcreeee');
