@@ -84,6 +84,10 @@ App.AbstractControllers.DealFormController = Ember.ObjectController.extend(Ember
                 a = PASC.BdcTable.Ext.RCDController;
                 console.log("DF case 3 " + parseInt(this.get("conveyorType.id")));
                 break;
+            case 4:
+                a = PASC.BdcTable.Ext.TBController;
+                console.log("DF case 4 " + parseInt(this.get("conveyorType.id")));
+                break;
             default:
                 console.log("DF default"), a = Ember.ObjectController.extend(PASC.BdcTable.ColControllerMixin)
         }

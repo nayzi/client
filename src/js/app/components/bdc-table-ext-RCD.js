@@ -158,7 +158,7 @@ PASC.BdcTable.Ext.RCDController = Ember.ObjectController.extend(PASC.BdcTable.Co
                         } else if ("14" === a.get("piece.pieceType.id") + "") {
                             console.log('haaanta ');
                             console.log(a.get('clientId'));
-                            if (!dd.contains(a.get('clientId'))) {
+                            if (!dd1.contains(a.get('clientId'))) {
                                 d1 += parseInt(e.get("pieceOrder_" + a.get("clientId") + "_value"), 10);
                                 dd1.pushObject(a.get('clientId'));
                             }
